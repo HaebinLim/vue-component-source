@@ -1,0 +1,56 @@
+.best {
+  &-item {
+    margin-right: 15px;
+
+    @include respond-to('tablet') {
+      margin-right: 24px;
+    }
+
+    &__header {
+      display: grid;
+      grid-template-areas: "number title";
+      grid-template-columns: 50px 1fr;
+
+      @include respond-to('tablet') {
+        grid-template-columns: 60px 1fr;
+      }
+
+      &__number {
+        grid-area: number;
+        color: get-color('grey/100');
+        @include font('en-subtitle-t-22');
+      }
+      &__title {
+        grid-area: title;
+        color: get-color('grey/100');
+        @include font('subtitle-b-18');
+        @include lineEllipsis(3, 'subtitle-b-18', true);
+
+        @include respond-to('tablet') {
+          @include lineEllipsis(2, 'subtitle-b-18', true);
+        }
+      }
+    }
+    &__image {
+      aspect-ratio: 16 / 9;
+      margin-top: 20px;
+      display: block;
+      width: 100%;
+
+      &__container {
+        position: relative;
+      }
+    }
+    &__archive {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+
+      @include respond-to('tablet') {
+        top: 25px;
+        right: 25px;
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import RadioButton from './index.vue';
+
+<Meta 
+  title="Atoms/RadioButton"
+  component={RadioButton}
+  argTypes={{
+    context : {
+      description : "flex/inline-flex 여부",
+      control: {
+        type: `select`,
+        options: [`inline`, `block`]
+      }
+    },
+    showLabel : {
+      description : "레이블 표시 여부"
+    },
+    checked : {
+      description : "기본 checked 여부"
+    },
+    disabled : {
+      description : "기본 disabled 여부"
+    },
+    label : {
+      description : "라디오버튼 레이블"
+    },
+    name : {
+      description : "name Attribute"
+    },
+    value : {
+      description : "value Attribute"
+    },
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  props : Object.keys(argTypes),
+  components:{RadioButton},
+  template:`
+    <RadioButton 
+      :label="label"
+      :context="context"
+      :name="name"
+      :disabled="disabled"
+      :value="value"
+      :show-label="showLabel"
+      :checked="checked"
+      @change="log"
+    />`,
+  methods : {
+    log(payload) {
+      action(`change`)(payload);
+    }
+  },
+});
+
+## RadioButton Default
+
+<Canvas>
+  <Story name="default" args={{
+    label : `임의의 레이블`,
+    name : `dummyName`,
+    value : `임의의 값`,
+    checked : false
+  }}>
+  {Template.bind({})}
+  </Story>
+</Canvas>
+
+## RadioButton Checked
+
+<Canvas>
+  <Story name="checked" args={{
+    label : `임의의 레이블`,
+    name : `dummyName`,
+    value : `임의의 값`,
+    checked : true
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## RadioButton Disabled
+
+<Canvas>
+  <Story name="disabled" args={{
+    label : `임의의 레이블`,
+    name : `dummyName`,
+    value : `임의의 값`,
+    checked : false,
+    disabled : true
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+

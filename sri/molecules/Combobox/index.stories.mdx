@@ -1,0 +1,260 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import ComboBox from './index.vue';
+import './example.scss';
+
+<Meta
+  title="Molecules/ComboBox"
+  component={ComboBox}
+  argTypes={{
+    
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {ComboBox},
+  template: `
+    <combo-box
+      :label="label"
+      :showLabel="showLabel"
+      :placeholder="placeholder"
+      :get-list="getCompanies"
+      :labelPropName="labelPropName"
+      @change="log"
+    >
+      <template #option="{ option }">
+        <div>
+          {{ option.label }}
+        </div>
+        <small>
+          {{ option.address }}
+        </small>
+      </template>
+      <template #no-result="{ keyword }">
+        <div>
+          {{ keyword }} 사용
+        </div>
+        <small>
+          일치하는 회사명이 없습니다.
+        </small>
+      </template>
+    </combo-box>
+  `,
+  methods: {
+    getCompanies() {
+      return new Promise(resolve => {
+        const list = [
+          {
+            id: 1234,
+            label: `사람인HR`,
+            address: `서울 구로` 
+          },
+          {
+            id: 2345,
+            label: `SK 11번가`,
+            address: `서울 중구` 
+          },
+          {
+            id: 3456,
+            label: `SSG.com`,
+            address: `서울 종로구` 
+          },
+          {
+            id: 4567,
+            label: `원티드`,
+            address: `서울 송파구` 
+          }
+        ];
+        setTimeout(() => resolve(list), 600);
+      });
+    },
+    log(payload) {
+      action(`changed`)(payload);
+    }
+  }
+});
+
+
+export const TemplateNoResult = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {ComboBox},
+  template: `
+    <combo-box
+      :label="label"
+      :showLabel="showLabel"
+      :placeholder="placeholder"
+      :get-list="getCompanies"
+      :labelPropName="labelPropName"
+      @change="log"
+    >
+      <template #option="{ option }">
+        <div>
+          {{ option.label }}
+        </div>
+        <small>
+          {{ option.address }}
+        </small>
+      </template>
+      <template #no-result="{ keyword }">
+        <div>
+          {{ keyword }} 사용
+        </div>
+        <small>
+          일치하는 회사명이 없습니다.
+        </small>
+      </template>
+    </combo-box>
+  `,
+  methods: {
+    getCompanies() {
+      return new Promise(resolve => {
+        const list = [];
+        setTimeout(() => resolve(list), 600);
+      });
+    },
+    log(payload) {
+      action(`changed`)(payload);
+    }
+  }
+});
+
+
+## API
+
+### Props
+
+#### `getList`
+
+제안 목록을 가져오기 위한 API 호출 함수
+
+|구분|이름|타입|설명|
+|:--|:--|:--|:--|
+|param|keyword|`string`|검색 키워드|
+|return|-|Promise|`array`를 resolve하는 Promise 반환|
+
+ex)
+
+```javascript
+const getList = keyword => {
+  return new Promise(resolve => {
+    api
+      .getCompanies(keyword)
+      .then(list => resolve(list));
+  });
+}
+```
+
+#### `labelPropName`
+
+`option` 데이터에서 제안 목록의 레이블로 사용되는 프로퍼티명
+
+만약 Option에 사용할 데이터가 다음과 같이 구성되어 있을 경우,  
+이 값으로 `"label"`을 적용하면 선택 된 옵션의 해당 프로퍼티 값이 inpuefield에 대한 값으로 
+사용 됨
+
+```javascript
+[
+  {
+    id: 1234,
+    label: `사람인HR`,
+    address: `서울 구로` 
+  },
+  {
+    id: 2345,
+    label: `SK 11번가`,
+    address: `서울 중구` 
+  }
+]
+```
+
+#### `selectedClassName`
+
+선택 된 항목(div[role="listitem"])에 대한 class명  
+slot 으로 전달 된 option의 선택 상태에 대한 식별자
+
+### Events
+
+#### `change`
+
+제안 목록 항목을 선택 했을 때 발생하며 payload로 선택된 항목의 option을 전달
+
+위 예에서 `사람인HR` 항목이 선택 된 경우
+
+```javascript
+{
+  id: 1234,
+  label: `사람인HR`,
+  address: `서울 구로` 
+},
+```
+
+를 payload로 전달
+
+### Slots
+
+#### option
+
+제안 목록 항목에 노출 됨
+
+|props|description|
+|:-|:-|
+|option|`getList`로부터 전달받은 제안 목록의 개별 항목|
+
+```html
+ <combobox>
+  <template #option="{ option: option }">
+    <div>
+      {{ option.label }}
+    </div>
+    <small>
+      {{ option.address }}
+    </small>
+  </template>
+</combobox>
+```
+
+#### no-result
+
+제안 목록이 없을 경우, 목록에 노출 할 목록 항목
+
+|props|description|
+|:-|:-|
+|keyword|현재 검색 키워드|
+
+```html
+ <combobox>
+  <template #no-result="{ keyword }">
+    <div>
+      {{ keyword }} 사용
+    </div>
+    <small>
+      일치하는 회사명이 없습니다.
+    </small>
+  </template>
+</combobox>
+```
+
+---
+
+## If search results exist
+
+<Canvas>
+  <Story
+    name="default"
+    args = {{}}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## If no search results exist
+
+<Canvas>
+  <Story
+    name="no result"
+    args = {{}}
+  >
+    { TemplateNoResult.bind({}) }
+  </Story>
+</Canvas>

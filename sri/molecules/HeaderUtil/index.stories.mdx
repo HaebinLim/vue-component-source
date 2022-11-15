@@ -1,0 +1,174 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import HeaderUtil from './index';
+import { action } from '@storybook/addon-actions';
+
+<Meta
+  title="Molecules/HeaderUtil"
+  component={HeaderUtil}
+  argTypes={{
+    theme: {
+      control: {
+        type: `select`,
+        options: [`bright`, `dark`],
+      }
+    },
+    panelName: {
+      control: {
+        type: `select`,
+        options: [``, `search`, `profile`, `menu`],
+      }
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {HeaderUtil},
+  template: `
+    <HeaderUtil
+      :theme="theme"
+      :is-logged-in="isLoggedIn"
+      :has-alarm="hasAlarm"
+      :opened-panel="openedPanel"
+      :panel-name="panelName"
+      :close-panel-handler="closePanelHandler"
+      @click-search="handleSearch"
+      @click-profile="handleProfile"
+      @click-login="handleLogin"
+      @click-menu="handleMenu"
+      @click-close="handleClose"
+    />
+  `,
+  methods: {
+    handleSearch(payload) {
+      action(`clicked search button`)(payload);
+    },    
+    handleProfile(payload) {
+      action(`clicked profile button`)(payload);
+    },    
+    handleLogin() {
+      action(`clicked login button`)();
+    },    
+    handleMenu(payload) {
+      action(`clicked menu button`)(payload);
+    },    
+    handleClose() {
+      action(`clicked close button`)();
+    }
+  },
+});
+
+## 비로그인 상태
+
+<Canvas>
+  <Story
+    name="default"
+    args = {{}}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## 비로그인 상태 (dark theme)
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="default/dark"
+    args = {{
+      theme: `dark`
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 로그인 상태
+
+<Canvas>
+  <Story
+    name="logged-in"
+    args = {{
+      isLoggedIn: true
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## 로그인 + new 알람 상태
+
+<Canvas>
+  <Story
+    name="new alarm"
+    args = {{
+      isLoggedIn: true,
+      hasAlarm: true
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 로그인 + new 알람 상태 (dark theme)
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="new alarm/dark"
+    args = {{
+      isLoggedIn: true,
+      hasAlarm: true,
+      theme: `dark`
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## 특정 패널이 열린 상태
+
+<Canvas>
+  <Story
+    name="panel opened"
+    args = {{
+      isLoggedIn: true,
+      hasAlarm: true,
+      openedPanel: `search`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 콜백 제공 (특정 패널이 열린 상태)
+
+**callback function**
+```js
+alert(`invoked callback`);
+```
+
+<Canvas>
+  <Story
+    name="with callback"
+    args = {{
+      isLoggedIn: true,
+      hasAlarm: true,
+      openedPanel: `search`,
+      closePanelHandler: () => {alert(`invoked callback`)}
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

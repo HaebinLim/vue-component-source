@@ -1,0 +1,62 @@
+.banner {
+  $parent: &;
+
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background: get-color('bluegrey/005');
+  @include respond-to('tablet') {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  @include respond-to('pc') {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  &__wrap {
+    @include respond-to('pc') {
+      display: grid;
+      grid-template-columns: max-content 1fr max-content;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  &__title {
+    margin-bottom: 10px;
+    @include font('subtitle-b-18');
+    @include respond-to('pc') {
+      margin-bottom: 0;
+      padding-right: 20px;
+    }
+  }
+  &__wrap_items {
+    height: 52px;
+    overflow: hidden;
+    position: relative;
+    @include respond-to('tablet') {
+      height: 30px;
+    }
+  }
+  &__item {
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    white-space: normal;
+    word-break: break-all;
+    @include font('body-l-18');
+    @include lineEllipsis(2, 'body-l-18');
+    @include respond-to('tablet') {
+      @include lineEllipsis(1, 'body-l-18');
+
+      display: block;
+    }
+  }
+  &__link {
+    margin-top: 30px;
+    @include font('btn-b-14');
+    @include respond-to('pc') {
+      margin-top: 0;
+      padding-left: 80px;
+    }
+  }
+}

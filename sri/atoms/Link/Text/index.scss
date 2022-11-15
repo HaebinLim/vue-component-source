@@ -1,0 +1,97 @@
+@keyframes underline {
+  0% {
+    transform: scale(0, 1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.link {
+  $parent: &;
+
+  display: inline-block;
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    display: flex;
+    margin-top: 2px;
+  }
+
+  &--underline::after {
+    content: '';
+    display: flex;
+    margin-top: 2px;
+    width: 100%;
+    border-bottom: 1px solid currentColor;
+  }
+
+  &:not(#{$parent}--lined)::after {
+    transform: scale(0, 1);
+  }
+
+  &::after#{$parent}--lined {
+    transform: scale(1, 1);
+  }
+
+  &[href]:hover,
+  &[href]:focus, {
+    &::after {
+      animation-name: underline;
+      animation-duration: .4s;
+      animation-iteration-count: 1;
+      transform: scale(1, 1);
+    }
+  }
+
+  &--grey {
+    color: get-color('grey/050');
+
+    &:hover,
+    &:focus {
+      color: get-color('grey/100');
+
+      &#{$parent}--dark {
+        color: white;
+      }
+    }
+
+    &:disabled {
+      color: get-color('grey/030');
+
+      &#{$parent}--dark {
+        color: get-color('grey/070');
+      }
+    }
+  }
+
+  &--basic {
+    color: get-color('grey/100');
+
+    &#{$parent}--dark {
+      color: white;
+    }
+
+    &:hover,
+    &:focus {
+      color: get-color('grey/100');
+
+      &#{$parent}--dark {
+        color: white;
+      }
+    }
+
+    &:disabled {
+      color: get-color('grey/030');
+
+      &#{$parent}--dark {
+        color: get-color('grey/070');
+      }
+    }
+  }
+
+  &:active#{$parent} {
+    color: get-color('blue/070');
+  }
+}

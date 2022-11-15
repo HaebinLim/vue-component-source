@@ -1,0 +1,401 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import PlainList from './index.vue';
+const updateArchive = function ({state}) {
+  const result = {};
+  if (state) {
+    result.archived = true;
+  } else {
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+const listData = [
+  {
+    articleId: `1`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `2`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `3`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `4`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `5`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `6`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+];
+const bannerData = {
+  mImgSrc: `/img/dummy/banner_m.png`,
+  pcImgSrc: `/img/dummy/banner_pc.png`,
+  targetUrl: `https://www.saramin.co.kr`,
+  altText: `사람인배너`,
+};
+const sortOptions = [
+  { text: '최신순', value: 0 },
+  { text: '추천순', value: 1 },
+];
+
+<Meta
+  title="Organisms/PlainList"
+  component={PlainList}
+  argTypes={{
+    listType : {
+      description : `목록 종류`,
+      control: {
+        type: `select`,
+        options: [`archived`, `search`, `hashtag`, `editor`, `related`],
+      }
+    },
+    listData: {
+      description: `API에서 받아온 리스트 데이터`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{articleId, title, image, archived, desc, replies, likes, editorName, editorId}]`,
+        }
+      }
+    },
+    bannerData: {
+      description: `API에서 받아온 배너 데이터`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{mImgSrc, pcImgSrc, targetUrl, altText, stretched}`,
+        }
+      }
+    },
+    sortOptions: {
+      description: `정렬 옵션`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{text, value}]`,
+        }
+      }
+    },
+    editorMeta: {
+      description: `작성글 리스트일경우 작성자 정보`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{image, intro, name}`,
+        }
+      }
+    },
+    paginationOption: {
+      description: `Pagination 사용시 전달할 옵션`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{parameterType, parameterName, routerPath, currentPage, maxPage}`,
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  data: () => ({
+    loadedListData: [],
+    defaultOption: {},
+  }),
+  props : Object.keys(argTypes),
+  components:{PlainList},
+  template:`
+    <PlainList
+      :list-type="listType"
+      :query="query"
+      :editor-meta="editorMeta"
+      :banner-data="bannerData"
+      :list-data="loadedListData"
+      :total-count="totalCount"
+      :sort-options="sortOptions"
+      :show-more="showMore"
+      :pagination-option="paginationOption"
+      :update-archive="updateArchive"
+      :heading-rank="headingRank"
+      @change-sorting="logChangeSorting"
+      @click-more="logClickMore"
+      @delete-selected="logDeleteSelected"
+      @changed-archive="logChangedArchive"
+      @change-archive="handleChangeArchive"
+    />`,
+  created() {
+    this.defaultOption =  this.listType !== `related` ? {
+      articleId: ``,
+      title: ``,
+      image: ``,
+      category: ``,
+      checked: false,
+      archived: false,
+      desc: ``,
+      replies: 0,
+      likes: 0,
+      editorName: ``,
+      editorId: ``,
+    } : {
+      articleId: ``,
+      title: ``,
+      image: ``,
+      category: ``,
+      archived: false,
+    }
+  },
+  mounted() {
+    this.updateListData(6);
+  },
+  methods : {
+    logClickMore() {
+      action(`click-more`)();
+      this.updateListData(6);
+    },
+    logChangeSorting(payload) {
+      action(`change-sorting`)(payload);
+    },
+    logDeleteSelected(payload) {
+      action(`delete-selected`)(payload);
+    },
+    updateListData(count) {
+      return new Promise(resolve => {
+        const skeletonArr = [];
+        for(let i = 0;i < count -1; i++) {
+          skeletonArr[i] = {};
+          for(let key in this.defaultOption) {
+            skeletonArr[i][key] = key === `articleId` ? `skeleton_` + i : this.defaultOption[key];
+          }
+          skeletonArr[i]['isSkeleton'] = true;
+        }
+        this.loadedListData = this.loadedListData.concat(skeletonArr);        
+        setTimeout(() => {
+          const origin = this.loadedListData.filter(obj => {
+            return !obj.articleId.includes(`skeleton_`)
+          });
+          const arr = [],
+            d = new Date();
+          for(let i = 0; i < count; i++) {
+            const obj = this.listData[i],
+              item = {};
+            for(let key in obj) {
+              if(key === 'articleId') {
+                item[key] = `${obj[key]}_${d.getTime()}`;
+              } else {
+                item[key] = obj[key];
+              }
+            }
+            arr.push(item);
+          }
+          this.loadedListData = origin.concat(arr);
+          resolve();
+        }, 1000);
+      });
+    },
+    logChangedArchive(state) {
+      action(`state of changed archive : `)(state);
+    },
+    handleChangeArchive(payload) {
+      action(`should to change archive state: `)(payload);
+    }
+  },
+});
+
+## 담은 콘텐츠 
+
+<Canvas>
+  <Story
+    name="archived"
+    args={{
+      listType: `archived`,
+      totalCount: 2345,
+      listData: listData.map(el => ({...el, archived: true})),
+      bannerData,
+      sortOptions,
+      paginationOption: {
+        parameterType : `params`,
+        parameterName : `page`,
+        routerPath : `/aaa`,
+        defaultPageCount : 10,
+        currentPage : 1,
+        maxPage : 11
+      },
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## 특정 유저글 모아보기
+
+<Canvas>
+  <Story
+    name="editor"
+    args={{
+      listType: `editor`,
+      editorMeta: {
+        image: `https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg`,
+        intro: `야옹이가 야옹야옹 야옹이가 야옹야옹 야옹이가 야옹야옹 야옹이가 야옹야옹 야옹이가 야옹야옹야옹이가 야옹야옹야옹이가 야옹야옹야옹이가 야옹야옹`,
+        name: `야옹이`,
+      },
+      totalCount: 2345,
+      listData: listData,
+      bannerData,
+      sortOptions,
+      showMore: true,
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## 검색 결과
+
+<Canvas>
+  <Story
+    name="search"
+    args={{
+      listType: `search`,
+      query: `검색한검색어`,
+      totalCount: 2345,
+      listData,
+      bannerData,
+      sortOptions,
+      showMore: true,
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## 특정 태그 콘텐츠 목록
+
+<Canvas>
+  <Story
+    name="hashtag"
+    args={{
+      listType: `hashtag`,
+      query: `검색한해시태그`,
+      totalCount: 2345,
+      listData,
+      bannerData,
+      sortOptions,
+      showMore: true,
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Related
+
+<Canvas>
+  <Story
+    name="related"
+    args={{
+      listType: `related`,
+      listData: listData.map(el => ({
+        articleId: el.articleId,
+        title: el.title,
+        image: el.image,
+        category: el.category,
+        archived: el.archived,
+      })),
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+
+## Not Passed UpdateArchive
+
+<Canvas>
+  <Story
+    name="no-update-archive"
+    args={{
+      listType: `related`,
+      listData: listData.map(el => ({
+        articleId: el.articleId,
+        title: el.title,
+        image: el.image,
+        category: el.category,
+        archived: el.archived,
+      })),
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

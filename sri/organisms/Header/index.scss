@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+
+  @include respond-to('pc') {
+    height: 100px;
+  }
+
+  &--bright {
+    background-color: white;
+  }
+  &--dark {
+    background-color: get-color('grey/100');
+  }
+
+  &--open-menu,
+  &--open-search {
+    position: relative;
+    z-index: $zindex-panel + 10;
+  }
+
+  &__search {
+    top: 70px;
+
+    @include respond-to('pc') {
+      top: 100px;
+    }
+  }
+  &__menu {
+    top: 70px;
+
+    @include respond-to('pc') {
+      top: 100px;
+    }
+    &--full {
+      flex: 1 1 auto;
+    }
+  }
+}

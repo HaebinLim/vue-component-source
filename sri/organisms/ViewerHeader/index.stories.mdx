@@ -1,0 +1,39 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import ViewerHeader from './index';
+
+<Meta
+  title="Organisms/ViewerHeader"
+  component={ ViewerHeader }
+  argTypes={{
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {ViewerHeader},
+  template: `
+      <ViewerHeader
+        :title="title"
+        @click-close="logClickClose"
+      />
+    `,
+  methods: {
+    logClickClose() {
+      action(`click-close`)();
+    },
+  }
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    parameters={{ layout: `fullscreen` }}
+    args = {{
+      title: `일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이`,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

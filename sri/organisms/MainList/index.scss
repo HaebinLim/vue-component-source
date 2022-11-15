@@ -1,0 +1,39 @@
+.main {
+  $parent: &;
+
+  overflow-x: hidden;
+  padding-bottom: 120px;
+  &__list {
+    display: flex;
+    flex-flow: column;
+    gap: 60px;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    @include respond-to('tablet') {
+      flex-flow: row wrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 80px $tablet-gap;
+    }
+    @include respond-to('pc') {
+      gap: 80px $pc-gap;
+    }
+    &__item {
+      flex: 1 1 100%;
+      @include respond-to('tablet') {
+        flex: 0 1 calc((100% - #{$pc-gap}) / 2);
+      }
+      @include respond-to('pc') {
+        flex: 0 1 calc((100% - #{$pc-gap} * 2) / 3);
+      }
+      &--large {
+        flex: 1 0 100%;
+        @include respond-to('pc') {
+          flex: 0 1 100%;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,62 @@
+.footer {
+  $parent: &;
+
+  &__policy {
+    display: flex;
+    padding: 20px 0;
+    border-top: 1px solid get-color('grey/080');
+    @include respond-to('pc') {
+      padding: 0 0 10px;
+      border-top: 0;
+    }
+  }
+  &__link {
+    margin-right: 13px;
+    @include font('btn-b-14');
+    @include respond-to('tablet') {
+      margin-right: 28px;
+    }
+    @include respond-to('pc') {
+      margin-right: 40px;
+    }
+  }
+  &__copy {
+    max-width: 970px;
+    color: get-color('grey/050');
+    @include font('caption-l-14');
+  }
+  &__txt {
+    display: inline-block;
+    padding-right: 5px;
+    white-space: nowrap;
+    @include respond-to('tablet') {
+      padding-right: 10px;
+    }
+    @include respond-to('pc') {
+      padding-right: 16px;
+    }
+    &:first-child {
+      padding-right: 5px;
+      @include font('body-r-14');
+    }
+    &:nth-child(2){
+      padding-right: 5px;
+    }
+    &:last-child {
+      display: block;
+      @include respond-to('pc') {
+        display: inline-block;
+      }
+    }
+    & + br {
+     @include respond-to('pc') {
+       display: none;
+     }
+    }
+    &.num + br {
+      @include respond-to('tablet') {
+        display: none;
+      }
+    }
+  }
+}

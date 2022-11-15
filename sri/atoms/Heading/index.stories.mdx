@@ -1,0 +1,107 @@
+import { Meta, Story, Canvas, ArgTables } from '@storybook/addon-docs/blocks';
+import Heading from './index.vue';
+import './index.stories.scss';
+
+<Meta
+  title="Atoms/Heading"
+  component={Heading}
+  argTypes={{
+    rank: {
+      description: '헤딩 레벨, `hn`의 `n`에 해당, 1 ~ 6까지만 허용',
+      control: {
+        type: 'select',
+        options: [1,2,3,4,5,6]
+      }
+    },
+    html: {
+      description: `헤딩 콘텐츠로 HTML 코드를 사용하고 싶을 경우`
+    },
+    textContent: {
+      description: `헤딩 콘텐츠로 단순 텍스트를 사용하고 싶을 경우 `
+    },
+    isHidden: {
+      description: `헤딩의 가시적 노출 여부 결정`
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  slots: {},
+  components: {Heading},
+  template: `
+    <Heading
+      :rank="rank"
+      :html="html"
+      :text-content="textContent"
+      :is-hidden="isHidden"
+      :class="classes"
+    />
+  `,
+});
+
+## 영문 M 80
+
+<Canvas>
+  <Story
+    name="eng-M_80"
+    args = {{
+      rank: 1,
+      textContent: `This is Heading in M_80`,
+      isHidden: false,
+      classes: `en-title-m-80`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## 영문 M 60
+
+<Canvas>
+  <Story
+    name="eng-M_60"
+    args = {{
+      rank: 1,
+      textContent: `This is Heading in M_60`,
+      isHidden: false,
+      classes: `en-title-m-60`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 한글 M 60
+
+<Canvas>
+  <Story
+    name="kor-B_60"
+    args = {{
+      rank: 1,
+      textContent: `헤딩 텍스트 B_60`,
+      isHidden: false,
+      classes: `kr-title-b-60`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 한글 M 40
+
+<Canvas>
+  <Story
+    name="kor-B_40"
+    args = {{
+      rank: 1,
+      textContent: `헤딩 텍스트 B_40`,
+      isHidden: false,
+      classes: `kr-title-b-40`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

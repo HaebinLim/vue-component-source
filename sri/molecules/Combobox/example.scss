@@ -1,0 +1,7 @@
+[role="option"] {
+  padding: 10px;
+
+  &.selected {
+    background-color: get-color('bluegrey/030');
+  }
+}

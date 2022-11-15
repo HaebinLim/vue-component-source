@@ -1,0 +1,153 @@
+import { Meta, Story, Canvas, Source } from '@storybook/addon-docs/blocks';
+import List from './List';
+import ListItem from './ListItem';
+import dedent from 'ts-dedent';
+
+<Meta
+  title="Molecules/List"
+  component={List}
+  argTypes={{
+    tag: {
+      description: `wrapping HTML tag name`,
+      defaultValue: `div`,
+      control: {
+        type: `select`,
+        options: [`div`, `ol`, `ul`]
+      },
+      table: {
+        type: {
+          summary: `'div' | 'ol' | 'ul'`
+        },
+        defaultValue: {
+          summary: `div`
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {List},
+  template: `
+    <List :tag="tag" />
+  `,
+});
+
+## use HTML `<div>` element
+
+<Canvas>
+  <Story
+    name="List - div"
+    components={List}
+    args = {{
+      tag: `div`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## use HTML `<ol>` element
+
+<Canvas>
+  <Story
+    name="List - ol"
+    components={List}
+    args = {{
+      tag: `ol`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## use HTML `<ul>` element
+
+<Canvas>
+  <Story
+    name="List - ul"
+    components={List}
+    args = {{
+      tag: `ul`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+---
+
+## 사용 예
+
+export const TemplateWithListItem = (args, { argTypes }) => ({
+  data: () => ({
+    listtag: `div`,
+    listItems: [
+      `리스트 1`,
+      `리스트 2`,
+      `리스트 3`,
+      `리스트 4`,
+      `리스트 5`,
+    ]
+  }),
+  props: [...Object.keys(argTypes)],
+  components: {List, ListItem},
+  template: `
+    <list :tag="tag">
+      <list-item 
+        :tag="listtag"
+        :key="idx"
+        v-for="(item, idx) in listItems"
+      >
+        {{ item }}
+      </list-item>
+    </list>
+  `,
+});
+
+<Canvas>
+  <Story
+    name="list with div"
+    components={List}
+    args = {{
+      tag: `div`
+    }}
+  >
+    { TemplateWithListItem.bind({}) }
+  </Story>
+</Canvas>
+
+<Source 
+  language={`html`}
+  code={dedent`
+    <template>
+      <list :tag="tag">
+        <list-item 
+          :tag="listTag"
+          :key="idx"
+          v-for="(item, idx) in listItems"
+        >
+          {{ item }}
+        </list-item>
+      </list>
+    </template>
+    <script>
+      import { List, ListItem } from '@molecules/List/index';
+      export default {
+        data() {
+          return {
+            listTag: 'div',
+            listItems: [
+              '리스트 1',
+              '리스트 2',
+              '리스트 3',
+              '리스트 4',
+              '리스트 5',
+            ]
+          }
+        }
+      }
+    </script>
+  `}
+/>

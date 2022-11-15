@@ -1,0 +1,42 @@
+.profile__image {
+  display: inline-flex;
+  position: relative;
+  border-radius: 50%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &--writer {
+    width: 160px;
+    height: 160px;
+    @include respond-to('pc') {
+      width: 200px;
+      height: 200px;
+    }
+   }
+
+  &--editor {
+    width: 90px;
+    height: 90px;
+  }
+
+  &--talker {
+    width: 30px;
+    height: 30px;
+    @include respond-to('pc') {
+      width: 65px;
+      height: 65px;
+    }
+  }
+
+  &--border::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 50%;
+    content: ""
+  }
+}

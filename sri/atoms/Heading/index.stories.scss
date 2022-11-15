@@ -1,0 +1,17 @@
+/**  style for stories in storybook **/
+
+.en-title-m-80 {
+  @include font('en-title-m-80');
+}
+
+.en-title-m-60 {
+  @include font('en-title-m-60');
+}
+
+.kr-title-b-60 {
+  @include font('title-b-60');
+}
+
+.kr-title-b-40 {
+  @include font('title-b-40');
+}

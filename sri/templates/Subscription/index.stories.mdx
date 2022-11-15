@@ -1,0 +1,59 @@
+
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Subscription from './index';
+
+<Meta
+  title="Templates/Subscription"
+  component={Subscription}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {Subscription},
+  template: `
+    <Subscription :is-logged-in="isLoggedIn" :subscribed="subscribed" />
+  `,
+});
+
+## 미로그인
+
+<Canvas>
+  <Story
+    name="not logged-in"
+    args = {{
+      isLoggedIn: false
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## 미구독
+
+<Canvas>
+  <Story
+    name="not subscribe"
+    args = {{
+      isLoggedIn: true,
+      subscribed: false,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 구독 중
+
+<Canvas>
+  <Story
+    name="subscribed"
+    args = {{
+      isLoggedIn: true,
+      subscribed: true,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

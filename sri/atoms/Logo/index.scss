@@ -1,0 +1,31 @@
+.logo {
+  display: inline-flex;
+  &--horizontal {
+    .logo__svg {
+      width: 150px;
+      height: 24px;
+
+      @include respond-to('pc') {
+        width: 200px;
+        height: 32px;
+      }
+    }
+  }
+  &--vertical {
+    .logo__svg {
+      width: 75px;
+      height: 45px;
+
+      @include respond-to('pc') {
+        width: 90px;
+        height: 54px;
+      }
+    }
+  }
+  &--bright {
+      color: get-color('grey/100');
+  }
+  &--dark {
+      color: #fff;
+  }
+}

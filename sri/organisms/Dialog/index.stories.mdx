@@ -1,0 +1,68 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Modal from './index';
+import { portalPlayGround } from "@/storybook/decorators.js";
+
+<Meta
+  title="Organisms/Dialog"
+  component={Modal}  
+  decorators={[portalPlayGround]}
+  argTypes={{
+    role: {
+      description: '`role` 어트리뷰트에 해당 하는 값',
+      control: {
+        type: `select`,
+        options: [`dialog`, `alertdialog`]
+      }
+    },
+    label: {
+      description: '`aria-label`로 적용 되는 값<br>*`label` 또는 `labelRef` 중 하나는 반드시 적용 되어야 함*',
+    },
+    labelRef: {
+      description: '`aria-labelledby`로 적용 되는 값<br>*`label` 또는 `labelRef` 중 하나는 반드시 적용 되어야 함*',
+    },
+    isModal: {
+      description: `modal/modeless 여부`
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data: () => ({showModal: false}),
+  props: [...Object.keys(argTypes)],
+  components: {Modal},
+  template: `
+    <div>
+      <modal
+        v-if="showModal"
+        :role="role"
+        :label="label"
+        :labelRef="labelRef"
+        :is-modal="isModal"
+        @destroyed="showModal = false"
+      >
+        여기가 모달
+      </modal>
+      <button @click="showModal = true">다이얼로그 열기</button>
+    </div>
+  `,
+});
+
+# Dialog
+
+
+<Canvas
+    width={400}
+>
+  <Story
+    name="Dialog"
+    args={{}}
+    width={400}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 특이 사항
+
+`Portal-Vue`로 layout 수준에 위치한 특정 위치로 자동으로 DOM이 이동 됨 (for A11y)

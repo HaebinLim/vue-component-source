@@ -1,0 +1,51 @@
+.share {
+  padding: 30px 20px;
+  width: 300px;
+
+  @include respond-to('pc') {
+    padding: 40px;
+    width: 500px;
+  }
+
+  &__heading {
+    margin-bottom: 20px;
+    @include font('s-kr-title-b-26');
+
+    @include respond-to('pc') {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__copy {
+    &__header {
+      margin-bottom: 10px;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+
+      @include font('subtitle-b-14');
+    }
+    &__button {
+      @include font('btn-r-14');
+    }
+  }
+
+  &__url {
+    white-space: normal;
+    word-break: break-all;
+  }
+
+  &__sns {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    @include respond-to('pc') {
+      margin-top: 30px;
+    }
+  }
+}

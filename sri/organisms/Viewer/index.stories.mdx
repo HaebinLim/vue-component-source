@@ -1,0 +1,42 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Viewer from './index';
+import './index.stories.scss';
+
+<Meta
+  title="Organisms/Viewer"
+  component={Viewer}
+  argTypes={{
+    articleType : {
+      description : `아티클 타입`,
+      control: {
+        type: `select`,
+        options: [`card`, `talk`],
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {Viewer},
+  template: `
+    <viewer :articleType="articleType">
+      <div :class="classes">
+        내용
+      </div>
+    </viewer>
+  `,
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    parameters={{layout: `fullscreen`}}
+    args = {{
+      classes: `content`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

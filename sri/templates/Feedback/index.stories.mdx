@@ -1,0 +1,79 @@
+
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Feedback from './index';
+const successCase = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(true);
+    }, 600);
+  });
+};
+const exceedCase = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error(`EXCEED_ALLOWED_COUNT`));
+    }, 600);
+  });
+};
+const failCase = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error(`UNKOWN_ERROR`));
+    }, 600);
+  });
+};
+
+<Meta
+  title="Templates/Feedback"
+  component={Feedback}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {Feedback},
+  template: `
+    <Feedback :send-feed-back="sendFeedBack" />
+  `,
+});
+
+## 피드백 제출 성공 케이스
+
+<Canvas>
+  <Story
+    name="sucess case"
+    args = {{
+      sendFeedBack: successCase
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 피드백 제출 1회 초과 시
+
+<Canvas>
+  <Story
+    name="exceed limit"
+    args = {{
+      sendFeedBack: exceedCase
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 피드백 제출 실패 시 (unknown error)
+
+<Canvas>
+  <Story
+    name="fail"
+    args = {{
+      sendFeedBack: failCase
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

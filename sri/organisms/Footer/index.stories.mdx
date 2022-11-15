@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import Footer from './index';
+
+<Meta
+  title="Organisms/Footer"
+  component={Footer}
+  argTypes={{
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {Footer},
+  template: `
+    <Footer />
+  `,
+});
+
+##  default
+<Canvas>
+  <Story
+    name="Footer"
+    parameters={{ layout: `fullscreen` }}
+    args = {{
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

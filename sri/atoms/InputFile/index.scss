@@ -1,0 +1,8 @@
+.file-selector {
+  &__button {
+    @include font('btn-b-18');
+  }
+  &__input {
+    display: none;
+  }
+}

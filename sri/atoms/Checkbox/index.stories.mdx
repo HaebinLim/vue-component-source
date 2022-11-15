@@ -1,0 +1,109 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import CheckBox from './index';
+
+<Meta
+  title="Atoms/CheckBox"
+  component={ CheckBox }
+  argTypes={{
+    context: {
+      description: "display formatting context 결정",
+      control: {
+        type: "select",
+        options: [`inline`, `block`]
+      }
+    },
+    label: {
+      description: "`label` 엘리먼트 컨텐츠"
+    },
+    showLabel: {
+      description: "`label` 노출여부"
+    },
+    name: {
+      description: "`input checkbox` 엘리먼트 `name` 어트리뷰트"
+    },
+    value: {
+      description: "`input checkbox` 엘리먼트 `value` 어트리뷰트"
+    },
+    disabled: {
+      description: "`input checkbox` 엘리먼트 `disabled` 어트리뷰트"
+    },
+    checked: {
+      description: "`input checkbox` 엘리먼트 `checked` 어트리뷰트"
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: { CheckBox },
+  template: `
+      <CheckBox
+        :context="context"
+        :label="label"
+        :show-label="showLabel"
+        :name="name"
+        :value="value"
+        :checked="checked"
+        :disabled="disabled"
+        @change="log"
+      />
+    `,
+  methods: {
+    log(payload) {
+      action(`change`)(payload);
+    }
+  }
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      label: `게시물/댓글 브라우저 알림`,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## checked
+<Canvas>
+  <Story
+    name="checked"
+    args = {{
+      label: `게시물/댓글 브라우저 알림`,
+      checked : true,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## disabled
+<Canvas>
+  <Story
+    name="disabled"
+    args = {{
+      label: `게시물/댓글 브라우저 알림`,
+      disabled : true,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## hideLabel
+<Canvas>
+  <Story
+    name="hideLabel"
+    args = {{
+      label: `게시물/댓글 브라우저 알림`,
+      showLabel : false,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

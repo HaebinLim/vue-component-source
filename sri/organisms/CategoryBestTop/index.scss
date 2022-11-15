@@ -1,0 +1,196 @@
+.category-best {
+  $parent: &;
+
+  display: grid;
+  grid-template-areas: "title controls" "item item";
+  grid-template-columns: 1fr auto;
+  gap: 30px 0;
+  padding-bottom: 120px;
+  @include respond-to('tablet') {
+    gap: 50px 0;
+  }
+  &__title {
+    grid-area: title;
+    align-self: end;
+    text-transform: capitalize;
+    @include font('s-en-title-m-40');
+  }
+  &__controls {
+    grid-area: controls;
+    align-self: end;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    @include respond-to('tablet') {
+      gap: 20px;
+    }
+    &__autoplay {
+      margin-right: 10px;
+      @include respond-to('tablet') {
+        margin-right: 20px;
+      }
+    }
+    &__prev,
+    &__next {
+      padding: 6px 0;
+    }
+  }
+  &__item {
+    position: relative;
+    grid-area: item;
+    display: grid;
+    grid-template-areas: "img" "info";
+    gap: 20px 0;
+    @include respond-to('tablet') {
+      gap: 40px 0;
+    }
+    @include respond-to('pc') {
+      grid-template-areas: "img info";
+      grid-template-columns: (math.div(860, 1440) * 100%) 1fr;
+      gap: 0 40px;
+    }
+  }
+  &__images {
+    grid-area: img;
+    margin-left: $r-mobile-space;
+    margin-right: $r-mobile-space;
+    @include respond-to('tablet') {
+      margin-left: $r-tablet-space;
+      margin-right: $r-tablet-space;
+    }
+    @include respond-to('pc') {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    #{$parent}__image-wrap {
+      position: relative;
+      height: 360px;
+      overflow: hidden;
+      width: math.div(300, 360) * 100vw;
+      margin-right: 5px;
+      @include respond-to('tablet') {
+        height: 344px;
+        width: math.div(618, 768) * 100vw;
+        margin-right: 24px;
+      }
+      @include respond-to('pc') {
+        height: auto;
+        padding-bottom: 56.2%;
+        width: 100%;
+        margin-right: 0;
+      }
+      &>img{
+        position: absolute;
+        object-fit: cover;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%);
+        transition: transform .3s linear;
+      }
+    }
+    #{$parent}__image-idx {
+      position: absolute;
+      z-index: 2;
+      box-sizing: content-box;
+      top: 10px;
+      left: 20px;
+      color: #fff;
+      text-shadow: 0 0 5px rgba(0,0,0,0.6);
+      font-style: italic;
+      @include font('s-en-title-ti-52');
+      @include respond-to('tablet') {
+        top: 20px;
+        left: 20px;
+      }
+      @include respond-to('pc') {
+        top: 30px;
+        left: 30px;
+      }
+    }
+    #{$parent}__archive {
+      position: absolute;
+      z-index: 2;
+      box-sizing: content-box;
+      padding: 10px;
+      top: 5px;
+      right: 5px;
+      @include respond-to('pc') {
+        top: 10px;
+        right: 10px;
+      }
+    }
+  }
+  &__info-wrap {
+    grid-area: info;
+    color: get-color('grey/100');
+    width: math.div(300, 360) * 100%;
+    @include respond-to('tablet') {
+      width: math.div(618, 768) * 100%;
+    }
+    @include respond-to('pc') {
+      width: 100%;
+    }
+    #{$parent}__title-link {
+      display: block;
+    }
+    #{$parent}__title {
+      display: block;
+      white-space: normal;
+      word-break: break-all;
+      @include font('s-kr-title-b-24');
+      @include lineEllipsis(3, 's-kr-title-b-24');
+      @include respond-to('tablet') {
+        @include lineEllipsis(2, 's-kr-title-b-24');
+      }
+      @include respond-to('pc') {
+        @include lineEllipsis(3, 's-kr-title-b-24');
+      }
+    }
+    #{$parent}__desc {
+      display: block;
+      margin: 10px 0 5px;
+      white-space: normal;
+      word-break: break-all;
+      @include font('s-kr-caption-l-11');
+      @include lineEllipsis(3, 's-kr-caption-l-11');
+      @include respond-to('tablet') {
+        @include lineEllipsis(2, 's-kr-caption-l-11');
+      }
+      @include respond-to('pc') {
+        @include lineEllipsis(3, 's-kr-caption-l-11');
+
+        margin: 20px 0 10px;
+      }
+    }
+    #{$parent}__editor {
+      display: inline-block;
+      color: get-color('grey/050');
+      @include font('s-kr-subtitle-b-11');
+      &::after {content: none;}
+    }
+    #{$parent}__meta {
+      display: inline-block;
+      @include font('s-kr-body-r-11');
+
+      color: get-color('grey/050');
+      &::after {content: none;}
+      > span {
+        display: inline-block;
+        &:nth-child(odd) {margin-left: 15px;}
+        &:nth-child(even) {margin-left: 5px;}
+      }
+
+      @include respond-to('pc') {
+        > span {
+          &:nth-child(odd) {margin-left: 20px;}
+          &:nth-child(even) {margin-left: 10px;}
+        }
+      }
+    }
+  }
+}

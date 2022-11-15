@@ -1,0 +1,77 @@
+.post {
+  &__reading-bar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: $zindex-base + 10;
+  }
+
+  &__header {
+    @include top-space;
+
+    word-break: break-all;
+  }
+}
+
+.article {
+  max-width: 640px;
+  margin: 0 auto;
+
+  &__utils,
+  &__tags {
+    box-sizing: content-box;
+    max-width: 640px;
+    margin-bottom: 60px;
+
+    @include respond-to('pc') {
+      margin-bottom: 80px;
+    }
+  }
+
+  &__editor {
+    box-sizing: content-box;
+    max-width: 640px;
+    margin-bottom: 100px;
+
+    @include respond-to('pc') {
+      margin-bottom: 120px;
+    }
+  }
+
+  &__reply {
+    background-color: get-color('bluegrey/005');
+
+    @include respond-to('pc') {
+      padding-bottom: 75px;
+    }
+  }
+
+  &__banner {
+    &--article {
+      @include respond-to('pc') {
+        margin-top: -75px;
+      }
+    }
+  }
+}
+
+.card-viewer {
+  @include respond-to('pc') {
+    margin-bottom: 120px;
+  }
+
+  &--mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: $zindex-overlay;
+
+    &__header {
+      bottom: 130px;
+      z-index: $zindex-overlay + 10;
+    }
+  }
+}

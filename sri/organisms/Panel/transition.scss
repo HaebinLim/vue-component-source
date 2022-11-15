@@ -1,0 +1,46 @@
+.panel {
+  &-right {
+    &-enter-active,
+    &-leave-active {
+      transform: translateX(0);
+    }
+
+    &-enter,
+    &-leave-to {
+      transform: translateX(100%);
+    }
+  }
+  &-left {
+    &-enter-active,
+    &-leave-active {
+      transform: translateX(0);
+    }
+
+    &-enter,
+    &-leave-to {
+      transform: translateX(-100%);
+    }
+  }
+  &-top {
+    &-enter-active,
+    &-leave-active {
+      transform: translateY(0);
+    }
+
+    &-enter,
+    &-leave-to {
+      transform: translateY(-100%);
+    }
+  }
+  &-bottom {
+    &-enter-active,
+    &-leave-active {
+      transform: translateY(0);
+    }
+
+    &-enter,
+    &-leave-to {
+      transform: translateY(100%);
+    }
+  }
+}

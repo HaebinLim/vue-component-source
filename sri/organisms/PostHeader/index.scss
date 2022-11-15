@@ -1,0 +1,75 @@
+.post {
+  $parent: &;
+
+  margin: 0 auto;
+  padding-bottom: 30px;
+  max-width: 640px;
+  @include respond-to('tablet') {
+    padding-bottom: 40px;
+  }
+  &__category {
+    @include font('l-en-tag-r-16');
+    &::after {
+      content: none;
+    }
+  }
+  &__title {
+    margin: 10px 0;
+    color: get-color('grey/100');
+    @include font('title-b-40');
+    @include respond-to('tablet') {
+      margin: 20px 0;
+    }
+  }
+  &__info {
+    display: flex;
+    gap: 10px;
+    color: get-color('grey/050');
+    @include font('body-r-14');
+    @include respond-to('pc') {
+      gap: 20px;
+    }
+    .sr-only {
+      display: inline-block;
+      @include sr-only;
+    }
+  }
+  &__util {
+    margin-left: auto;
+  }
+  &--card {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    left: 30px;
+    padding: 30px;
+    background: rgba(1, 14, 26, .6);
+    backdrop-filter: blur(100px);
+    @include respond-to('tablet') {
+      position: static;
+      padding: 0 0 40px;
+      background: none;
+    }
+    #{$parent}__category {
+      color: #fff;
+      @include respond-to('tablet') {
+        color: get-color('grey/100');
+      }
+    }
+    #{$parent}__title {
+      color: #fff;
+      margin: 20px 0;
+      @include respond-to('tablet') {
+        color: get-color('grey/100');
+      }
+    }
+    #{$parent}__util {
+      display: none;
+      @include respond-to('tablet') {
+        display: block;
+      }
+    }
+  }
+}
+
+

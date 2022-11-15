@@ -1,0 +1,62 @@
+.profile {
+  $parent: &;
+
+  padding: 30px 20px 40px;
+  width: 300px;
+  @include respond-to('pc') {
+    padding: 40px 40px 60px;
+    width: 500px;
+  }
+  &__title {
+    color: get-color('blue/070');
+    @include font('l-en-subtitle-m-18');
+    #{$parent}__name {
+      display: block;
+      margin-top: 10px;
+      color: get-color('grey/100');
+      @include font('s-kr-title-b-26');
+      @include respond-to('pc') {
+        margin-top: 20px;
+      }
+    }
+  }
+  &__link {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid get-color('grey/030');
+    @include respond-to('pc') {
+      margin-top: 40px;
+      padding-top: 25px;
+    }
+    .reply__title {
+      flex: 1 0 50%;
+      @include font('subtitle-b-18');
+    }
+    .reply__list {
+      display: flex;
+      flex: 1 0 50%;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 0;
+      &__tit {
+        flex: 50% 1;
+        @include font('subtitle-b-14');
+        &:not(:first-of-type) {
+          margin-top: 5px;
+        }
+      }
+      &__data {
+        margin: 0;
+        @include font('body-r-14');
+        &:not(:first-of-type) {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}
+.profile__btn {
+  @include font('btn-b-18');
+}

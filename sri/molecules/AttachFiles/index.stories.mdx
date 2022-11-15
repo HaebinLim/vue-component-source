@@ -1,0 +1,117 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import AttachFiles from './index';
+import { action } from '@storybook/addon-actions';
+
+<Meta
+  title="Molecules/AttachFiles"
+  component={AttachFiles}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {AttachFiles},
+  template: `
+    <AttachFiles
+      :sendFile="sendFile"
+      :remove-file="removeFile"
+      :is-required="isRequired"
+      @upload-success="handleUploadSuccess"
+      @upload-failed="handleUploadFail"
+      @remove-success="handleRemoveSuccess"
+      @remove-failed="handleRemoveFail"
+    />
+  `,
+  methods: {
+    handleUploadSuccess() {
+      action(`file uploaded`)();
+    },
+    handleUploadFail() {
+      action(`uploading file failed!`)();
+    },
+    handleRemoveSuccess() {
+      action(`file removed`)();
+    },
+    handleRemoveFail() {
+      action(`removing file failed!`)();
+    },
+  }
+});
+
+아래 미리보기에는 실제 API가 아닌 임의의 비동기 함수로 0.6s 후 업로드 또는 삭제에 대한
+성공 / 실패 결과를 돌려주는 모의 함수가 바인딩 되어 있습니다.
+
+## 업로드 / 삭제 성공 Case
+
+<Canvas>
+  <Story
+    name="All Success Case"
+    args = {{
+      sendFile: file => {
+        const id = Math.abs(window.crypto.getRandomValues(new Int16Array(1))[0]);
+        const { name } = file;
+        return new Promise(resolve => {
+          setTimeout(() => resolve({name, id }), 600);
+        });
+      },
+      removeFile: id => {
+        return new Promise(resolve => {
+          setTimeout(() => resolve(true), 600);
+        })
+      },
+      isRequired: false
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 업로드 성공 / 삭제 실패 Case
+
+<Canvas>
+  <Story
+    name="Remove Fail Case"
+    args = {{
+      sendFile: file => {
+        const id = Math.abs(window.crypto.getRandomValues(new Int16Array(1))[0]);
+        const { name } = file;
+        return new Promise(resolve => {
+          setTimeout(() => resolve({name, id }), 600);
+        });
+      },
+      removeFile: id => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => reject(new Error(`CAN_NOT_REMOVE_FILE`)), 600);
+        })
+      },
+      isRequired: false
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 업로드 실패 Case
+
+<Canvas>
+  <Story
+    name="fail case"
+    args = {{
+      sendFile: () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => reject(new Error(`default`)));
+        });
+      },
+      removeFile: id => {
+        return new Promise(resolve => {
+          setTimeout(() => resolve(true), 600);
+        })
+      },
+      isRequired: false
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

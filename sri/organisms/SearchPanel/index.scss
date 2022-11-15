@@ -1,0 +1,60 @@
+.search {
+  padding-top: 70px;
+  padding-bottom: 60px;
+
+  @include respond-to('pc') {
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
+
+  &__container {
+    top: 100px;
+  }
+
+  &__field {
+    max-width: 640px;
+    position: relative;
+    margin: 0 auto;
+    padding: 5px 0;
+    border-bottom: 1px solid get-color('grey/100');
+
+    @include respond-to('pc') {
+      padding: 10px 0;
+      border-width: 2px;
+    }
+  }
+
+  &__input {
+    border: 0;
+    padding-right: 30px;
+    width: 100%;
+    color: get-color('grey/100');
+    background-color: transparent;
+    @include font('title-b-24');
+
+    @include respond-to('pc') {
+      padding-right: 40px;
+    }
+
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+      border-color: get-color('grey/100');
+    }
+
+    &::placeholder {
+      color: get-color('grey/030');
+    }
+  }
+
+  &__button {
+    position: absolute;
+    margin-top: -2px;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+
+    @include respond-to('pc') {
+      margin-top: -5px;
+    }
+  }
+}

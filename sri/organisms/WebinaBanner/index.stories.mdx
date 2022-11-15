@@ -1,0 +1,66 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import WebinaBanner from './index';
+
+<Meta
+  title="Organisms/WebinaBanner"
+  component={WebinaBanner}
+  argTypes={{
+    headingRank: {
+      description: "타이틀 헤딩 레벨",
+    },
+    subTitle : {
+      description : "행사 배너 제목",
+    },
+    title : {
+      description : "행사 배너 내용",
+    },
+    mImgSrc : {
+      description : "M 이미지 주소",
+    },
+    pcImgSrc : {
+      description : "PC 이미지 주소",
+    },
+    targetUrl : {
+      description : "클릭 이동할 링크 URL",
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {WebinaBanner},
+  template: `
+    <WebinaBanner
+      :heading-rank="headingRank"
+      :sub-title="subTitle"
+      :title="title"
+      :date-time-text="dateTimeText"
+      :place="place"
+      :m-img-src="mImgSrc"
+      :pc-img-src="pcImgSrc"
+      :target-url="targetUrl"
+      :alt-text="altText"
+    />
+  `,
+});
+
+##  default
+<Canvas>
+  <Story
+    name="default"
+    parameters={{ layout: `fullscreen` }}
+    args = {{
+      subTitle: `1이삼사오육칠팔구십2이삼사오육칠팔구십`,
+      title: `1이삼사오육칠팔구십2이삼사오육칠팔구십3이삼사오육칠팔구십4이삼사오육칠팔구십`,
+      dateTimeText: `2021.08.06 금요일 15:00 - 17:00`,
+      place: `사람인 공식 유튜브 채널`,
+      mImgSrc : `/img/dummy/webina_banner.png`,
+      pcImgSrc : `/img/dummy/webina_banner.png`,
+      targetUrl : `https://www.saramin.co.kr`,
+      altText: `웨비나 배너`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

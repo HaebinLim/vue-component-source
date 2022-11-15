@@ -1,0 +1,326 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import Home from './index.vue';
+const updateArchive = function ({id, state}) {
+  const result = {};
+  if (state) {
+    result.archived = true;
+  } else {
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+const curationData = [
+  {
+    articleId: `1`,
+    title: `메인 큐레이션1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `News`,
+  },
+  {
+    articleId: `2`,
+    title: `메인 큐레이션2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Trends`,
+  },
+  {
+    articleId: `3`,
+    title: `메인 큐레이션3 제목제목 제목제목`,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `News`,
+  },
+  {
+    articleId: `4`,
+    title: `메인 큐레이션4 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Growth`,
+  },
+  {
+    articleId: `5`,
+    title: `메인 큐레이션5 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Growth`,
+  },
+  {
+    articleId: `6`,
+    title: `메인 큐레이션6 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Growth`,
+  },
+  {
+    articleId: `7`,
+    title: `메인 큐레이션7 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Growth`,
+  },
+]
+const listData = [
+  {
+    articleId: `13`,
+    title: `메인 Latest issue1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: true,
+    category: `News`,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+  },
+  {
+    articleId: `14`,
+    title: `메인 Latest issue2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Trends`,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+  },
+  {
+    articleId: `15`,
+    title: `메인 Latest issue3 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Growth`,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+  },
+  {
+    articleId: `16`,
+    title: `메인 Latest issue4 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Growth`,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+  },
+  {
+    articleId: `17`,
+    title: `메인 Latest issue5 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Growth`,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+  },
+];
+const bestData = [
+  {
+    id: 1,
+    image: `/img/dummy/thum_default.png`,
+    title: `일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오`,
+    archived: false,
+  },
+  {
+    id: 2,
+    image: `/img/dummy/16-9-image.png`,
+    title: `작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지`,
+    archived: true,
+  },
+  {
+    id: 3,
+    image: `/img/dummy/thum_default.png`,
+    title: `일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오`,
+    archived: false,
+  },
+  {
+    id: 4,
+    image: `/img/dummy/16-9-image.png`,
+    title: `작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지`,
+    archived: true,
+  },
+  {
+    id: 5,
+    image: `/img/dummy/thum_default.png`,
+    title: `일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오`,
+    archived: false,
+  },
+];
+const bannerData1 = {
+  mImgSrc : `/img/dummy/banner_m.png`,
+  pcImgSrc : `/img/dummy/banner_pc.png`,
+  targetUrl : `https://www.saramin.co.kr`,
+  altText : `사람인배너2`,
+}
+const bannerData2 = {
+  mImgSrc : `/img/dummy/banner_m.png`,
+  pcImgSrc : `/img/dummy/banner_pc.png`,
+  targetUrl : `https://www.saramin.co.kr`,
+  altText : `사람인배너2`,
+}
+const bannerData3 = {
+  mImgSrc : `/img/dummy/banner_m.png`,
+  pcImgSrc : `/img/dummy/banner_pc.png`,
+  targetUrl : `https://www.saramin.co.kr`,
+  altText : `사람인배너2`,
+}
+const webinaBannerData = {
+  subTitle: `1이삼사오육칠팔구십2이삼사오육칠팔구십`,
+  title: `1이삼사오육칠팔구십2이삼사오육칠팔구십3이삼사오육칠팔구십4이삼사오육칠팔구십`,
+  date: `2021.08.06 금요일 15:00 - 17:00`,
+  location: `사람인 공식 유튜브 채널`,
+  imgSrc : `/img/dummy/webina_banner.png`,
+  targetUrl : `https://www.saramin.co.kr`,
+  altText: `웨비나 배너`
+}
+const voteBannerData = {
+  title: `1이삼사오육칠팔구십2이삼사오육칠팔구십3이삼사오육칠팔구십4이삼사오육칠팔구십5이삼사오육칠팔구십6이삼사오육칠팔구십7이삼사오육칠팔구십`,
+  mImgSrc : `/img/dummy/vote_banner_m.png`,
+  pcImgSrc : `/img/dummy/vote_banner_pc.png`,
+  targetUrl : `https://www.saramin.co.kr`,
+  altText : `투표배너`,
+}
+const recruitBannerData = {
+  bannerTitle: `채용공고`,
+  bannerLinkText: `채용공고 자세히 보기`,
+  duration: 3000,
+  bannerData: [
+    {
+      title: `일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오`,
+      url: `/aaa1`,
+    },
+    {
+      title: `일이삼사오륙칠팔구십일이삼사오륙칠팔구십`,
+        url: `/aaa2`,
+    },
+    {
+      title: `일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십`,
+        url: `/aaa3`,
+    },
+    {
+      title: `일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십`,
+        url: `/aaa4`,
+    },
+  ]
+}
+
+<Meta
+  title="Templates/Home"
+  component={Home}
+  argTypes={{
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  data: () => ({
+    curationLoadedData: [],
+    curationDefaultOption: {},
+    listLoadedData: [],
+    listDefaultOption: {},
+  }),
+  props : Object.keys(argTypes),
+  components:{Home},
+  template:`
+    <Home
+      :curation-data="curationLoadedData"
+      :list-data="listLoadedData"
+      :best-data="bestData"
+      :banner-data1="bannerData1"
+      :banner-data2="bannerData2"
+      :banner-data3="bannerData3"
+      :webina-banner-data="webinaBannerData"
+      :vote-banner-data="voteBannerData"
+      :recruit-banner-data="recruitBannerData"
+      :recruit-banner-title="recruitBannerTitle"
+      :recruit-banner-link-text="recruitBannerLinkText"
+      :show-more="showMore"
+      :update-archive="updateArchive"
+      @changed-archive="logChangedArchive"
+      @change-archive="handleChangeArchive"
+      @click-more="logClickMore"
+    />`,
+  created() {
+    this.curationDefaultOption = {
+      articleId: ``,
+      title: ``,
+      image: ``,
+      archived: false,
+      category: ``,
+    }
+    this.listDefaultOption = {
+      articleId: ``,
+      title: ``,
+      image: ``,
+      archived: true,
+      category: ``,
+      desc: ``,
+    }
+  },
+  mounted() {
+    this.updateListData(`curation`, 7);
+    this.updateListData(`list`, 4);
+  },
+  methods: {
+    logClickMore() {
+      action(`click-more`)();
+      this.updateListData(`list`, 4);
+    },
+    updateListData(target, count) {
+      return new Promise(resolve => {
+        const skeletonArr = [];
+        for(let i = 0;i < count -1; i++) {
+          skeletonArr[i] = {};
+          for(let key in this[`${target}DefaultOption`]) {
+            skeletonArr[i][key] = key === `articleId` ? `skeleton_` + i : this[`${target}DefaultOption`][key];
+          }
+          skeletonArr[i]['isSkeleton'] = true;
+        }
+        this[`${target}LoadedData`] = this[`${target}LoadedData`].concat(skeletonArr);
+        setTimeout(() => {
+          const origin = this[`${target}LoadedData`].filter(obj => {
+            return !obj.articleId.includes(`skeleton_`)
+          });
+          const arr = [],
+            d = new Date();
+          for(let i = 0; i < count; i++) {
+            const obj = this[`${target}Data`][i],
+              item = {};
+            for(let key in obj) {
+              if(key === 'articleId') {
+                item[key] = `${obj[key]}_${d.getTime()}`;
+              } else {
+                item[key] = obj[key];
+              }
+            }
+            arr.push(item);
+          }
+          this[`${target}LoadedData`] = origin.concat(arr);
+          resolve();
+        }, 1000);
+      });
+    },
+    logChangedArchive(state) {
+      action(`state of changed archive : `)(state);
+    },
+    handleChangeArchive(payload) {
+      action(`should to change archive state: `)(payload);
+    }
+  },
+});
+
+## Home
+
+<Canvas>
+  <Story
+    name="Home"
+    args={{
+      showMore: true,
+      curationData: curationData,
+      listData: listData,
+      bestData,
+      bannerData1,
+      bannerData2,
+      bannerData3,
+      webinaBannerData,
+      voteBannerData,
+      recruitBannerData,
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

@@ -1,0 +1,6 @@
+.category-wrap {
+  @include top-space;
+  &__bg {
+    background: get-color('bluegrey/005');
+  }
+}

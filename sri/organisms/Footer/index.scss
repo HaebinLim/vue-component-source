@@ -1,0 +1,44 @@
+.footer {
+  $parent: &;
+
+  padding: 40px 0 30px;
+  background: get-color('grey/100');
+  @include respond-to('tablet') {
+    padding-bottom: 40px;
+  }
+  @include respond-to('pc') {
+    padding: $pc-space 0 calc((35/1440) * 100vw);
+  }
+  &__wrap {
+    display: flex;
+    flex-flow: column;
+    @include respond-to('pc') {
+      height: calc((261/1440) * 100vw);
+    }
+  }
+  &__content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  &__links {
+    @include respond-to('tablet') {
+      width: 50%;
+    }
+    @include respond-to('pc') {
+      padding-right: percentage(math.div(42, 1300));
+      width: percentage(math.div(970, 1300));
+    }
+  }
+  &__copyright {
+    margin-top: 100px;
+    @include respond-to('tablet') {
+      margin-top: 77px;
+    }
+    @include respond-to('pc') {
+      align-self: flex-end;
+      margin-top: auto;
+      width: percentage(math.div(970, 1300));
+    }
+  }
+}

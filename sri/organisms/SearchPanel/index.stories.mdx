@@ -1,0 +1,44 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import SearchPanel from './index';
+import { portalPanelPlayGround } from "@/storybook/decorators.js";
+import { action } from '@storybook/addon-actions';
+
+<Meta
+  title="Organisms/SearchPanel"
+  parameters={{layout: `fullscreen`}}
+  component={SearchPanel}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data:() => ({showPanel: false}),
+  props: [...Object.keys(argTypes)],
+  components: {SearchPanel},
+  template: `
+    <div>
+      <SearchPanel
+        v-if="showPanel"
+        :theme="theme"
+        :use-header="useHeader"
+        @closed-search="handleClosed"
+      />
+      <button @click="showPanel = true">패널 열기</button>
+    </div>
+  `,
+  methods: {
+    handleClosed() {
+      this.showPanel = false;
+      action(`panel closed`)();
+    }
+  }
+});
+
+<Canvas>
+  <Story
+    name="SearchPanel"
+    decorators={[portalPanelPlayGround]}
+    args = {{}}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

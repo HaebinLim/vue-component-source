@@ -1,0 +1,93 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import PostWriter from './index';
+import '@assets/scss/storybook.scss';
+
+<Meta
+  title="Organisms/PostWriter"
+  component={PostWriter}
+  argTypes={{
+    type: {
+      description: "writer 타입",
+      control: {
+        type: "select",
+        options: [``, `card`]
+      },
+    },
+    headingRank: {
+      description: "writer 타이틀 헤딩 레벨",
+    },
+    editor: {
+      description: 'writer 정보',
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{id, name, intro, image}`,
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {PostWriter},
+  template: `
+    <PostWriter
+      :type="type"
+      :heading-rank="headingRank"
+      :editor="editor"
+    />
+  `,
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      editor : {
+        id: `1234`,
+        name : `일이삼사오육칠팔구십`,
+        intro : `소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글`,
+        image : `https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg`,
+      },
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## no intro
+<Canvas>
+  <Story
+    name="no intro"
+    args = {{
+      editor : {
+        id: `1234`,
+        name : `일이삼사오육칠팔구십`,
+        image : `https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg`,
+      },
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## card news
+<Canvas>
+  <Story
+    name="card"
+    args = {{
+      type: `card`,
+      headingRank: 3,
+      editor : {
+        id: `1234`,
+        name : `일이삼사오육칠팔구십`,
+        intro : `소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글`,
+        image : `https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg`,
+      },
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

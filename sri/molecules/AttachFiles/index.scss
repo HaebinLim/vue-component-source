@@ -1,0 +1,72 @@
+.attach {
+  max-width: 330px;
+  width: 100%;
+
+  @include respond-to('pc') {
+    max-width: 640px;
+  }
+
+  &__header {
+    margin-bottom: 10px;
+  }
+  &__label {
+    color: get-color('grey/100');
+    @include font('subtitle-b-14');
+  }
+  &__required {
+    margin-left: 5px;
+    color: get-color('grey/050');
+    @include font('body-r-14');
+  }
+  &__guide {
+    margin-top: 10px;
+    color: get-color('grey/030');
+    @include font('body-r-14');
+
+    @include respond-to('pc') {
+      margin-top: 20px;
+    }
+
+    &::before {
+      content: " · ";
+      margin-right: .25em;
+    }
+  }
+
+  &__files {
+    list-style-type: none;
+    margin-top: 10px;
+    padding-left: 0;
+    @include font('btn-r-14');
+
+    @include respond-to('pc') {
+      margin-top: 20px;
+    }
+
+    &__entry {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      height: 18px;
+
+      @include respond-to('pc') {
+        height: 24px;
+      }
+    }
+
+    &__name {
+      display: inline-block;
+      flex: 1 0 calc(100% - 16px - 5px);
+      @include lineEllipsis(1, 'btn-r-14');
+
+      @include respond-to('pc') {
+        flex: 1 0 calc(100% - 24px - 5px);
+      }
+    }
+
+    &__delete {
+      margin-left: 5px;
+    }
+  }
+}

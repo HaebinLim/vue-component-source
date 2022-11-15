@@ -1,0 +1,500 @@
+import { Meta, Story, Canvas, ArgTables } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import TextLink from './index.vue';
+import '@assets/scss/storybook.scss';
+
+<Meta
+  title="Atoms/Link/Text"
+  component={TextLink}
+  argTypes={{
+    to: {
+      description: '`nuxt-link`의 `to` prop, 이 값이 전달되면 `nuxt-link`로 렌더링',
+    },
+    href: {
+      description: 'HTML `a` 엘리먼트의 `href` attirbute, 이 값이 전달되면 `a`로 렌더링',
+      control: {
+        type: `text`
+      }
+    },
+    exact: {
+      description:'`nuxt-link` exact prop',
+    },
+    replace: {
+      description:'`nuxt-link` replace prop',
+    },
+    append: {
+      description:'`nuxt-link` append prop',
+    },
+    tag: {
+      description:'`nuxt-link` tag prop',
+    },
+    target: {
+      description: 'HTML `a` 엘리먼트의 `target` attirbute',
+    },
+    appearance: {
+      description: '링크 외형',
+      control: {
+        type: `select`,
+        options: [`basic`, `grey`]
+      }
+    },
+    label: {
+      description: '링크 레이블'
+    },
+    theme: {
+      description: '버튼이 사용되는 테마, `bright` 또는 `dark`',
+    },
+    useUnderLine: {
+      description: `밑줄 애니메이션 사용 여부`,
+    },
+    hasUnderLine: {
+      description: '밑줄이 그어진 상태',
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  slots: {},
+  components: {TextLink},
+  template: `
+    <TextLink
+      :to="to"
+      :href="href"
+      :target="target"
+      :exact="exact"
+      :replace="replace"
+      :append="append"
+      :tag="tag"
+      :theme="theme"
+      :appearance="appearance"
+      :label="label"
+      :use-under-line="useUnderLine"
+      :has-under-line="hasUnderLine"
+      @click.prevent.native="log"
+    />
+  `,
+  methods: {
+    log(event) {
+      if (this.to) return;
+      action(`HTML Anchor clicked`)(this.href);
+    }
+  }
+});
+
+# &lt;TextLink> components
+
+`to` 또는 `href` property에 의해 `<nuxt-link>` 또는 HTML native `<a>` 
+엘리먼트로 렌더링되며 `<nuxt-link>`의 property, `<a>`의 attribute 적용 또한
+이 값에 의해 결정 됨
+
+둘 모두 적용 시에는 `to`가 우선권을 가짐.
+
+아래는 앞에서부터 차례대로 기본, 밑줄 애니메이션 적용, 밑줄 애니메이션 및 초기 밑줄이 적용된 
+사례
+
+## Basic Color argTypes
+
+### on Bright theme
+
+#### &lt;nuxt-link>
+
+<Canvas>
+  <Story
+    name="basic | nuxt-link | bright"
+    args={{
+      to: `/`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline | nuxt-link | bright"
+    args={{
+      to: `/`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/lined | nuxt-link | bright"
+    args={{
+      to: `/`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+#### HTML native &lt;a>
+
+<Canvas>
+  <Story
+    name="basic | anchor | bright"
+    args={{
+      href: `/`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline | anchor | bright"
+    args={{
+      href: `/`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/lined | anchor | bright"
+    args={{
+      href: `/`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+### on Dark Theme
+
+#### &lt;nuxt-link>
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="basic | nuxt-link | dark"
+    args={{
+      to: `/`,
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline | nuxt-link | dark"
+    args={{
+      to: `/`,
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/lined | nuxt-link | dark"
+    args={{
+      to: `/`,
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+#### HTML native &lt;a>
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="basic | anchor | dark"
+    args={{
+      href: `/`,
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline | anchor | dark"
+    args={{
+      href: `/`,
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/lined | anchor | dark"
+    args={{
+      href: `/`,
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+
+
+## Grey Color argTypes
+
+### on Bright theme
+
+#### &lt;nuxt-link>
+
+<Canvas>
+  <Story
+    name="grey | nuxt-link | bright"
+    args={{
+      to: `/`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline | nuxt-link | bright"
+    args={{
+      to: `/`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/lined | nuxt-link | bright"
+    args={{
+      to: `/`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+#### HTML native &lt;a>
+
+<Canvas>
+  <Story
+    name="grey | anchor | bright"
+    args={{
+      href: `/`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline | anchor | bright"
+    args={{
+      href: `/`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/lined | anchor | bright"
+    args={{
+      href: `/`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+### on Dark Theme
+
+#### &lt;nuxt-link>
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="grey | nuxt-link | dark"
+    args={{
+      to: `/`,
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline | nuxt-link | dark"
+    args={{
+      to: `/`,
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/lined | nuxt-link | dark"
+    args={{
+      to: `/`,
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+#### HTML native &lt;a>
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="grey | anchor | dark"
+    args={{
+      href: `/`,
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline | anchor | dark"
+    args={{
+      href: `/`,
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/lined | anchor | dark"
+    args={{
+      href: `/`,
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>

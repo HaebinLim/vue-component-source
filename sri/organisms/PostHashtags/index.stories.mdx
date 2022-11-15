@@ -1,0 +1,43 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import PostHashtags from './index';
+
+<Meta
+  title="Organisms/PostHashtags"
+  component={ PostHashtags }
+  argTypes={{
+    headingRank: {
+      description: "해시태그 타이틀 헤딩 레벨",
+    },
+    headingText: {
+      description: "해시태그 타이틀 텍스트",
+    },
+    hashtags: {
+      description: "해시태그 리스트",
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: { PostHashtags },
+  template: `
+      <PostHashtags
+        :heading-rank="headingRank"
+        :heading-text="headingText"
+        :hashtags="hashtags"
+      />
+    `
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      headingRank: 4,
+      hashtags: ['일이삼사오육칠팔구십', '이삼사오육칠팔구십', '삼사오육칠팔구십', '사오육칠팔구십', '오육칠팔구십', '육칠팔구십', '칠팔구십', '팔구십', '구십', '십']
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

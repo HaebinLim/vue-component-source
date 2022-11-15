@@ -1,0 +1,244 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import ItemCard from './index';
+
+<Meta
+  title="Molecules/ItemCard"
+  component={ItemCard}
+  argTypes={{
+    useOptionalContent: {
+      description: `Optional 항목들의 노출 여부 정의`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{category, desc, editorName, checked, replies, likes}`,
+        }
+      }
+    },
+  }}
+/>
+
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {ItemCard},
+  template: `
+    <ItemCard
+      :article-id="articleId"
+      :title="title"
+      :image="image"
+      :archived="archived"
+      :category="category"
+      :list-category="listCategory"
+      :desc="desc"
+      :replies="replies"
+      :likes="likes"
+      :editor-name="editorName"
+      :editor-id="editorId"
+      :checked="checked"
+      :appearance="appearance"
+      :isEmphasis="isEmphasis"
+      :isNewWindow="isNewWindow"
+      :is-skeleton="isSkeleton"
+      :use-optional-content="useOptionalContent"
+      @change-selected="logClick"
+      @change-archive="logChange"
+    />
+  `,
+  mounted() {
+    this.getDelayedListData();
+  },  
+  methods : {
+    logClick(payload) {
+      action(`click`)(payload);
+    },
+    logChange(payload) {
+      action(`change`)(payload);
+    },
+    getDelayedListData() {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          this.isSkeleton = null;
+          resolve();
+        }, 1000);
+      });
+    }
+  },
+});
+
+## ItemCard Basic
+
+<Canvas>
+  <Story
+    name="basic"
+    components={ItemCard}
+    args = {{
+      articleId: `6`,
+      title: `카테고리2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+      image: `/img/dummy/thum_default.png`,
+      archived: false,
+      desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+      replies: 232,
+      likes: 233461,
+      editorName: `작성자이름`,
+      editorId: `EDITORNAME`,
+      listCategory: `Category`,
+      isNewWindow: true,
+      useOptionalContent: {
+        category: true,
+        checked: false,
+        desc: true,
+        editorName: true,
+        replies: true,
+        likes: true,
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## ItemCard Basic with Checkbox
+
+<Canvas>
+  <Story
+    name="basic checkbox"
+    components={ItemCard}
+    args = {{
+      articleId: `6`,
+      title: `카테고리2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+      image: `/img/dummy/thum_default.png`,
+      archived: false,
+      desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+      replies: 232,
+      likes: 233461,
+      editorName: `작성자이름`,
+      editorId: `EDITORNAME`,
+      checked: false,
+      useOptionalContent: {
+        category: true,
+        checked: true,
+        desc: true,
+        editorName: true,
+        replies: true,
+        likes: true,
+      },
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## ItemCard Basic with emphasis
+
+<Canvas>
+  <Story
+    name="basic emphasis"
+    components={ItemCard}
+    args = {{
+      articleId: `5`,
+      title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+      image: `/img/dummy/thum_default.png`,
+      archived: false,
+      desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+      replies: 232,
+      likes: 233461,
+      editorName: `작성자이름`,
+      editorId: `EDITORNAME`,
+      isEmphasis: true,
+      useOptionalContent: {
+        category: true,
+        checked: false,
+        desc: true,
+        editorName: true,
+        replies: true,
+        likes: true,
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## ItemCard simple type
+
+<Canvas>
+  <Story
+    name="simple"
+    components={ItemCard}
+    args = {{
+      articleId: `2`,
+      title: `메인 큐레이션2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+      image: `/img/dummy/thum_default.png`,
+      archived: false,
+      category: `Category`,
+      appearance: `simple`,
+      useOptionalContent: {
+        category: true,
+        checked: false,
+        desc: false,
+        editorName: false,
+        replies: false,
+        likes: false,
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## ItemCard simple type with emphasis
+
+<Canvas>
+  <Story
+    name="simple emphasis"
+    components={ItemCard}
+    args = {{
+      articleId: `1`,
+      title: `메인 큐레이션1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+      image: `/img/dummy/thum_default.png`,
+      archived: false,
+      category: `Category`,
+      appearance: `simple`,
+      isEmphasis: true,
+      useOptionalContent: {
+        category: true,
+        checked: false,
+        desc: false,
+        editorName: false,
+        replies: false,
+        likes: false,
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## ItemCard bar type
+
+<Canvas>
+  <Story
+    name="bar"
+    components={ItemCard}
+    args = {{
+      articleId: `13`,
+      title: `메인 Latest issue1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+      image: `/img/dummy/thum_default.png`,
+      archived: false,
+      category: `Category`,
+      desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+      appearance: `bar`,
+      useOptionalContent: {
+        category: true,
+        checked: false,
+        desc: false,
+        editorName: false,
+        replies: false,
+        likes: false,
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

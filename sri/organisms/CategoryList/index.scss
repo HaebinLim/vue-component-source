@@ -1,0 +1,75 @@
+.category {
+  padding-top: 120px;
+  @include bottom-space;
+  $parent: &;
+  &__header {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 30px;
+    @include respond-to('pc') {
+      padding-bottom: 50px;
+    }
+    &__title {
+      text-transform: capitalize;
+      @include font('en-title-m-60');
+      &__count {
+        @include font('s-kr-body-r-14');
+
+        vertical-align: top;
+        margin-left: 10px;
+        @include respond-to('pc') {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+  &__list {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    gap: 60px;
+    @include respond-to('tablet') {
+      flex-flow: row wrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 120px $tablet-gap;
+    }
+    @include respond-to('pc') {
+      gap: 120px $pc-gap;
+    }
+    &__wrap {
+      display: contents;
+    }
+    &__item {
+      list-style: none;
+      flex: 1 1 100%;
+      @include respond-to('tablet') {
+        flex: 0 1 calc((100% - #{$tablet-gap}) / 2);
+      }
+      @include respond-to('pc') {
+        flex: 0 1 calc((100% - #{$pc-gap} * 2) / 3);
+      }
+      &--large {
+        @include respond-to('pc') {
+          flex: 0 1 calc((100% - #{$pc-gap} * 2) / 3 * 2 + #{$pc-gap});
+        }
+      }
+    }
+    &__banner {
+      flex: 1 1 100%;
+    }
+  }
+  &__more {
+    text-align: center;
+    margin-top: 30px;
+    @include respond-to('pc') {
+      margin-top: 40px;
+    }
+
+    &__btn {
+      @include font('en-btn-r-18');
+    }
+  }
+}

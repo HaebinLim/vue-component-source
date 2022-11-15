@@ -1,0 +1,136 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import NewsletterList from './index';
+
+<Meta
+  title="Templates/NewsletterList"
+  component={NewsletterList}
+  argTypes={{
+    listData: {
+      description: `API에서 받아온 목록 데이터`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{month, letters}]`,
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {NewsletterList},
+  template: `
+    <NewsletterList
+      :current-year="currentYear"
+      :years="years"
+      :list-data="listData"
+    />
+  `,
+  methods : {
+  },
+});
+
+## NewsletterList Basic
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="basic"
+    components={NewsletterList}
+    args = {{
+      currentYear: `2021`,
+      years: [
+        {
+          year: `2021`,
+          isCurrentYear: true,
+        },
+        {
+          year: `2020`,
+          isCurrentYear: false,
+        },
+        {
+          year: `2019`,
+          isCurrentYear: false,
+        },
+      ],
+      listData: [
+        {
+          month: `January`,
+          letters: [
+            {
+              id : `1`,
+              title : `1월 1주차 뉴스레터`,
+            },
+            {
+              id : `2`,
+              title : `1월 2주차 뉴스레터`,
+            },
+            {
+              id : `3`,
+              title : `1월 3주차 뉴스레터`,
+            },
+            {
+              id : `4`,
+              title : `1월 4주차 뉴스레터`,
+            },
+            {
+              id : `5`,
+              title : `1월 5주차 뉴스레터`,
+            },
+          ],
+        },
+        {
+          month: `February`,
+          letters: [
+            {
+              id : `6`,
+              title : `2월 1주차 뉴스레터 2월 1주차 뉴스레터 2월 1주차 뉴스레터 2월 1주차 뉴스레터 2월 1주차 뉴스레터 2월 1주차 뉴스레터 2월 1주차 뉴스레터`,
+            },
+            {
+              id : `7`,
+              title : `2월 2주차 뉴스레터`,
+            },
+            {
+              id : `8`,
+              title : `2월 3주차 뉴스레터`,
+            },
+            {
+              id : `9`,
+              title : `2월 4주차 뉴스레터`,
+            },
+          ],
+        },
+        {
+          month: `December`,
+          letters: [
+            {
+              id : `10`,
+              title : `12월 1주차 뉴스레터`,
+            },
+            {
+              id : `11`,
+              title : `12월 2주차 뉴스레터`,
+            },
+            {
+              id : `12`,
+              title : `12월 3주차 뉴스레터`,
+            },
+            {
+              id : `13`,
+              title : `12월 4주차 뉴스레터`,
+            },
+          ],
+        },
+      ]
+    }}
+    parameters={{
+      layout: `fullscreen`,
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

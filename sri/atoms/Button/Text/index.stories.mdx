@@ -1,0 +1,455 @@
+import { Meta, Story, Canvas, ArgTables } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import TextButton from './index.vue';
+import '@assets/scss/storybook.scss';
+
+<Meta
+  title="Atoms/Button/Text"
+  component={TextButton}
+  argTypes={{
+    type: {
+      description: '`button` 엘리먼트의 `type` 어트리뷰트에 해당',
+      control: {
+        type: 'select',
+        options: [`button`, `reset`, `submit`]
+      }
+    },
+    theme: {
+      description: `버튼 테마 (버튼이 사용되는 배경)`,
+      control: {
+        type: `select`,
+        options: [`bright`, `dark`],
+      }
+    },
+    appearance: {
+      description: '버튼 외형',
+      control: {
+        type: `select`,
+        options: [`basic`, `grey`]
+      }
+    },
+    label: {
+      description: '버튼 레이블'
+    },
+    disabled: {
+      description: 'HTML `disabled` property 적용 여부',
+      control: {
+        type: `boolean`
+      }
+    },
+    useUnderLine: {
+      description: `밑줄 애니메이션 사용 여부`,
+    },
+    hasUnderLine: {
+      description: '텍스트 버튼 사용 시 밑줄이 그어진 상태',
+    },
+    clickCallback: {
+      description: 'click event handler로 동작시킬 함수'
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  slots: {},
+  components: {TextButton},
+  template: `
+    <TextButton
+      :type="type"
+      :theme="theme"
+      :appearance="appearance"
+      :label="label"
+      :disabled="disabled"
+      :use-under-line="useUnderLine"
+      :has-under-line="hasUnderLine"
+      :click-callback="clickCallback"
+      @click="log"
+    />
+  `,
+  methods: {
+    log() {
+      action(`button clicked`)();
+    }
+  }
+});
+
+
+# &lt;TextButton> components
+
+아래는 앞에서부터 차례대로 
+- 기본
+- 밑줄 애니메이션 적용
+- 밑줄 애니메이션 및 초기 밑줄
+- 비활성
+- 비활성 & 밑줄 애니메이션
+- 비활성 & 밑줄 애니메이션 및 초기 밑줄
+
+이 적용된 사례
+
+## Basic Color argTypes
+
+### on Bright Theme
+
+<Canvas>
+  <Story
+    name="basic | bright"
+    args={{
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline | bright"
+    args={{
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/lined | bright"
+    args={{
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/disabled | bright"
+    args={{
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: false,
+      disabled: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/disabled | bright"
+    args={{
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false,
+      disabled: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/lined/disabled | bright"
+    args={{
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true,
+      disabled: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+
+### on Dark Theme
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="basic | dark"
+    args={{
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline | dark"
+    args={{
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/lined | dark"
+    args={{
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/disabled | dark"
+    args={{
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: false,
+      disabled: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/disabled | dark"
+    args={{
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false,
+      disabled: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/underline/lined/disabled | dark"
+    args={{
+      theme: `dark`,
+      appearance: "basic",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true,
+      disabled: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+
+
+## Grey Color argTypes
+
+### on Bright Theme
+
+<Canvas>
+  <Story
+    name="grey | bright"
+    args={{
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline | bright"
+    args={{
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/lined | bright"
+    args={{
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/disabled | bright"
+    args={{
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: false,
+      disabled: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/disabled | bright"
+    args={{
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false,
+      disabled: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/lined/disabled | bright"
+    args={{
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true,
+      disabled: true
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+
+### on Dark Theme
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="grey | dark"
+    args={{
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline | dark"
+    args={{
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/lined | dark"
+    args={{
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/disabled | dark"
+    args={{
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: false,
+      disabled: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/disabled | dark"
+    args={{
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: false,
+      disabled: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="grey/underline/lined/disabled | dark"
+    args={{
+      theme: `dark`,
+      appearance: "grey",
+      label:`레이블`,
+      useUnderLine: true,
+      hasUnderLine: true,
+      disabled: true
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>

@@ -1,0 +1,78 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import NewsletterView from './index';
+
+<Meta
+  title="Templates/NewsletterView"
+  component={NewsletterView}
+  argTypes={{
+    content: {
+      description: `뉴스레터 상세`,
+      table: {
+        type: {
+          summary: `array`,
+          detail: `[{id, category, title, image}]`,
+        }
+      }
+    },
+    prev: {
+      description: `이전 뉴스레터`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{id, title}`,
+        }
+      }
+    },
+    next: {
+      description: `다음 뉴스레터`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{id, title}`,
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {NewsletterView},
+  template: `
+    <NewsletterView
+      :title="title"
+      :content="content"
+      :prev="prev"
+      :next="next"
+    />
+  `,
+});
+
+## default
+<Canvas>
+  <Story
+    name="NewsletterView"
+    components={NewsletterView}
+    args = {{
+      title: `5월 4주차 뉴스레터`,
+      content: [
+        { id: `asdf`, category : `NEWS`, title: `zgxgxg`, image : `/img/dummy/thum_default.png`},
+        { id: `asdf`, category : `NEWS`, title: `zgxgxg`, image : `/img/dummy/thum_default.png`},
+        { id: `asdf`, category : `NEWS`, title: `zgxgxg`, image : `/img/dummy/thum_default.png`},
+      ],
+      prev: {
+        id: `asasa`,
+        title: `5월 3주차 뉴스레터`,
+      },
+      next: {
+        id: `werwer`,
+        title: `6월 1주차 뉴스레터`,
+      },
+    }}
+    parameters={{
+      layout: `fullscreen`,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

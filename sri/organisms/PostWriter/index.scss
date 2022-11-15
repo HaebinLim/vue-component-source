@@ -1,0 +1,90 @@
+.writer {
+  $parent: &;
+
+  display: flex;
+  justify-content: space-between;
+  color: get-color('grey/100');
+  &__info {
+    flex: 1 1 auto;
+    max-width: 310px;
+    #{$parent}__title {
+      @include font('l-en-subtitle-m-18');
+    }
+    #{$parent}__name {
+      margin-top: 30px;
+      @include font('title-b-32');
+      @include lineEllipsis(2, 'title-b-32');
+      @include respond-to('pc') {
+        margin-top: 40px;
+      }
+    }
+    #{$parent}__intro {
+      margin-top: 15px;
+      @include font('caption-l-12');
+      @include lineEllipsis(3, 'caption-l-12');
+      @include respond-to('pc') {
+        margin-top: 20px;
+        @include lineEllipsis(2, 'caption-l-12');
+      }
+    }
+    #{$parent}__btn {
+      display: inline-flex;
+      margin-top: 20px;
+      @include font('btn-b-14');
+      @include respond-to('pc') {
+        margin-top: 28px;
+      }
+      #{$parent}__arrow {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 20px;
+        transition: transform .4s;
+        &::before {
+          margin-right: -3px;
+          width: 29px;
+          height: 1px;
+          background-color: currentColor;
+          content: "";
+          @include respond-to('pc') {
+            width: 49px;
+          }
+        }
+      }
+      &:hover {
+        #{$parent}__arrow {
+          transform: translate(10px, 0);
+
+          @include respond-to('pc') {
+            transform: translate(20px, 0);
+          }
+        }
+      }
+      &:active {
+        #{$parent}__arrow {
+          transform: translate(20px, 0);
+
+          @include respond-to('pc') {
+            transform: translate(40px, 0);
+          }
+        }
+      }
+    }
+  }
+  &__image {
+    flex-shrink: 0;
+    margin: 50px 0 0 30px;
+    @include respond-to('pc') {
+      margin-top: 0;
+    }
+  }
+  &--card {
+    @include respond-to('pc') {
+      #{$parent}__intro {
+        @include lineEllipsis(3, 'caption-l-12');
+      }
+      #{$parent}__image {
+        margin-top: 62px;
+      }
+    }
+  }
+}

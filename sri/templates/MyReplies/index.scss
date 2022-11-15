@@ -1,0 +1,178 @@
+.replies {
+  @include top-space;
+  @include bottom-space;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    &__title {
+      @include font('title-b-60');
+    }
+    &__count {
+      display: flex;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+      justify-content: space-between;
+      margin: 0 0 auto 36px;
+      width: 114px;
+      color: get-color('grey/050');
+      @include respond-to('tablet') {
+        width: 156px;
+      }
+      .tit {
+        flex-basis: 50%;
+        @include font('subtitle-b-14');
+      }
+      .data {
+        margin: 0;
+        @include font('body-r-14');
+      }
+    }
+  }
+
+  &__wrap {
+    position: relative;
+    margin-top: 30px;
+    @include respond-to('tablet') {
+      margin-top: 50px;
+    }
+  }
+
+  &__sort {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &__table {
+    margin-bottom: 40px;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: left;
+
+    caption {
+      @include sr-only;
+    }
+
+    thead {
+      display: block;
+      height: 38px;
+      @include respond-to('pc') {
+        display: table-header-group;
+      }
+    }
+
+    &__col {
+      display: inline-block;
+      padding: 0;
+      @include sr-only;
+      @include respond-to('pc') {
+        display: table-cell;
+        height: auto;
+        clip-path: none;
+        vertical-align: top;
+        @include font('subtitle-b-14');
+      }
+      &:nth-child(1) {
+        @include respond-to('pc') {
+          width: math.div(550, 1300) * 100%;
+        }
+      }
+    }
+
+    tbody {
+      td {
+        display: inline-block;
+        padding: 0;
+        width: 100%;
+        vertical-align: top;
+        @include respond-to('pc') {
+          display: table-cell;
+          border-top: 1px solid get-color('grey/030');
+        }
+        &:first-child {
+          border-top: 1px solid get-color('grey/030');
+        }
+      }
+      tr:first-child td {
+        border-top-color: get-color('grey/100');
+      }
+    }
+  }
+
+  .article {
+    padding: 20px 0 0;
+    width: 100%;
+    white-space: normal;
+    @include respond-to('pc') {
+      padding: 40px 0;
+      max-width: 420px;
+    }
+    &__category {
+      @include font('l-en-tag-r-16');
+    }
+    &__title {
+      display: block;
+      margin-top: 10px;
+      @include font('title-b-24');
+      @include respond-to('pc') {
+        margin-top: 15px;
+      }
+    }
+  }
+
+  .reply {
+    margin: 20px 0;
+    padding: 0;
+    width: 100%;
+    white-space: normal;
+    cursor: pointer;
+    text-align: left;
+    @include respond-to('pc') {
+      margin: 0;
+      padding: 75px 0 40px;
+    }
+    &__mention {
+      margin-right: 8px;
+      @include font('subtitle-b-14');
+    }
+    &__content {
+      word-break: break-all;
+      @include font('body-r-14');
+    }
+    &__info {
+      display: flex;
+      justify-content: space-between;
+      gap: 0 25px;
+      margin-top: 22px;
+      width: 100%;
+      @include font('caption-r-12');
+    }
+    &__modified {
+      color: get-color('grey/030');
+    }
+    &__count {
+      display: inline-flex;
+      gap: 0 25px;
+      &__num {
+        display: inline-flex;
+        align-items: center;
+        gap: 0 10px;
+        width: 52px;
+        @include respond-to('tablet') {
+          width: 62px;
+        }
+        .icon {
+          width: 12px;
+          height: 12px;
+          @include respond-to('tablet') {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+

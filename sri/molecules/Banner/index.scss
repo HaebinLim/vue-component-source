@@ -1,0 +1,25 @@
+.banner {
+  $parent: &;
+
+  display: block;
+  margin: 0 auto;
+  @include respond-to('pc') {
+    max-width: 1920px;
+  }
+
+  &--full {
+    margin: 0 $r-mobile-space;
+    @include respond-to('tablet') {
+      margin: 0 $r-tablet-space;
+    }
+    @include respond-to('pc') {
+      margin: 0 $r-pc-space;
+    }
+  }
+
+  #{$parent}__img {
+    display: block;
+    width: 100%;
+  }
+
+}

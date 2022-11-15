@@ -1,0 +1,95 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import MyProfile from './index';
+import { portalPanelPlayGround } from "@/storybook/decorators.js";
+
+<Meta
+  title="Organisms/MyProfile"
+  component={MyProfile}
+  decorators={[portalPanelPlayGround]}
+  parameters={{layout: `full`}}
+  argTypes={{
+    alarms: {
+      description: `(현재)사용자 알림 관련 데이터 count:Number, hasNew:Boolean`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{count, hasNew}`,
+        }
+      }
+    },
+    archives: {
+      description: `(현재)사용자 담은 글 관련 데이터 count:Number`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{count}`,
+        }
+      }
+    },
+    replies: {
+      description: `(현재)사용자 답글 관련 데이터 totalCount:Number, deleteCount:Number, deletedByCount:Number`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{totalCount, deleteCount, deletedByCount}`,
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data: () => ({
+    showPanel: false,
+  }),
+  props: [...Object.keys(argTypes)],
+  components: {MyProfile},
+  template: `
+    <div>
+      <MyProfile
+        v-if="showPanel"
+        :nick-name="nickName"
+        :alarms="alarms"
+        :archives="archives"
+        :replies="replies"
+        @close-my-profile="handleCloseMyProfile"
+        @click-logout="handleClickLogout"
+      />
+    <button @click="showPanel = true">나의 프로필</button>
+  </div>
+  `,
+  methods : {
+    handleCloseMyProfile() {
+      this.showPanel = false;
+    },
+    handleClickLogout() {
+      action(`logout Clicked`)();
+    }
+  },
+});
+
+## MyProfile Basic
+
+<Canvas>
+  <Story
+    name="basic"
+    args = {{
+      nickName: `사람인HR`,
+      alarms: {
+        count: 2345,
+        hasNew: true,
+      },
+      archives: {
+        count: 45533,
+      },
+      replies: {
+        totalCount: 23000,
+        deleteCount: 200,
+        deletedByCount: 10200,
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

@@ -1,0 +1,7 @@
+.footer {
+  padding: 0 15px 24px;
+  background: get-color('grey/100');
+  @include respond-to('pc') {
+    display: none;
+  }
+}

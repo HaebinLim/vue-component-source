@@ -1,0 +1,81 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import dedent from 'ts-dedent';
+import PeopleReport from './index';
+
+<Meta
+  title="Templates/PeopleReport"
+  component={PeopleReport}
+  argTypes={{
+    report: {
+      table: {
+        type: {
+          summary: `Array`,
+          detail: dedent`[
+            {
+              year,
+              list[
+                {
+                  title,
+                  regDate,
+                  downloadCount,
+                  downloadLink
+                }
+              ]
+            }
+          ]`,
+        },
+      },
+    },
+  }}
+  parameters={{layout: `fullscreen`}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {PeopleReport},
+  template: `
+    <PeopleReport 
+      :report="report" 
+    />`,
+});
+
+## default
+<Canvas>
+  <Story
+    name="PeopleReport"
+    args = {{
+      report : [
+        {
+          year: `2021`,
+          list: [
+            {
+              title: `일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오`,
+              regDate: `2021.07.20`,
+              downloadCount: 12389123,
+              downloadLink: `abc.pdf`,
+            },
+            {
+              title: `sieksieiessdfs`,
+              regDate: `2021.07.20`,
+              downloadCount: 9999,
+              downloadLink: `abc.pdf`,
+            },
+          ]
+        },
+        {
+          year: `2022`,
+          list: [
+            {
+              title: `일이삼사오`,
+              regDate: `2021.07.20`,
+              downloadCount: 9,
+              downloadLink: `abc.pdf`,
+            },
+          ]
+        },
+      ]
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

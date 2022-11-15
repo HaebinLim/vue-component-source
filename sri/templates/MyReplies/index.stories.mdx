@@ -1,0 +1,160 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import dedent from 'ts-dedent';
+import MyReplies from './index';
+
+<Meta
+  title="Templates/MyReplies"
+  component={MyReplies}
+  argTypes={{
+    listData: {
+      description: `작성 댓글 리스트 데이터`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail:  dedent`[
+            { 
+              articleId,
+              category,
+              title,
+              content,
+              replyId,
+              mentionId,
+              mentionName,
+              likes,
+              dislikes,
+              lastModifed,
+            }
+          ]`,
+        }
+      }
+    },
+    paginationOption: {
+      description: `Pagination 사용시 전달할 옵션`,
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{parameterType, parameterName, routerPath, currentPage, maxPage}`,
+        }
+      }
+    },
+  }}
+  parameters={{layout: `fullscreen`}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {MyReplies},
+  template: `
+    <MyReplies 
+      :user-id="userId"
+      :author-id="authorId"
+      :author-name="authorName"
+      :total-count="totalCount"
+      :delete-count="deleteCount"
+      :deleted-by-count="deletedByCount"
+      :list-data="listData" 
+      :pagination-option="paginationOption"
+      @change-sorting="logChangeSorting"
+    />`,
+  methods: {
+    logChangeSorting(payload) {
+      action(`change-sorting`)(payload);
+    },
+  },
+});
+
+## default
+<Canvas>
+  <Story
+    name="내 작성 댓글"
+    args = {{
+      userId: `aaaa`,
+      authorId: `aaaa`,
+      authorName: `dd`,
+      totalCount: 100,
+      deleteCount: 100,
+      deletedByCount: 99999,
+      listData: [
+        { 
+          articleId: `id1234`,
+          category: `News`,
+          title: `작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면?`,
+          mentionName: `안녕`,
+          content: `댓글달았옹`,
+          likes: 2000,
+          dislikes: 11,
+          lastModified: `2020.09.15 00:58`,
+        },
+        {
+          articleId: `id1234`,
+          category: `News`,
+          title: `ㅇㅇㅇㅇㅇㅇㅇㅇ`,
+          mentionName: `안녕안녕`,
+          content: `댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹`,
+          likes: 2000,
+          dislikes: 11,
+          lastModified: `2020.09.15 00:58`,
+        },
+        {
+          articleId: `id1234`,
+          category: `News`,
+          title: `ㅇㅇㅇㅇㅇㅇㅇㅇ`,
+          content: `댓글달았옹`,
+          likes: 9999999,
+          dislikes: 999999,
+          lastModified: `2020.09.15 00:58`,
+        }
+      ]
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="사용자별 작성 댓글"
+    args = {{
+      userId: `aaaa`,
+      authorId: `bbbb`,
+      authorName: `dd`,
+      totalCount: 100,
+      deleteCount: 100,
+      deletedByCount: 400,
+      listData: [
+        {
+          articleId: `id1234`,
+          category: `News`,
+          title: `작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면?`,
+          mentionName: `안녕`,
+          content: `댓글달았옹`,
+          likes: 2000,
+          dislikes: 11,
+          lastModified: `2020.09.15 00:58`,
+        },
+        {
+          articleId: `id1234`,
+          category: `News`,
+          title: `ㅇㅇㅇㅇㅇㅇㅇㅇ`,
+          mentionName: `안녕안녕`,
+          content: `댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹댓글달았옹`,
+          likes: 2000,
+          dislikes: 11,
+          lastModified: `2020.09.15 00:58`,
+        },
+        {
+          articleId: `id1234`,
+          category: `News`,
+          title: `ㅇㅇㅇㅇㅇㅇㅇㅇ`,
+          content: `댓글달았옹`,
+          likes: 9999999,
+          dislikes: 99999,
+          lastModified: `2020.09.15 00:58`,
+        }
+      ]
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

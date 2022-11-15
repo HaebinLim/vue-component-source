@@ -1,0 +1,158 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import PostHeader from './index';
+const updateLike = function ({id, state}) {
+  const { postLikes: likes, postLiked: liked } = this;
+  const result = {};
+  if (state) {
+    result.likes = likes + 1;
+    result.liked = true;
+  } else {
+    result.likes = likes - 1;
+    result.liked = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+}
+const updateArchive = function ({id, state}) {
+  const { postArchives: archives, postArchived: archived } = this;
+  const result = {};
+  if (state) {
+    result.archives = archives + 1;
+    result.archived = true;
+  } else {
+    result.archives = archives - 1;
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+}
+
+<Meta
+  title="Organisms/PostHeader"
+  component={ PostHeader }
+  argTypes={{
+    postType : {
+      description : `아티클 타입`,
+      control: {
+        type: `select`,
+        options: [`default`, `article`, `card`],
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data: () => ({postLikes: 0, postLiked: false, postArchives: 0, postArchived: false}),
+  props: [...Object.keys(argTypes)],
+  components: { PostHeader },
+  template: `
+    <PostHeader
+      :post-id="postId"
+      :post-type="postType"
+      :category="category"
+      :title="title"
+      :last-modified="lastModified"
+      :read-time="readTime"
+      :likes.sync="postLikes"
+      :archives.sync="postArchives"
+      :liked.sync="postLiked"
+      :archived.sync="postArchived"
+      :shares="shares"
+      :update-like="updateLike"
+      :update-archive="updateArchive"
+      @click-share="logClickShare"
+      @update:likes="logUpdated('likes', $event)"
+      @update:liked="logUpdated('liked', $event)"
+      @update:archives="logUpdated('archives', $event)"
+      @update:archived="logUpdated('archived', $event)"
+    />
+  `,
+  created() {
+    this.postLikes = this.likes;
+    this.postLiked = this.liked;
+    this.postArchives = this.archives;
+    this.postArchived = this.archived;
+  },
+  methods: {
+    logClickShare(payload) {
+      action(`click-share`)(payload);
+    },
+    logUpdated(type, payload) {
+      action(`updated ${type}, .sync modifier에 의해 부모 컴포넌트와 양방향 바인딩 됨`)(payload)
+    }
+  }
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      postId: 1234,
+      category: `news`,
+      title: `일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이`,
+      lastModified: `2021.04.19 15:00`,
+      readTime: `5분 5초`,
+      likes: 0,
+      archives: 0,
+      shares: 0,
+      updateLike,
+      updateArchive,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## article
+<Canvas>
+  <Story
+    name="article"
+    args = {{
+      postId: 1234,
+      postType: `article`,
+      category: `news`,
+      title: `일이삼사오육칠팔구십일이삼사오육칠팔구십`,
+      lastModified: `2021.04.19 15:00`,
+      readTime: `5분 5초`,
+      likes: 999,
+      archives: 99,
+      shares: 337248,
+      liked: true,
+      updateLike,
+      updateArchive,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## card news
+<Canvas>
+  <Story
+    name="card news"
+    args = {{
+      postId: 1234,
+      postType: `card`,
+      category: `news`,
+      title: `일이삼사오육칠팔구십`,
+      lastModified: `2021.04.19 15:00`,
+      readTime: `5분 5초`,
+      likes: 99999,
+      archives: 999,
+      shares: 99,
+      archived: true,
+      updateLike,
+      updateArchive,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

@@ -1,0 +1,144 @@
+.plain {
+  $parent: &;
+
+  padding-top: 80px;
+  @include respond-to('pc') {
+    padding-top: 100px;
+  }
+  &__header {
+    display: grid;
+    grid-template-areas: "heading";
+    padding-bottom: 30px;
+    @include respond-to('pc') {
+      padding-bottom: 50px;
+    }
+    &__profile {
+      grid-area: profile;
+    }
+    &__wrap {
+      grid-area: heading;
+    }
+    &__title {
+      grid-area: heading;
+      word-break: break-all;
+      @include font('s-kr-title-b-40');
+      &__count {
+        @include font('s-kr-body-r-14');
+
+        vertical-align: top;
+        margin-left: 10px;
+        @include respond-to('pc') {
+          margin-left: 20px;
+        }
+      }
+    }
+    &__copy {
+      margin-top: 10px;
+      @include font('s-kr-body-r-14');
+      @include respond-to('pc') {
+        margin-top: 20px;
+      }
+    }
+    &--editor {
+      grid-template-areas: "profile" "heading";
+      justify-content: start;
+      gap: 20px;
+      @include respond-to('pc') {
+        gap: 40px;
+        grid-template-areas: "profile heading";
+      }
+    }
+  }
+  &__utility {
+    text-align: right;
+    margin-bottom: 10px;
+    @include respond-to('pc') {
+      margin-bottom: 20px;
+    }
+    &__selectall {
+      justify-self: start;
+    }
+    &__delete {
+      justify-self: end;
+      @include font('kr-btn-r-14');
+    }
+    &__sort {
+      justify-self: end;
+    }
+    &--archived {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 15px;
+      justify-content: end;
+      align-items: center;
+      @include respond-to('pc') {
+        gap: 30px;
+      }
+    }
+  }
+  &__list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+    gap: 60px;
+    @include respond-to('tablet') {
+      flex-flow: row wrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 120px $tablet-gap;
+    }
+    @include respond-to('pc') {
+      gap: 120px $pc-gap;
+    }
+    &__wrap {
+      display: contents;
+    }
+    &__item {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      flex: 1 1 100%;
+      @include respond-to('tablet') {
+        flex: 0 1 calc((100% - #{$pc-gap}) / 2);
+      }
+      @include respond-to('pc') {
+        flex: 0 1 calc((100% - #{$pc-gap} * 2) / 3);
+      }
+    }
+    &__banner {
+      flex: 1 1 100%;
+    }
+  }
+  &__more {
+    text-align: center;
+    margin-top: 30px;
+    @include respond-to('pc') {
+      margin-top: 40px;
+    }
+
+    &__btn {
+      @include font('en-btn-r-18');
+    }
+  }
+  &__pagination {
+    padding-top: 60px;
+    @include respond-to('pc') {
+      padding-top: 80px;
+    }
+  }
+  &__wrap {
+    padding-top: 10px;
+    @include respond-to('pc') {
+      padding-top: 20px;
+    }
+    @include bottom-space;
+    &--bg {
+      background: get-color('bluegrey/005');
+    }
+  }
+  &--related {
+    padding-top: 120px;
+  }
+}

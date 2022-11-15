@@ -1,0 +1,14 @@
+.viewer {
+  margin: 0 auto;
+  height: 100vh;
+  @include respond-to('pc') {
+    &--card {
+      max-width: 1920px;
+      height: 840px;
+    }
+    &--talk {
+      max-width: 860px;
+      height: 768px;
+    }
+  }
+}

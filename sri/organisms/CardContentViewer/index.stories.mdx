@@ -1,0 +1,391 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { portalPlayGround } from "@/storybook/decorators.js";
+import { action } from '@storybook/addon-actions';
+import CardContentViewer from './index';
+const updateArticleLike = function (state) {
+  const { likesCount: likes, pressLike: liked } = this;
+  const result = {};
+  if (state) {
+    result.likes = likes + 1;
+    result.liked = true;
+  } else {
+    result.likes = likes - 1;
+    result.liked = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+}
+const updateArticleArchive = function (state) {
+  const { archivesCount: archives, pressArchive: archived } = this;
+  const result = {};
+  if (state) {
+    result.archives = archives + 1;
+    result.archived = true;
+  } else {
+    result.archives = archives - 1;
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+}
+const repliesData = {
+  bestReplies: [
+    {
+      id: 123,
+      authorId: 789,
+      authorName: `홍길동`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `베스트 댓글 1`,
+      isModified: false,
+      lastModified: `2021 12.03 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      rank: 1,
+      isSub: false,
+    },
+    {
+      id: 133,
+      authorId: 7890,
+      authorName: `강림`,
+      likes: 150,
+      dislikes: 10,
+      liked: true,
+      disliked: false,
+      content: `베스트 댓글 2`,
+      isModified: false,
+      lastModified: `2021 12.04 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      rank: 2,
+      isSub: false,
+    },
+    {
+      id: 143,
+      authorId: 7879,
+      authorName: `전우치`,
+      likes: 5,
+      dislikes: 150,
+      liked: false,
+      disliked: true,
+      content: `베스트 댓글 3`,
+      isModified: false,
+      lastModified: `2021 12.05 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      rank: 3,
+      isSub: false,
+    }
+  ],
+  replies: [
+    {
+      id: 123,
+      authorId: 789,
+      authorName: `홍길동`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `그냥 댓글 데이터 만들기 힘들엉`,
+      isModified: false,
+      lastModified: `2021 12.03 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      deleted: `user`,
+      cutId: ``,
+      cutPage: 0,
+      rank: 1,
+      isSub: false,
+    },
+    {
+      id: 1234,
+      authorId: 456,
+      authorName: `배추도사`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `댓글 데이터 만들기 힘들엉`,
+      isModified: false,
+      lastModified: `2021 12.03 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      isSub: false,
+    },
+    {
+      id: 12344,
+      authorId: 4567,
+      authorName: `무도사`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `댓글 데이터 만들기 힘들다고 수정해쪙`,
+      isModified: true,
+      lastModified: `2021 12.01 00:58`,
+      mentionId: 456,
+      mentionName: `배추도사`,
+      deleted: `admin`,
+      cutId: ``,
+      cutPage: 0,
+      isSub: true,
+    },
+    {
+      id: 123484,
+      authorId: 41567,
+      authorName: `머털도사`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `여기가 아닌가벼`,
+      isModified: true,
+      lastModified: `2021 12.01 00:58`,
+      mentionId: 456,
+      mentionName: `배추도사`,
+      cutId: ``,
+      cutPage: 0,
+      isSub: true,
+    },
+    {
+      id: 12349,
+      authorId: 7193,
+      authorName: `은비`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `댓글 데이터 `,
+      isModified: true,
+      lastModified: `2021 11.01 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      isSub: false,
+    },
+  ],
+  totalCount: 20,
+  currPage: 1,
+  totalPage: 3,
+  order: `recently`,
+  userId: 789,
+  userName: `홍길동`,
+}
+const updateLike = function (state) {
+  // 임시로 기존 값 기준 좋아요 설정/해제 계산 결과 반환
+  const { repLikes: likes, repDislikes: dislikes, repLiked: liked, repDisliked: disliked } = this;
+  const result = {};
+  if (state) {
+    result.likes = likes + 1;
+    result.liked = true;
+    result.dislikes = disliked ? dislikes - 1 : dislikes;
+    result.disliked = false;
+  } else {
+    result.likes = likes - 1;
+    result.liked = false;
+    result.dislikes = dislikes;
+    result.disliked = disliked;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+const updateDislike = function (state) {
+  // 임시로 기존 값 기준 싫어요 설정/해제 계산 결과 반환
+  const { repLikes: likes, repDislikes: dislikes, repLiked: liked, repDisliked: disliked } = this;
+  const result = {};
+  if (state) {
+    result.likes = liked ? likes - 1: likes ;
+    result.liked = false;
+    result.dislikes = dislikes + 1 ;
+    result.disliked = true;
+  } else {
+    result.likes = likes;
+    result.liked = false;
+    result.dislikes = dislikes - 1 ;
+    result.disliked = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+const createReply = function ({content, mentionId}) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve({content, mentionId}), 600);
+  });
+};
+const updateReply = function ({content}) {
+  return new Promise(resolve => {
+    setTimeout(
+      () => resolve(
+        {
+          content,
+          isModified: true,
+          lastModified: new Date().toLocaleString()
+        }
+      )
+      , 600
+    );
+  });
+};
+const submitReport = function ({type, resolve, user}) {
+  return new Promise(resolve => {
+    setTimeout(resolve(true), 600)
+  });
+};
+const getAuthorProfile = function(authorId) {
+  // 실패시에는 FAIL_AUTHOR_PROFILE 를 오류 메세지로 reject
+  return new Promise(resolve => {
+    setTimeout(resolve({
+      name: `홍길동`,
+      totalReplies: 99,
+      removedReplies: 2,
+      deleteReplies: 1,
+    }), 600)
+  });
+}
+
+<Meta
+  title="Organisms/CardContentViewer"
+  component={ CardContentViewer }
+  decorators={[portalPlayGround]}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: { CardContentViewer },
+  template: `
+    <CardContentViewer
+      :post-id="postId"
+      :card-data="cardData"
+      :hashtag-data="hashtagData"
+      :editor-data="editorData"
+      :atricle-title="articleTitle"
+      :replies-data="repliesData"
+      :reply-router-path="replyRouterPath"
+      :update-like="updateLike"
+      :update-dislike="updateDislike"
+      :create-reply="createReply"
+      :update-reply="updateReply"
+      :submit-report="submitReport"
+      :get-author-profile="getAuthorProfile"
+      :likes="likes"
+      :archives="archives"
+      :shares="shares"
+      :liked="liked"
+      :archived="archived"
+      :update-article-like="updateArticleLike"
+      :update-article-archive="updateArticleArchive"
+      :prev-article-url="prevArticleUrl"
+      :next-article-url="nextArticleUrl"
+      @click-reply="logClickReply"
+      @click-like="logClickLike"
+      @click-archive="logClickArchive"
+      @click-share="logClickShare"
+      @update-reply-list="logUpdateReplyList"
+    />
+  `,
+  methods: {
+    logClickReply(payload) {
+      action(`click-reply`)(payload);
+    },
+    logClickLike(payload) {
+      action(`click-like`)(payload);
+    },
+    logClickArchive(payload) {
+      action(`click-archive`)(payload);
+    },
+    logClickShare(payload) {
+      action(`click-share`)(payload);
+    },
+    logUpdateReplyList(payload) {
+      action(`update-reply-list`)(payload);
+    }
+  }
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      postId: 1234,
+      articleTitle: `테스트제목 테스트제목 테스트제목 `,
+      likes: 1,
+      archives: 9999,
+      shares: 888,
+      liked: true,
+      updateArticleLike,
+      updateArticleArchive,
+      cardData: [
+        {
+          id: `card_id1`,
+          url: `https://www.saraminimage.co.kr/2021/soori/pc/img_main_card.png`,
+          alt: `카드 이미지 설명1`
+        },
+        {
+          id: `card_id2`,
+          url: `https://www.saraminimage.co.kr/2021/soori/pc/img_main_card2.png`,
+          alt: `카드 이미지 설명2`
+        },
+        {
+          id: `card_id3`,
+          url: `https://www.saraminimage.co.kr/2021/soori/pc/img_main_card3.png`,
+          alt: `카드 이미지 설명3`
+        },
+        {
+          id: `card_id4`,
+          url: `https://www.saraminimage.co.kr/2021/soori/pc/img_main_card4.png`,
+          alt: `카드 이미지 설명4`
+        },
+        {
+          id: `card_id5`,
+          url: `https://www.saraminimage.co.kr/2021/soori/pc/img_main_card5.png`,
+          alt: `카드 이미지 설명5`
+        },
+      ],
+      hashtagData: ['일이삼사오육칠팔구십', '이삼사오육칠팔구십', '삼사오육칠팔구십', '사오육칠팔구십', '오육칠팔구십', '육칠팔구십', '칠팔구십', '팔구십', '구십', '십'],
+      editorData : {
+        id: `1234`,
+        name : `일이삼사오육칠팔구십`,
+        intro : `소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글`,
+        image : `https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg`,
+      },
+      prevArticleUrl: `/a`,
+      nextArticleUrl: `/b`,
+      replyRouterPath: `/`,
+      repliesData,
+      updateLike,
+      updateDislike,
+      createReply,
+      updateReply,
+      submitReport,
+      getAuthorProfile,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

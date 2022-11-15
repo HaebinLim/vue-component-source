@@ -1,0 +1,21 @@
+.home {
+  @include top-space;
+  &__banner1 {
+    @include respond-to('tablet') {
+      margin-bottom: 100px;
+    }
+  }
+  &__banner2 {
+    @include respond-to('tablet') {
+      margin-top: 100px;
+    }
+  }
+  &__banner3 {
+    @include respond-to('tablet') {
+      margin-top: 120px;
+    }
+  }
+  &__best {
+    background: get-color('bluegrey/005');
+  }
+}

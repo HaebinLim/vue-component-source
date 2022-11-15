@@ -1,0 +1,87 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Report from './index';
+import { portalPlayGround } from "@/storybook/decorators.js";
+
+<Meta
+  title="Organisms/Report"
+  component={Report}
+  decorators={[portalPlayGround]}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data: () => ({showReport: false}),
+  props: [...Object.keys(argTypes)],
+  components: {Report},
+  template: `
+    <div>
+      <Report
+        v-if="showReport"
+        :heading-rank="headingRank"
+        :submit-report="submitReport"
+        :target-user="targetUser"
+        :is-logged-in="isLoggedIn"
+        @closed="handleShowPopup"
+      />
+      <button @click="showReport = true">팝업 열기</button>
+    </div>
+  `,
+  methods: {
+    handleShowPopup() {
+      this.showReport = false
+    },
+  },
+});
+
+> 스토리북 이슈로 Canvas - Docs 간 탭 전환 시 테스트가 잘 이루어지지 않습니다.   
+> 탭 전환 후에는 새로 고침 후 테스트 해주세요
+
+> 스토리북에서 여러 스토리를 얹을 때 Portal-Vue가 중첩되는 문제로 우선 단일 데모만 제공합니다.   
+> 해당 부분은 차후 수정 예정이며 상황별 테스트는 Canvas 탭에서 해주세요
+
+신고하기 대화상자는 초기에 노출되지 않기 때문에 "팝업 열기" 버튼을 통해 열릴 수 있도록 
+되어 있습니다.
+
+## API
+
+### Props
+
+#### `submitReport`
+
+신고 내용 전송을 위한 API 호출 함수
+
+|구분|이름|타입|설명|
+|:--|:--|:--|:--|
+|param|type|`string` \| `number`|신고 유형|
+|param|reason|string|신고 사유|
+|param|user|`string` \| `number`|신고 대상 회원 식별자|
+
+ex)
+
+```javascript
+const submitReport = ({type, resolve, user}) => {
+  return new Promise(resolve => {
+    api
+      .sendReport({type, resolve, user})
+      .then(() => resolve());
+  });
+}
+```
+
+
+<Canvas>
+  <Story
+    name="success"
+    args = {{
+      headingRank: 2,
+      targetUser: `joker`,
+      submitReport: ({type, resolve, user}) => {
+        return new Promise(resolve => {
+          setTimeout(resolve(true), 600)
+        });
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

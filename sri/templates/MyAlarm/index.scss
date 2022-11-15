@@ -1,0 +1,135 @@
+.alarm {
+    @include top-space;
+    @include bottom-space;
+    &__header {
+      @include font('title-b-60');
+      &__count {
+        margin-left: 10px;
+        vertical-align: top;
+        @include font('s-kr-body-r-14');
+        @include respond-to('pc') {
+          margin-left: 20px;
+        }
+      }
+    }
+    &__wrap {
+      margin-top: 30px;
+      @include respond-to('tablet') {
+        margin-top: 50px;
+      }
+    }
+  
+    &__table {
+      margin-bottom: 40px;
+      width: 100%;
+      border-spacing: 0;
+      border-collapse: collapse;
+      table-layout: fixed;
+      text-align: left;
+  
+      caption {
+        @include sr-only;
+      }
+  
+      thead {
+        display: block;
+        height: 30px;
+        @include respond-to('tablet') {
+          height: 38px;
+        }
+        @include respond-to('pc') {
+          display: table-header-group;
+        }
+      }
+  
+      &__col {
+        padding: 0;
+        &:not(:nth-child(3)) {
+          display: inline-block;
+          @include sr-only;
+          @include respond-to('pc') {
+            display: table-cell;
+            height: auto;
+            clip-path: none;
+            vertical-align: top;
+            @include font('subtitle-b-14');
+          }
+        }
+        &:nth-child(1) {
+          @include respond-to('pc') {
+            width: math.div(880, 1300) * 100%;
+          }
+        }
+        &:nth-child(2) {
+          @include respond-to('pc') {
+            width: math.div(300, 1300) * 100%;
+          }
+        }
+        &:nth-child(3) {
+          width: 100%;
+          vertical-align: top;
+          @include respond-to('pc') {
+            width: auto;
+          }
+        }
+      }
+  
+      tbody {
+        th,
+        td {
+          display: inline-block;
+          padding: 0 0 20px;
+          width: 50%;
+          vertical-align: top;
+          @include respond-to('tablet') {
+            padding-bottom: 40px;
+          }
+          @include respond-to('pc') {
+            display: table-cell;
+            padding: 40px 0;
+            border-top: 1px solid get-color('grey/030');
+          }
+        }
+        th {
+          padding-top: 20px;
+          width: 100%;
+          border-top: 1px solid get-color('grey/030');
+  
+          @include respond-to('tablet') {
+            padding-top: 40px;
+          }
+        }
+        tr:first-child {
+          th, td {
+            border-top-color: get-color('grey/100');
+          }
+        }
+      }
+    }
+  
+    &__title {
+      display: block;
+      color: get-color('grey/100');
+      white-space: normal;
+  
+      @include font('subtitle-b-18');
+      @include respond-to('tablet') {
+        margin-right: 20px;
+        max-width: 640px;
+      }
+    }
+    &__date {
+      color: get-color('grey/030');
+      @include font('body-r-16');
+    }
+    &__delete {
+      display: flex;
+      margin-left: auto;
+      padding: 6px 0;
+      @include font('btn-r-14');
+      @include respond-to('tablet') {
+        padding: 4px 0;
+      }
+    }
+  }
+  

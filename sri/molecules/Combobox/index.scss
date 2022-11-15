@@ -1,0 +1,75 @@
+.combobox {
+  $parent: &;
+
+  display: flex;
+  flex-flow: column;
+
+  &__label {
+    margin-bottom: 20px;
+    color: get-color('grey/100');
+    @include font('subtitle-b-14');
+
+    &--hide {
+      @include sr-only;
+    }
+
+    #{$parent}--disabled & {
+      color: get-color('grey/030');
+    }
+  }
+
+  &__field {
+    position: relative;
+    padding-bottom: 5px;
+    border-bottom: 1px solid get-color('grey/100');
+    width: 100%;
+
+    @include respond-to('pc') {
+      padding-bottom: 10px;
+      border-width: 2px;
+    }
+  }
+
+  &__input {
+    border: 0;
+    padding-right: 30px;
+    width: 100%;
+    color: get-color('grey/100');
+    background-color: transparent;
+    @include font('title-b-24');
+
+    @include respond-to('pc') {
+      padding-right: 40px;
+    }
+
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+      border-color: get-color('grey/100');
+    }
+
+    &::placeholder {
+      color: get-color('grey/030');
+
+      #{$parent}--disabled & {
+        color: get-color('grey/010');
+      }
+    }
+  }
+
+  #{$parent} &__button {
+    // for CSS precedence
+    position: absolute;
+    margin-top: -2px;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+
+    @include respond-to('pc') {
+      margin-top: -5px;
+    }
+  }
+
+  &__status {
+    @include sr-only;
+  }
+}

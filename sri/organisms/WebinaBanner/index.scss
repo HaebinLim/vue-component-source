@@ -1,0 +1,102 @@
+.webina {
+  $parent: &;
+
+  background: get-color('bluegrey/100');
+  &__wrap {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    max-width: 1920px;
+  }
+  &__content {
+    display: flex;
+    flex-flow: column;
+    position: absolute;
+    z-index: $zindex-base + 1;
+    margin: 0 auto;
+    padding: 60px $mobile-space 100px;
+    height: 100%;
+    color: #fff;
+    @include respond-to('tablet') {
+      left: 0;
+      right: 0;
+      padding-top: 80px;
+      padding-bottom: 40px;
+      max-width: 768px;
+    }
+    @include respond-to('pc') {
+      flex: 1 0 50%;
+      position: static;
+      padding: 120px percentage(math.div(120, 1440)) 70px $pc-space;
+      height: auto;
+    }
+  }
+  &__title {
+    @include font('l-en-subtitle-m-18');
+  }
+  &__topic {
+    margin: 20px 0 40px;
+    @include font('title-b-40');
+    @include respond-to('pc') {
+      margin: 40px 0 80px;
+    }
+  }
+  &__info {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 40px;
+    &__tit {
+      margin: 0 0 5px;
+      width: 38px;
+      @include font('subtitle-b-14');
+      @include respond-to('pc') {
+        width: 56px;
+      }
+    }
+    &__data {
+      flex: 1 1 calc(100% - 38px);
+      margin: 0 0 5px;
+      @include font('body-r-14');
+      @include respond-to('pc') {
+        flex-basis: calc(100% - 56px);
+      }
+    }
+  }
+  &__link {
+    margin-top: auto;
+    @include font('btn-b-14');
+  }
+  &__banner {
+    position: relative;
+    padding-bottom: percentage(math.div(736, 360));
+    width: 100%;
+    min-height: 493px;
+    opacity: .8;
+    @include respond-to('tablet') {
+      padding-bottom: 0;
+      height: 607px;
+    }
+    @include respond-to('pc') {
+      padding-bottom: percentage(math.div(736, 1440));
+      width: 50%;
+      height: auto;
+      opacity: 1;
+    }
+    #{$parent}__img {
+      position: absolute;
+      object-fit: cover;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+      @include respond-to('tablet') {
+        max-width: 768px;
+      }
+      @include respond-to('pc') {
+        max-width: 100%;
+      }
+    }
+  }
+}

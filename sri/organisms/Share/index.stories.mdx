@@ -1,0 +1,59 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Share from './index';
+import { portalPlayGround } from "@/storybook/decorators.js";
+
+<Meta
+  title="Organisms/Share"
+  component={Share}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data: () => ({showShare: false}),
+  props: [...Object.keys(argTypes)],
+  components: {Share},
+  template: `
+    <div>
+      <Share
+        v-if="showShare"
+        :heading-rank="headingRank"
+        :link-url="linkUrl"
+        :sns-list="snsList"
+        :share-title="shareTitle"
+        :hash-tags="hashTags"
+        @closed="handleShowPopup(false)"
+      />
+      <button @click="handleShowPopup()">팝업 열기</button>
+    </div>
+  `,
+  methods: {
+    handleShowPopup(force) {
+      if (force !== undefined) {
+        this.showShare = force;
+        return;
+      }
+      this.showShare = !this.showShare;
+    }
+  },
+});
+
+> 스토리북 이슈로 Canvas - Docs 간 탭 전환 시 테스트가 잘 이루어지지 않습니다.   
+> 탭 전환 후에는 새로 고침 후 테스트 해주세요
+
+공유하기 대화상자는 초기에 노출되지 않기 때문에 "팝업 열기" 버튼을 통해 열릴 수 있도록 
+되어 있습니다.
+
+<Canvas>
+  <Story
+    name="Share"
+    decorators={[portalPlayGround]}
+    args = {{
+      headingRank: 2,
+      snsList: [`naverblog`, `katalk`, `kakaostory`, `facebook`, `twitter`, `linkedin`],
+      shareTitle: "이거슨 포스트 제목입니다",
+      hashTags: [`#샵있지`, `샵없지`]
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

@@ -1,0 +1,97 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Logo from './index';
+
+<Meta
+  title="Atoms/Logo"
+  argTypes={{
+    logoType: {
+      description: '로고 형태',
+      control: {
+        type: "select",
+        options: [`horizontal`, `vertical`]
+      },
+    },
+    bgMode: {
+      description: '배경색 테마',
+      control: {
+        type: "select",
+        options: [`bright`, `dark`]
+      },
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {Logo},
+  template: `
+    <Logo
+      :logoType="logoType"
+      :bgMode="bgMode"
+    />
+  `,
+});
+
+##  horizontal bright
+
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      logoType : 'horizontal',
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+##  vertical bright
+
+<Canvas>
+  <Story
+    name="vertical"
+    args = {{
+      logoType : 'vertical',
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+##  horizontal dark
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="horizontal dark"
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+    args = {{
+      logoType : 'horizontal',
+      bgMode : 'dark',
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+##  vertical dark
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="vertical dark"
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+    args = {{
+      logoType : 'vertical',
+      bgMode : 'dark',
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

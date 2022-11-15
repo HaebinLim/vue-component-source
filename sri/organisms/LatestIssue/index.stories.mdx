@@ -1,0 +1,152 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import LatestIssue from './index.vue';
+const updateArchive = function ({state}) {
+  const result = {};
+  if (state) {
+    result.archived = true;
+  } else {
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+const listData = [
+  {
+    articleId: `13`,
+    title: `메인 Latest issue1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: true,
+    category: `News`,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+  },
+  {
+    articleId: `14`,
+    title: `메인 Latest issue2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Trends`,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+  },
+  {
+    articleId: `15`,
+    title: `메인 Latest issue3 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    category: `Growth`,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+  }
+];
+
+<Meta
+  title="Organisms/LatestIssue"
+  component={LatestIssue}
+  argTypes={{
+    listData: {
+      description: `API에서 받아온 리스트 데이터`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{articleId, title, image, archived, category, desc}]`,
+        }
+      }
+    }
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  data: () => ({
+    loadedListData: [],
+    defaultOption: {},
+  }),
+  props : Object.keys(argTypes),
+  components:{LatestIssue},
+  template:`
+    <LatestIssue
+      :list-data="loadedListData"
+      :show-more="showMore"
+      :update-archive="updateArchive"
+      @click-more="logClickMore"
+      @changed-archive="logChangedArchive"
+      @change-archive="handleChangeArchive"
+    />`,
+  created() {
+    this.defaultOption = {
+      articleId: ``,
+      title: ``,
+      image: ``,
+      archived: true,
+      category: ``,
+      desc: ``,
+    }
+  },
+  mounted() {
+    this.updateListData(3);
+  },
+  methods : {
+    logClickMore() {
+      action(`click-more`)();
+      this.updateListData(3);
+    },
+    updateListData(count) {
+      return new Promise(resolve => {
+        const skeletonArr = [];
+        for(let i = 0;i < count -1; i++) {
+          skeletonArr[i] = {};
+          for(let key in this.defaultOption) {
+            skeletonArr[i][key] = key === `articleId` ? `skeleton_` + i : this.defaultOption[key];
+          }
+          skeletonArr[i]['isSkeleton'] = true;
+        }
+        this.loadedListData = this.loadedListData.concat(skeletonArr);
+        
+        setTimeout(() => {
+          const origin = this.loadedListData.filter(obj => {
+            return !obj.articleId.includes(`skeleton_`)
+          });
+          const arr = [],
+            d = new Date();
+          for(let i = 0; i < count; i++) {
+            const obj = this.listData[i],
+              item = {};
+            for(let key in obj) {
+              if(key === 'articleId') {
+                item[key] = `${obj[key]}_${d.getTime()}`;
+              } else {
+                item[key] = obj[key];
+              }
+            }
+            arr.push(item);
+          }
+          this.loadedListData = origin.concat(arr);
+          resolve();
+        }, 1000);
+      });
+    },
+    logChangedArchive(state) {
+      action(`state of changed archive : `)(state);
+    },
+    handleChangeArchive(payload) {
+      action(`should to change archive state: `)(payload);
+    }
+  },
+});
+
+## LatestIssue Basic Default
+
+<Canvas>
+  <Story
+    name="basic"
+    args={{
+      showMore: true,
+      listData: listData,
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

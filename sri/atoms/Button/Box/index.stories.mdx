@@ -1,0 +1,878 @@
+import { Meta, Story, Canvas, ArgTables } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import BoxButton from './index.vue';
+import sprites from '~/static/svg/sprites.json';
+
+<Meta
+  title="Atoms/Button/Box"
+  component={BoxButton}
+  argTypes={{
+    type: {
+      description: '`button` 엘리먼트의 `type` 어트리뷰트에 해당',
+      control: {
+        type: 'select',
+        options: [`button`, `reset`, `submit`]
+      },
+      type: {
+        required: true,
+      },
+      table: {
+        type: {
+          summary: `'button' | 'reset' | 'submit'`
+        },
+      },
+    },
+    context: {
+      description: 'display formatting context 결정',
+      control: {
+        type: 'select',
+        options: [`inline`, `block`]
+      },
+      table: {
+        type: {
+          summary: `'inline' | 'block'`
+        },
+      },
+    },
+    disabled: {
+      description: 'HTML `disabled` property 적용 여부',
+    },
+    inactive: {
+      description: '`inactive` 상태. 기본적으로 disabled와 동일하게 기능하며 시각적 표현만 다름',
+    },
+    appearance: {
+      description: '버튼 외형',
+      control: {
+        type: 'select',
+        options: [
+          `basic`,
+          `cancel`,
+          `icon`,
+          `icon-text`,
+          `text-arrow`,
+          `circle`
+        ]
+      },
+      table: {
+        type: {
+          summary: `'basic' | 'cancel' | 'icon' | 'icon-text' | 'text-arrow' | 'circle' `,
+        },
+      },
+    },
+    colorType: {
+      description: '버튼 (아이콘) 색상 타입<br> 미지정 시 black/wite로 적용 됨',
+      options: ["", `grey`],
+      control: {
+        type: `select`,
+        labels: {
+          "": `(black)`,
+          "grey": `grey`
+        }
+      },
+      table: {
+        category: `Props For Icon Button`,
+        type: {
+          summary: `'' | 'grey'`,
+        },
+      },
+    },
+    theme: {
+      description: '버튼이 사용되는 배경 테마<br>* `bright` 적용 시 버튼 자체에 흰 배경색이 적용 됨<br>* `ghost`는 arrow 버튼 전용',
+      control: {
+        type: `select`,
+        options: [
+          `bright`,
+          `dark`,
+          `ghost`,
+        ]
+      },
+      table: {
+        category: `Props For Icon Button`,
+        type: {
+          summary: `'bright' | 'dark' | 'ghost' | null`,
+        },
+        defaultValue: {
+          summary: `null`
+        },
+      },
+    },
+    size: {
+      description: '버튼 사이즈',
+      control: {
+        type: `select`,
+        options: [`small`, `medium`, `large`, `x-large`]
+      },
+      table: {
+        type: {
+          summary: `'small' | 'medium' | 'large' | 'x-large'`,
+        },
+      },
+    },
+    label: {
+      description: '버튼 레이블',
+    },
+    hideLabel: {
+      description: '레이블 시각적 노출 여부, 비노출 설정 시 `aria-label`로 적용 됨',
+    },
+    icon: {
+      description: `SVG 아이콘 이름`,
+      control: {
+        type: `select`,
+        options: sprites[0].symbols
+      },
+      table: {
+        category: `Props For Icon Button`,
+      },
+    },    
+    pressed: {
+      description: '`pressed` 상태. 예를 들어 좋아요를 눌러 놓은 상태를 나타냄',
+      table: {
+        category: `Props For Icon Button`,
+      },
+    },
+    hasAlarm: {
+      description: '새 알람 여부',
+      table: {
+        category: `Props For Icon Button`,
+      },
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  slots: {},
+  components: {BoxButton},
+  template: `
+    <BoxButton
+      :type="type"
+      :disabled="disabled"
+      :inactive="inactive"
+      :context="context"
+      :appearance="appearance"
+      :size="size"
+      :label="label"
+      :hide-label="hideLabel"
+      :icon="icon"
+      :color-type="colorType"
+      :theme="theme"
+      :pressed="pressed"
+      :hasAlarm="hasAlarm"
+      @click="log"
+    />
+  `,
+  methods: {
+    log() {
+      action(`button clicked`)();
+    }
+  }
+});
+
+## Small Type Button (Icon)
+
+왼쪽부터 차례대로 default, disabled, grey type, grey type & disabled
+
+<Canvas>
+  <Story
+    name="small/black"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `small`,
+      icon: `reply`
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="small/black/disabled"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `small`,
+      icon: `reply`,
+      disabled: true,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="small/grey"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `small`,
+      icon: `reply`,
+      colorType: `grey`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="small/grey/disabled"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `small`,
+      icon: `reply`,
+      colorType: `grey`,
+      disabled: true,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+### on Dark Theme
+
+왼쪽부터 차례대로 default, disabled
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="small/black/dark"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `small`,
+      icon: `reply`,
+      theme: `dark`
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="small/black/disabled/dark"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `small`,
+      icon: `reply`,
+      theme: `dark`,
+      disabled: true,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+
+## Medium Type Button (Icon)
+
+왼쪽부터 차례대로 default, disabled, grey type, grey type & disabled
+
+<Canvas>
+  <Story
+    name="medium/black"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `medium`,
+      icon: `reply`
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="medium/black/disabled"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `medium`,
+      icon: `reply`,
+      disabled: true,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="medium/grey"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `medium`,
+      icon: `reply`,
+      colorType: `grey`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="medium/grey/disabled"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `medium`,
+      icon: `reply`,
+      colorType: `grey`,
+      disabled: true,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+### on Dark Theme
+
+왼쪽부터 차례대로 default, disabled
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="medium/black/dark"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `medium`,
+      icon: `reply`,
+      theme: `dark`
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="medium/black/disabled/dark"
+    args = {{
+      appearance: `icon`,
+      label: `레이블`,
+      size: `medium`,
+      icon: `reply`,
+      theme: `dark`,
+      disabled: true,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+## 컨텐츠 담기/빼기 Button
+
+<Canvas>
+  <Story
+    name="content/small/add"
+    args = {{
+      appearance: `icon`,
+      label: `담기`,
+      size: `small`,
+      icon: `contents-add`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="content/small/remove"
+    args = {{
+      appearance: `icon`,
+      label: `빼기`,
+      size: `small`,
+      icon: `contents-remove`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="content/medium/add"
+    args = {{
+      appearance: `icon`,
+      label: `담기`,
+      size: `medium`,
+      icon: `contents-add`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="content/medium/remove"
+    args = {{
+      appearance: `icon`,
+      label: `빼기`,
+      size: `medium`,
+      icon: `contents-remove`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+## Button with Icon & Text
+
+<Canvas>
+  <Story
+    name="with-text/medium"
+    args = {{
+      appearance: `icon-text`,
+      label: `로그인`,
+      size: `medium`,
+      icon: `mypage-default`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+## Button with Alarm
+
+<Canvas>
+  <Story
+    name="with-alram"
+    args = {{
+      appearance: `icon`,
+      label: `홍길동`,
+      size: `medium`,
+      icon: `mypage-default`,
+      hasAlarm: true,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+## Basic Large Type Button 
+
+왼쪽부터 차례대로 default, disabled, inactive
+
+<Canvas>
+  <Story
+    name="basic/large"
+    args = {{
+      appearance: `basic`,
+      label: `레이블`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/large/disabled"
+    args = {{
+      appearance: `basic`,
+      disabled: true,
+      label: `레이블`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/large/inactive"
+    args = {{
+      appearance: `basic`,
+      inactive: true,
+      label: `레이블`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+
+### Block format
+
+위에서부터 차례대로 default, disabled, inactive
+
+<Story
+  name="basic(block)/large"
+  args = {{
+    appearance: `basic`,
+    context: `block`,
+    label: `레이블`,
+    size: `large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+<Story
+  name="basic(block)/large/disabled"
+  args = {{
+    appearance: `basic`,
+    context: `block`,
+    disabled: true,
+    label: `레이블`,
+    size: `large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+<Story
+  name="basic(block)/large/inactive"
+  args = {{
+    appearance: `basic`,
+    context: `block`,
+    inactive: true,
+    label: `레이블`,
+    size: `large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+## Cacnel Large Type Button 
+
+왼쪽부터 차례대로 default, disabled, inactive
+
+<Canvas>
+  <Story
+    name="cancel/large"
+    args = {{
+      appearance: `cancel`,
+      label: `레이블`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="cancel/large/disabled"
+    args = {{
+      appearance: `cancel`,
+      disabled: true,
+      label: `레이블`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="cancel/large/inactive"
+    args = {{
+      appearance: `cancel`,
+      inactive: true,
+      label: `레이블`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+
+### Block format
+
+위에서부터 차례대로 default, disabled, inactive
+
+<Story
+  name="cancel(block)/large"
+  args = {{
+    appearance: `cancel`,
+    context: `block`,
+    label: `레이블`,
+    size: `large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+<Story
+  name="cancel(block)/large/disabled"
+  args = {{
+    appearance: `cancel`,
+    context: `block`,
+    disabled: true,
+    label: `레이블`,
+    size: `large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+<Story
+  name="cancel(block)/large/inactive"
+  args = {{
+    appearance: `cancel`,
+    context: `block`,
+    inactive: true,
+    label: `레이블`,
+    size: `large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+## Basic X-Large Type Button 
+
+왼쪽에서부터 차례대로 default, disabled, inactive
+
+<Canvas>
+  <Story
+    name="basic/x-large"
+    args = {{
+      appearance: `basic`,
+      label: `레이블`,
+      size: `x-large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/x-large/disabled"
+    args = {{
+      appearance: `basic`,
+      label: `레이블`,      
+      disabled: true,
+      size: `x-large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="basic/x-large/inactive"
+    args = {{
+      appearance: `basic`,
+      inactive: true,
+      label: `레이블`,
+      size: `x-large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+### Block format
+
+위에서부터 차례대로 default, disabled, inactive
+
+<Story
+  name="basic(block)/x-large"
+  args = {{
+    appearance: `basic`,
+    context: `block`,
+    label: `레이블`,
+    size: `x-large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+<Story
+  name="basic(block)/x-large/disabled"
+  args = {{
+    appearance: `basic`,
+    context: `block`,
+    label: `레이블`,      
+    disabled: true,
+    size: `x-large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+<Story
+  name="basic(block)/x-large/inactive"
+  args = {{
+    appearance: `basic`,
+    context: `block`,
+    inactive: true,
+    label: `레이블`,
+    size: `x-large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+
+## Cancel X-Large Type Button 
+
+왼쪽에서부터 차례대로 default, disabled, inactive
+
+<Canvas>
+  <Story
+    name="cancel/x-large"
+    args = {{
+      appearance: `cancel`,
+      label: `레이블`,
+      size: `x-large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="cancel/x-large/disabled"
+    args = {{
+      appearance: `cancel`,
+      disabled: true,
+      label: `레이블`,
+      size: `x-large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="cancel/x-large/inactive"
+    args = {{
+      appearance: `cancel`,
+      inactive: true,
+      label: `레이블`,
+      size: `x-large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+### Block format
+
+위에서부터 차례대로 default, disabled, inactive
+
+<Story
+  name="cancel(block)/x-large"
+  args = {{
+    appearance: `cancel`,
+    context: `block`,
+    label: `레이블`,
+    size: `x-large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+<Story
+  name="cancel(block)/x-large/disabled"
+  args = {{
+    appearance: `cancel`,
+    context: `block`,
+    disabled: true,
+    label: `레이블`,
+    size: `x-large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+<Story
+  name="cancel(block)/x-large/inactive"
+  args = {{
+    appearance: `cancel`,
+    context: `block`,
+    inactive: true,
+    label: `레이블`,
+    size: `x-large`,
+  }}
+  inline={false}
+>
+  { Template.bind({})}
+</Story>
+
+## Animation Arrow Button 
+
+<Canvas>
+  <Story
+    name="arrow"
+    args = {{
+      appearance: `text-arrow`,
+      label: `레이블`,
+      size: `large`,
+      theme: `bright`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+### Ghost Type
+
+<Canvas>
+  <Story
+    name="arrow/ghost"
+    args = {{
+      appearance: `text-arrow`,
+      label: `레이블`,
+      theme: `ghost`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>
+
+## Circled Button
+
+<Canvas>
+  <Story
+    name="circle/top"
+    args = {{
+      appearance: `circle`,
+      label: `Go top`,
+      icon: `top`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="circle/twitter"
+    args = {{
+      appearance: `circle`,
+      label: `twitter`,
+      icon: `sns-twitter`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="circle/linked-in"
+    args = {{
+      appearance: `circle`,
+      label: `linked-in`,
+      icon: `linkedin`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="circle/kakao-talk"
+    args = {{
+      appearance: `circle`,
+      label: `kakao talk`,
+      icon: `katalk`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="circle/kakao-story"
+    args = {{
+      appearance: `circle`,
+      label: `kakao story`,
+      icon: `kakaostory`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="circle/naver-post"
+    args = {{
+      appearance: `circle`,
+      label: `naver post`,
+      icon: `naverpost`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+  <Story
+    name="circle/naver-blog"
+    args = {{
+      appearance: `circle`,
+      label: `naver blog`,
+      icon: `naverblog`,
+      size: `large`,
+    }}
+  >
+    { Template.bind({})}
+  </Story>
+</Canvas>

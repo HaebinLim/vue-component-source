@@ -1,0 +1,21 @@
+.recruit__banner {
+  $parent: &;
+  &-enter-active,
+  &-leave-active {
+    transition: transform 1s;
+  }
+
+  &-enter {
+    transform: translateY(56px);
+    @include respond-to('pc') {
+      transform: translateY(28px);
+    }
+  }
+  &-leave-to {
+    transform: translateY(-56px);
+    @include respond-to('pc') {
+      transform: translateY(-28px);
+    }
+  }
+}
+

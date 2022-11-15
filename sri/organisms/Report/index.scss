@@ -1,0 +1,49 @@
+.report {
+  padding: 30px 20px 0;
+  width: 300px;
+
+  @include respond-to('pc') {
+    padding: 40px 40px 0;
+    width: 500px;
+  }
+
+  &__heading {
+    margin-bottom: 20px;
+    @include font('s-kr-title-b-26');
+
+    @include respond-to('pc') {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__field {
+    &:not(&--last) {
+      margin-bottom: 30px;
+      @include respond-to('pc') {
+        margin-bottom: 40px;
+      }
+    }
+    &--last {
+      margin-bottom: 9px;
+      @include respond-to('pc') {
+        margin-bottom: 17px;
+      }
+    }
+  }
+
+  &__controls {
+    margin: 0 -20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    @include respond-to('pc') {
+      margin: 0 -40px;
+    }
+  }
+
+  &__btn {
+    @include font('btn-b-18');
+  }
+}

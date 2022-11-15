@@ -1,0 +1,11 @@
+.people-report {
+  @include top-space;
+  @include bottom-space;
+  &__title {
+    margin-bottom: 30px;
+    @include font('l-en-title-m-60');
+    @include respond-to('tablet') {
+      margin-bottom: 50px;
+    }
+  }
+}

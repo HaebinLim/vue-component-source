@@ -1,0 +1,194 @@
+.uptdate-profile {
+  $parent: &;
+  @include top-space;
+  @include bottom-space;
+  @include respond-to('pc') {
+    max-width: 640px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &__title-wrap {
+    margin-bottom: 80px;
+    @include respond-to('pc') {
+      margin-bottom: 120px;
+    }
+    #{$parent}__title {
+      @include font('s-kr-title-b-40');
+      &__sub {
+        margin-top: 10px;
+        @include font('s-kr-body-r-14');
+        @include respond-to('pc') {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+  &__form {
+    #{$parent}__item {
+      &:first-child {
+        margin-bottom: 60px;
+        @include respond-to('pc') {
+          margin-bottom: 80px;
+        }
+      }
+      &--btn-wrap {
+        display: grid;
+        grid-template-columns: 1fr 100px;
+        grid-template-areas: "input btn" "sub sub";
+        align-items: start;
+        gap: 10px;
+        @include respond-to('pc') {
+          grid-template-columns: 1fr 145px;
+          gap: 20px;
+        }
+        #{$parent}__input-txt {
+          grid-area: input;
+        }
+        #{$parent}__input-btn {
+          grid-area: btn;
+          margin-top: 28px;
+          @include font('btn-b-18');
+          @include respond-to('tablet') {
+            margin-top: 43px;
+          }
+          @include respond-to('pc') {
+            margin-top: 36px;
+          }
+        }
+      }
+      &+#{$parent}__item {
+        margin-top: 40px;
+      }
+      &__subtxt {
+        grid-area: sub;
+        margin-top: 10px;
+        padding-left: 20px;
+        @include font('kr-body-r-14');
+
+        & > li {
+          color: get-color('grey/030');
+          &::marker {font-size: 0.5em;}
+        }
+      }
+
+      &--company {
+        position: relative;
+        #{$parent}__input-btn {
+          position: static;
+          &::before {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            max-width: 640px;
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            opacity: .5;
+            content: "";
+            @include respond-to('pc') {
+              bottom: 20px;
+              height: 60px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  &__agreement {
+    margin-top: 60px;
+    @include attention-box;
+    @include respond-to('pc') {
+      margin-top: 80px;
+    }
+
+    &__tit {
+      display: flex;
+      align-items: center;
+      @include font('title-b-32');
+      &:not(:first-child) {
+        margin-top: 80px;
+      }
+    }
+
+    &__required {
+      margin-left: 10px;
+      color: get-color('grey/050');
+      @include font('body-r-14');
+    }
+
+    &__desc {
+      margin-top: 20px;
+      @include font('body-r-14');
+    }
+
+    &__items {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      gap: 20px 0;
+      @include respond-to('pc') {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 360px;
+      }
+    }
+  }
+
+  &__submit {
+    margin: 80px auto 0;
+    @include font('title-b-24');
+  }
+}
+.search {
+  padding: 40px;
+  width: 500px;
+  height: 680px;
+
+  [role="option"] {
+    padding: 20px 0;
+    border-top: 1px solid get-color('grey/070');
+    &:first-of-type {
+      margin-top: 20px;
+      border-top: 0;
+    }
+  }
+
+  &__result {
+    &__title {
+      color: get-color('grey/050');
+      @include font('title-b-24');
+      >span {
+        color: get-color('blue/070');
+      }
+      [aria-selected="true"] &,
+      [role="option"]:hover & {
+        color: get-color('grey/100');
+      }
+    }
+    &__address {
+      margin-top: 5px;
+      color: get-color('grey/050');
+      @include font('subtitle-b-14');
+      [aria-selected="true"] &,
+      [role="option"]:hover & {
+        color: get-color('grey/100');
+      }
+    }
+  }
+
+  &__no-result{
+    color: get-color('grey/100');
+    @include font('title-b-24');
+    &__keyword {
+      color: get-color('blue/070');
+    }
+    &__text {
+      margin-top: 10px;
+      color: get-color('grey/100');
+      @include font('subtitle-b-14');
+    }
+  }
+}

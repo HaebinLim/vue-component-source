@@ -1,0 +1,157 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { portalPlayGround } from "@/storybook/decorators.js";
+import UpdateProfile from './index';
+const successCase = (nickname) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({ nickname : nickname,
+        duplicated : false});
+    }, 600);
+  });
+};
+const duplicateCase = (nickname) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({ nickname : nickname,
+        duplicated: true});
+    }, 600);
+  });
+};
+const getList = () => {
+  return new Promise((resolve) => {
+    const list = [
+      {
+        id: 1234,
+        label: `사람인HR사람인HR사람인HR사람인HR사람인HR사람인HR사람인HR사람인HR사람인HR사람인HR사람인HR사람인HR`,
+        address: `서울 구로`
+      },
+      {
+        id: 2345,
+        label: `SK 11번가`,
+        address: `서울 중구`
+      },
+      {
+        id: 3456,
+        label: `SSG.com`,
+        address: `서울 종로구`
+      },
+      {
+        id: 4567,
+        label: `원티드`,
+        address: `서울 송파구`
+      },
+      {
+        id: 1234,
+        label: `사람인HR`,
+        address: `서울 구로`
+      },
+      {
+        id: 2345,
+        label: `SK 11번가`,
+        address: `서울 중구`
+      },
+      {
+        id: 3456,
+        label: `SSG.com`,
+        address: `서울 종로구`
+      },
+      {
+        id: 4567,
+        label: `원티드`,
+        address: `서울 송파구`
+      }
+    ];
+    setTimeout(() => {
+      resolve(list);
+    }, 600);
+  });
+};
+const noResult = () => {
+  return new Promise((resolve) => {
+    const list = [];
+    setTimeout(() => {
+      resolve(list);
+    }, 600);
+  });
+};
+
+
+<Meta
+  title="Templates/UpdateProfile"
+  component={UpdateProfile}
+  argTypes={{
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {UpdateProfile},
+  template: `
+    <UpdateProfile
+      :is-edit-mode="isEditMode"
+      :user-nick-name="userNickName"
+      :job-status="jobStatus"
+      :company-name="companyName"
+      :job-category="jobCategory"
+      :job-position="jobPosition" 
+      :agree-send-email="agreeSendEmail" 
+      :agree-send-sms="agreeSendSms"
+      :duplicate-check-api="duplicateCheckApi"
+      :company-list-api="companyListApi"
+      @update="logUpdate"
+    />
+  `,
+  methods : {
+    logUpdate(payload) {
+      action(`update`)(payload);
+    },
+  },
+});
+
+## UpdateProfile
+
+<Canvas>
+  <Story
+    name="프로필 입력 - 중복o/검색x"
+    components={UpdateProfile}
+    decorators={[portalPlayGround]}
+    args = {{
+      duplicateCheckApi: duplicateCase,
+      companyListApi : noResult,
+    }}
+    parameters={{
+      layout: `fullscreen`,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="프로필 수정 - 중복x/검색o"
+    components={UpdateProfile}
+    decorators={[portalPlayGround]}
+    args = {{
+      isEditMode: true,
+      userNickName: `아아아`,
+      jobStatus: `s-work`,
+      companyName: ``,
+      jobCategory: ``,
+      jobPosition: ``,
+      agreeSendEmail: false,
+      agreeSendSms: true,
+      duplicateCheckApi: successCase,
+      companyListApi: getList,
+    }}
+    parameters={{
+      layout: `fullscreen`,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+

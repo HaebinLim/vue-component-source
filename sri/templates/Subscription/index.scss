@@ -1,0 +1,64 @@
+.subscribe {
+  max-width: 640px;
+  margin: 0 auto;
+  color: get-color('grey/100');
+
+  &__wrapper {
+    @include top-space;
+    @include bottom-space;
+
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+
+    &::before {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      z-index: -1;
+      content: '';
+      width: 600px;
+      height: 480px;
+      border-radius: 300px 300px 0 0;
+      transform: translate(-50%, 0);
+      background: radial-gradient(circle, white 0%, rgba(255, 255, 255, 0) 100%), rgba(3, 23, 41, 0.05);
+
+      @include respond-to('tablet') {
+        width: 1024px;
+        height: 674px;
+        transform: translate(-50%, 15%);
+        border-radius: 512px 512px 0 0;
+      }
+      @include respond-to('pc') {
+        width: 1440px;
+        height: 720px;
+        border-radius: 720px 720px 0 0;
+      }
+    }
+  }
+
+  &__heading {
+    margin-bottom: 10px;
+    max-width: 330px;
+    word-break: keep-all;
+    @include font('title-b-60');
+
+    @include respond-to('tablet') {
+      margin-bottom: 20px;
+      max-width: 520px;
+    }
+  }
+
+  &__desc {
+    margin-bottom: 80px;
+    @include font('body-r-16');
+
+    @include respond-to('tablet') {
+      margin-bottom: 120px;
+    }
+  }
+
+  &__link {
+    @include font('title-b-24');
+  }
+}

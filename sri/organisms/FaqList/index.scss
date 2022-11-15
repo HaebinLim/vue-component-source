@@ -1,0 +1,87 @@
+.faq {
+  $parent: &;
+
+  margin: 0 auto;
+  padding-left: $mobile-space;
+  padding-right: $mobile-space;
+  max-width: 640px;
+  @include top-space;
+  @include bottom-space;
+  @include respond-to('pc') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  &__header {
+    position: relative;
+    &__title {
+      @include font('title-b-60');
+    }
+    &__text {
+      margin: 10px 0 32px;
+      @include font('l-kr-body-r-16');
+      @include respond-to('pc') {
+        margin: 20px 0 0;
+      }
+    }
+    &__link {
+      position: static;
+      @include font('l-en-btn-r-18');
+      @include respond-to('pc') {
+        position: absolute;
+        right: 0;
+        bottom: 6px;
+      }
+    }
+  }
+  &__list {
+    margin: 80px 0 40px;
+    @include respond-to('pc') {
+      margin-top: 120px;
+    }
+    #{$parent}__item {
+      border-top: 1px solid get-color('grey/030');
+      &--expanded {
+        #{$parent}__arrow {
+          display: none;
+        }
+      }
+    }
+  }
+  &__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 30px 0;
+    @include respond-to('pc') {
+      gap: 40px;
+      padding: 40px 0;
+    }
+  }
+  &__title {
+    @include font('l-kr-subtitle-b-18');
+  }
+  &__arrow {
+    display: inline-flex;
+    align-items: center;
+    &::before {
+      margin-right: -3px;
+      width: 29px;
+      height: 1px;
+      background-color: currentColor;
+      content: "";
+      @include respond-to('pc') {
+        width: 59px;
+      }
+    }
+  }
+  &__answer {
+    padding-bottom: 80px;
+    @include respond-to('pc') {
+      padding-bottom: 100px;
+    }
+    .article {
+      @include article-content;
+    }
+  }
+}

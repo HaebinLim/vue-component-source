@@ -1,0 +1,52 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import InputFile from './index';
+import { action } from '@storybook/addon-actions';
+
+<Meta
+  title="Atoms/InputFile"
+  component={InputFile}
+  argTypes={{
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {InputFile},
+  template: `
+    <InputFile 
+      :disabled="disabled"
+      @change="handleChange"
+    />
+  `,
+  methods: {
+    handleChange(payload) {
+      console.log(payload);
+      action(`file changed (자세한 정보는 console 참고)`)(payload);
+    }
+  }
+});
+
+## 기본
+
+<Canvas>
+  <Story
+    name="default"
+    args = {{}}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 비활성
+
+<Canvas>
+  <Story
+    name="disabled"
+    args = {{
+      disabled: true
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

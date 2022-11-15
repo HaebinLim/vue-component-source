@@ -1,0 +1,67 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Header from './index';
+import { portalPanelPlayGround } from "@/storybook/decorators.js";
+
+<Meta
+  title="Organisms/Header"
+  decorators={[portalPanelPlayGround]}
+  parameters={{layout: `fullscreen`}}
+  component={Header}
+  argTypes={{
+    theme: {
+      control: {
+        type: `select`,
+        options: [`bright`, `dark`]
+      }
+    },
+    links: {
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{url, title, isExternal}]`,
+        }
+      },
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {Header},
+  template: `
+    <Header
+      :theme="theme"
+      :is-logged-in="isLoggedIn"
+      :has-alarm="hasAlarm"
+      :links="links"
+    />
+  `,
+});
+
+## Bright mode
+<Canvas>
+  <Story
+    name="bright"
+    args = {{}}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## Dark mode
+<Canvas className="{theme-dark}">
+  <Story
+    name="dark"
+    args = {{
+      theme: `dark`
+    }}
+    parameters={{
+      backgrounds: {
+        default: `dark`
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

@@ -1,0 +1,98 @@
+.selectbox {
+  $parent: &;
+
+  display: flex;
+  flex-flow: column;
+  color: get-color('grey/100');
+
+  &__wrap {
+    position: relative;
+  }
+  &:not(#{$parent}--large) {
+    #{$parent}__label {
+      @include sr-only;
+    }
+  }
+  &.--disabled {
+    color: get-color('grey/030');
+  }
+  &__select {
+    appearance: none;
+    color: inherit;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    width: 100%;
+    background-color: transparent;
+    padding: 7px 24px 7px 0;
+    @include font('body-r-14');
+    @include respond-to('pc') {
+      padding: 3px 24px 3px 0;
+    }
+
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+      color: get-color('grey/100');
+      border-bottom-color: get-color('grey/100');
+    }
+    &:hover:not(:disabled) + #{$parent}__icon,
+    &:focus:not(:disabled) + #{$parent}__icon {
+      color: get-color('grey/100');
+    }
+  }
+  &__icon {
+    position: absolute;
+    bottom: 4px;
+    right: 0;
+    pointer-events: none;
+  }
+  &--inline {
+    display: inline-flex;
+    vertical-align: text-bottom;
+  }
+  &--large {
+    color: get-color('grey/030');
+    &.--selected {
+      color: get-color('grey/100');
+    }
+    &.--disabled {
+      #{$parent}__label {
+        color: get-color('grey/030');
+      }
+      #{$parent}__select {
+        color: get-color('grey/010');
+        border-bottom-color: get-color('grey/020');
+      }
+      #{$parent}__icon {
+        color: get-color('grey/020');
+      }
+    }
+
+
+    #{$parent}__select {
+      border-bottom: 1px solid;
+      padding: 10px 24px 5px 0;
+      @include font('title-b-24');
+      @include respond-to('pc') {
+        padding: 10px 32px 10px 0;
+      }
+    }
+    #{$parent}__label {
+      margin-bottom: 10px;
+      color: get-color('grey/100');
+      @include font('subtitle-b-14');
+      &--hide {
+        @include sr-only;
+      }
+    }
+    #{$parent}__icon {
+      bottom: 9px;
+      @include respond-to('pc') {
+        bottom: 12px;
+        width: 32px;
+        height: 32px;
+      }
+
+    }
+
+  }
+}

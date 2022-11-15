@@ -1,0 +1,439 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { portalPlayGround } from "@/storybook/decorators.js";
+import { action } from '@storybook/addon-actions';
+import Reply from './index';
+const repliesData = {
+  totalCount: 20,
+  currentPage: 1,
+  lastPage: 2,
+  order: `recently`,
+  best: [
+    {
+        id: 123,
+        authorId: 789,
+        authorName: `홍길동`,
+        likes: 10,
+        dislikes: 10,
+        liked: false,
+        disliked: false,
+        content: `베스트 댓글 1`,
+        isModified: false,
+        lastModified: `2021 12.03 00:58`,
+        mentionId: ``,
+        mentionName: ``,
+        cutId: ``,
+        cutPage: 0,
+        rank: 1,
+        isSub: false,
+    },
+    {
+        id: 133,
+        authorId: 7890,
+        authorName: `강림`,
+        likes: 150,
+        dislikes: 10,
+        liked: true,
+        disliked: false,
+        content: `베스트 댓글 2`,
+        isModified: false,
+        lastModified: `2021 12.04 00:58`,
+        mentionId: ``,
+        mentionName: ``,
+        cutId: ``,
+        cutPage: 0,
+        rank: 2,
+        isSub: false,
+    },
+    {
+        id: 143,
+        authorId: 7879,
+        authorName: `전우치`,
+        likes: 5,
+        dislikes: 150,
+        liked: false,
+        disliked: true,
+        content: `베스트 댓글 3`,
+        isModified: false,
+        lastModified: `2021 12.05 00:58`,
+        mentionId: ``,
+        mentionName: ``,
+        cutId: ``,
+        cutPage: 0,
+        rank: 3,
+        isSub: false,
+    }
+  ],
+  list: [
+    {
+        id: 123,
+        authorId: 789,
+        authorName: `홍길동`,
+        likes: 10,
+        dislikes: 10,
+        liked: false,
+        disliked: false,
+        content: `그냥 댓글 데이터 만들기 힘들엉`,
+        isModified: false,
+        lastModified: `2021 12.03 00:58`,
+        mentionId: ``,
+        mentionName: ``,
+        deleted: `user`,
+        cutId: ``,
+        cutPage: 0,
+        rank: 1,
+        isSub: false,
+    },
+    {
+        id: 1234,
+        authorId: 456,
+        authorName: `배추도사`,
+        likes: 10,
+        dislikes: 10,
+        liked: false,
+        disliked: false,
+        content: `댓글 데이터 만들기 힘들엉`,
+        isModified: false,
+        lastModified: `2021 12.03 00:58`,
+        mentionId: ``,
+        mentionName: ``,
+        cutId: ``,
+        cutPage: 0,
+        isSub: false,
+    },
+    {
+        id: 12344,
+        authorId: 4567,
+        authorName: `무도사`,
+        likes: 10,
+        dislikes: 10,
+        liked: false,
+        disliked: false,
+        content: `댓글 데이터 만들기 힘들다고 수정해쪙`,
+        isModified: true,
+        lastModified: `2021 12.01 00:58`,
+        mentionId: 456,
+        mentionName: `배추도사`,
+        deleted: `admin`,
+        cutId: ``,
+        cutPage: 0,
+        isSub: true,
+    },
+    {
+        id: 123484,
+        authorId: 41567,
+        authorName: `머털도사`,
+        likes: 10,
+        dislikes: 10,
+        liked: false,
+        disliked: false,
+        content: `여기가 아닌가벼`,
+        isModified: true,
+        lastModified: `2021 12.01 00:58`,
+        mentionId: 456,
+        mentionName: `배추도사`,
+        cutId: ``,
+        cutPage: 0,
+        isSub: true,
+    },
+    {
+        id: 12349,
+        authorId: 7193,
+        authorName: `은비`,
+        likes: 10,
+        dislikes: 10,
+        liked: false,
+        disliked: false,
+        content: `댓글 데이터 `,
+        isModified: true,
+        lastModified: `2021 11.01 00:58`,
+        mentionId: ``,
+        mentionName: ``,
+        cutId: ``,
+        cutPage: 0,
+        isSub: false,
+    },
+  ],
+};
+const updateLike = function ({id, state}) {
+  // 임시로 기존 값 기준 좋아요 설정/해제 계산 결과 반환
+  const { repLikes: likes, repDislikes: dislikes, repLiked: liked, repDisliked: disliked } = this;
+  const result = {};
+  if (state) {
+    result.likes = likes + 1;
+    result.liked = true;
+    result.dislikes = disliked ? dislikes - 1 : dislikes;
+    result.disliked = false;
+  } else {
+    result.likes = likes - 1;
+    result.liked = false;
+    result.dislikes = dislikes;
+    result.disliked = disliked;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+const updateDislike = function ({id, state}) {
+  // 임시로 기존 값 기준 싫어요 설정/해제 계산 결과 반환
+  const { repLikes: likes, repDislikes: dislikes, repLiked: liked, repDisliked: disliked } = this;
+  const result = {};
+  if (state) {
+    result.likes = liked ? likes - 1: likes ;
+    result.liked = false;
+    result.dislikes = dislikes + 1 ;
+    result.disliked = true;
+  } else {
+    result.likes = likes;
+    result.liked = false;
+    result.dislikes = dislikes - 1 ;
+    result.disliked = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+const createReply = function ({content, mentionId}) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve({content, mentionId}), 600);
+  });
+};
+const updateReply = function ({id, content}) {
+  return new Promise(resolve => {
+    setTimeout(
+      () => resolve(
+        {
+          content,
+          isModified: true,
+          lastModified: new Date().toLocaleString()
+        }
+      )
+      , 600
+    );
+  });
+};
+const submitReport = function ({type, resolve, user}) {
+  return new Promise(resolve => {
+    setTimeout(resolve(true), 600)
+  });
+};
+const getAuthorProfile = function(authorId) {
+  // 실패시에는 FAIL_AUTHOR_PROFILE 를 오류 메세지로 reject
+  return new Promise(resolve => {
+    setTimeout(resolve({
+      name: `홍길동`,
+      totalReplies: 99,
+      removedReplies: 2,
+      deleteReplies: 1,
+    }), 600)
+  });
+}
+
+<Meta
+  title="Organisms/Reply"
+  decorators={[portalPlayGround]}
+  parameters={{
+    layout: `fullscreen`,
+    backgrounds: {
+      default: `skyblue`
+    }
+  }}
+  component={Reply}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {Reply},
+  template: `
+    <Reply
+      :best-replies="bestReplies"
+      :replies="replies"
+      :total-count="totalCount"
+      :curr-page="currPage"
+      :total-page="totalPage"
+      :user-id="userId"
+      :user-name="userName"
+      :in-cut="inCut"
+      :sort="sort"
+      :heading-rank="headingRank"
+      :heading-title="headingTitle"
+      :update-like="updateLike"
+      :update-dislike="updateDislike"
+      :create-reply="createReply"
+      :update-reply="updateReply"
+      :page-param-type="pageParamType"
+      :page-param-name="pageParamName"
+      :router-path="routerPath"
+      :router-query="routerQuery"
+      :submit-report="submitReport"
+      :get-author-profile="getAuthorProfile"
+      @change-sort="handleChangeSort"
+      @click-delete="handleDelete"
+      @click-origin="handleClickOrigon"
+      @created-reply="handleCreatedReply"
+      @fail-modify="handleFailModify"
+      @fail-reply="handleFailReply"
+    />
+  `,
+  methods: {
+    handleChangeSort(sort) {
+      action(`다음 값을 가지고 API 재호출 및 데이터 업데이트: `)(sort);
+    },
+    handleDelete(id) {
+      action(`댓글 삭제`)(id);
+    },
+    handleClickOrigon(id) {
+      action(`댓글 원문 이동`)(id);
+    },
+    handleCreatedReply() {
+      action(`댓글 작성 됨, 갱신 해 줄 것`)();
+    },
+    handleFailModify() {
+      action(`댓글 수정 실패`)();
+    },
+    handleFailReply() {
+      action(`댓글 작성 실패`)();
+    },
+  },
+});
+
+
+## Normal
+
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      bestReplies: repliesData.best,
+      replies: repliesData.list,
+      totalCount: repliesData.totalCount,
+      currPage: repliesData.currentPage,
+      totalPage: repliesData.lastPage,
+      updateLike,
+      updateDislike,
+      createReply,
+      updateReply,
+      submitReport,
+      getAuthorProfile,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## No Best 
+
+<Canvas>
+  <Story
+    name="no-best"
+    args = {{
+      bestReplies: [],
+      replies: repliesData.list,
+      totalCount: repliesData.totalCount,
+      currPage: repliesData.currentPage,
+      totalPage: repliesData.lastPage,
+      updateLike,
+      updateDislike,
+      createReply,
+      updateReply,
+      submitReport,
+      getAuthorProfile,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## No Replies 
+
+<Canvas>
+  <Story
+    name="no-replies"
+    args = {{
+      bestReplies: [],
+      replies: [],
+      totalCount: 0,
+      currPage: 1,
+      totalPage: 0,
+      updateLike,
+      updateDislike,
+      createReply,
+      updateReply,
+      submitReport,
+      getAuthorProfile,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## Logged In
+
+<Canvas>
+  <Story
+    name="logged-in"
+    args = {{
+      bestReplies: repliesData.best,
+      replies: repliesData.list,
+      totalCount: repliesData.totalCount,
+      currPage: repliesData.currentPage,
+      totalPage: repliesData.lastPage,
+      userId: 789,
+      userName: `홍길동`,
+      updateLike,
+      updateDislike,
+      createReply,
+      updateReply,
+      submitReport,
+      getAuthorProfile,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## 컷당 댓글
+
+테스트 편의 상, 컨테이너의 높이를 600px로 제한해두었습니다.   
+실제 구현 시에는 부모 컨테이너에서 높이를 고정시켜주면 됩니다. (%를 제외하고 사용)
+
+<Canvas>
+  <Story
+    name="cut-specific"
+    parameters={{
+      backgrounds: {
+        default: `skyblue`
+      }
+    }}
+    decorators={[
+      story => (
+        {
+          template: `<div style="height: 600px"><story /></div>`,
+        }
+      )
+    ]}
+    args = {{
+      inCut: true,
+      bestReplies: repliesData.best,
+      replies: repliesData.list,
+      totalCount: repliesData.totalCount,
+      currPage: repliesData.currentPage,
+      totalPage: repliesData.lastPage,
+      userId: 789,
+      userName: `홍길동`,
+      updateLike,
+      updateDislike,
+      createReply,
+      updateReply,
+      submitReport,
+      getAuthorProfile,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

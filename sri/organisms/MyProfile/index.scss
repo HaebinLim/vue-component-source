@@ -1,0 +1,136 @@
+.my-profile {
+  $parent: &;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 80px 15px;
+  @include respond-to('pc') {
+    padding: 130px 70px 80px;
+  }
+  &__panel {
+    width: 100%;
+    @include respond-to('pc') {
+      width: 560px;
+    }
+  }
+
+  &__info {
+    flex: 0 0 auto;
+  }
+  &__title {
+    margin-bottom: 30px;
+    color: get-color('blue/070');
+    @include font('l-en-subtitle-m-18');
+    @include respond-to('pc') {
+      margin-bottom: 40px;
+    }
+    #{$parent}__name {
+      display: block;
+      margin-top: 10px;
+      color: get-color('grey/100');
+      @include font('s-kr-title-b-26');
+      @include respond-to('pc') {
+        margin-top: 20px;
+      }
+    }
+  }
+  &__link {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid get-color('grey/030');
+    padding: 20px 0;
+    @include respond-to('pc') {
+      padding: 25px 0;
+    }
+    &__inner {
+      display: contents;
+    }
+    &__subject {
+      flex: 1 0 50%;
+      @include font('s-kr-subtitle-b-15');
+      &--new {
+        overflow: hidden;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        clip: rect(1px, 1px, 1px, 1px);
+      }
+    }
+    &__value {
+      position: relative;
+      @include font('s-kr-subtitle-r-18');
+      &--new {
+        padding-right: 3px;
+        &::after {
+          width: 3px;
+          height: 3px;
+          top: 0;
+          right: 0;
+          position: absolute;
+          border-radius: 50%;
+          content: "";
+          background-color: get-color('blue/070');
+          @include respond-to('pc') {
+            width: 4px;
+            height: 4px;
+          }
+        }
+        @include respond-to('pc') {
+          padding-right: 4px;
+        }
+      }
+    }
+    .reply__list {
+      display: flex;
+      flex: 1 0 50%;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 0;
+      &__tit {
+        flex: 50% 1;
+        @include font('subtitle-b-14');
+        &:not(:first-of-type) {
+          margin-top: 5px;
+        }
+      }
+      &__data {
+        margin: 0;
+        @include font('body-r-14');
+        &:not(:first-of-type) {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+  &__utils {
+    flex: 0 0 auto;
+    margin-top: auto;
+    display: flex;
+    gap: 0 10px;
+    justify-content: flex-start;
+    align-items: center;
+    @include respond-to('pc') {
+      gap: 0 20px;
+    }
+    &__link {
+      flex: 0 0 auto;
+      @include font('s-kr-btn-b-11');
+    }
+    &__logout {
+      flex: 0 0 auto;
+      margin-left: auto;
+      @include font('s-kr-btn-r-11');
+    }
+  }
+  &__close {
+    position: absolute;
+    top: 26px;
+    right: 18px;
+    @include respond-to('pc') {
+      top: 38px;
+      right: 74px;
+    }
+  }
+}

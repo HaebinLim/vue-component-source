@@ -1,0 +1,69 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import RecruitBanner from './index';
+
+<Meta
+  title="Organisms/RecruitBanner"
+  component={RecruitBanner}
+  argTypes={{
+    bannerData: {
+      description: `API에서 받아온 배너 데이터`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{title, url}]`,
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {RecruitBanner},
+  template: `
+    <RecruitBanner
+      :banner-title="bannerTitle"
+      :banner-link-text="bannerLinkText"      
+      :banner-data="bannerData"
+      :duration="duration"
+    />
+  `,
+  methods : {
+  },
+});
+
+## ItemCard Basic
+
+<Canvas>
+  <Story
+    name="basic"
+    components={RecruitBanner}
+    args = {{
+      bannerTitle: `채용공고`,
+      bannerLinkText: `채용공고 자세히 보기`,
+      duration: 3000,
+      bannerData: [
+        {
+          title: `일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오`,
+          url: `/aaa1`,
+        },
+        {
+          title: `일이삼사오륙칠팔구십일이삼사오륙칠팔구십`,
+          url: `/aaa2`,
+        },
+        {
+          title: `일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십`,
+          url: `/aaa3`,
+        },
+        {
+          title: `일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십일이삼사오륙칠팔구십`,
+          url: `/aaa4`,
+        },
+      ]
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

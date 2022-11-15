@@ -1,0 +1,53 @@
+.footer {
+  $parent: &;
+
+  display: flex;
+  flex-flow: column;
+
+  @include respond-to('pc') {
+    flex-flow: row;
+    justify-content: space-between;
+  }
+  &__tagline {
+    color: #fff;
+    @include font('title-b-32');
+  }
+  &__links {
+    margin-top: 90px;
+    @include respond-to('tablet') {
+      margin-top: 80px;
+    }
+    @include respond-to('pc') {
+      margin-top: 0;
+    }
+    #{$parent}__link--newsletter {
+      @include font('btn-b-14');
+    }
+    #{$parent}__sns {
+      display: flex;
+      justify-content: space-between;
+      width: 126px;
+      margin: 18px 0 0 4px;
+
+      @include respond-to('tablet') {
+        width: 158px;
+      }
+      @include respond-to('pc') {
+        margin-top: 23px;
+      }
+      #{$parent}__link--sns {
+        display: inline-flex;
+        color: #fff;
+
+        .icon__sns {
+          color: #fff;
+          @include respond-to('tablet') {
+            width: 24px;
+            height: 24px;
+          }
+        }
+      }
+
+    }
+  }
+}

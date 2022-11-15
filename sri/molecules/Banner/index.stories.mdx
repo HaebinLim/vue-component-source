@@ -1,0 +1,56 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import Banner from './index.vue';
+
+<Meta
+  title="Molecules/Banner"
+  component={Banner}
+  argTypes={{
+    mImgSrc : {
+      description : "모바일 이미지 주소",
+    },
+    pcImgSrc : {
+      description : "pc 이미지 주소",
+    },
+    targetUrl : {
+      description : "클릭 이동할 링크 URL",
+    },
+    altText : {
+      description : "대체 텍스트",
+    },
+    stretched : {
+      description : "pc대응시 100% 가득 채우는지 여부",
+      control: {
+        type: `boolean`
+      }
+    }
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  props : Object.keys(argTypes),
+  components:{Banner},
+  template:`
+    <Banner
+      :m-img-src="mImgSrc"
+      :pc-img-src="pcImgSrc"
+      :target-url="targetUrl"
+      :alt-text="altText"
+      :stretched="stretched"
+    />`,
+});
+
+## Banner Default
+
+<Canvas>
+  <Story name="Default" args={{
+    mImgSrc : `/img/dummy/banner_m.png`,
+    pcImgSrc : `/img/dummy/banner_pc.png`,
+    targetUrl : `https://www.saramin.co.kr`,
+    altText : `사람인배너`,
+    stretched : false,
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+

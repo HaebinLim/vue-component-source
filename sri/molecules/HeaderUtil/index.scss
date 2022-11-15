@@ -1,0 +1,16 @@
+.util {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+
+  &__item {
+    & ~ & {
+      margin-left: 10px;
+
+      @include respond-to('pc') {
+        margin-left: 30px;
+      }
+    }
+  }
+}

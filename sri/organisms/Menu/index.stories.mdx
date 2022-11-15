@@ -1,0 +1,63 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Menu from './index';
+import { portalPanelPlayGround } from "@/storybook/decorators.js";
+import { action } from '@storybook/addon-actions';
+import './index.stories.scss';
+
+<Meta
+  title="Organisms/Menu"
+  parameters={{layout: `fullscreen`}}
+  component={Menu}
+  argTypes={{
+    links: {
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{url, title, isExternal}]`,
+        }
+      },
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data:() => ({showPanel: false}),
+  props: [...Object.keys(argTypes)],
+  components: {Menu},
+  template: `
+    <div>
+      <Menu 
+        v-if="showPanel"
+        :links="links"
+        @closed-menu="handleClosed"
+      />
+      <button :class="classes" @click="showPanel = !showPanel">메뉴</button>
+    </div>
+    `,
+    methods: {
+      handleClosed() {
+        this.showPanel = false;
+        action(`panel closed`)();
+      }
+    }
+});
+
+##  default
+<Canvas>
+  <Story
+    name="Menu"
+    decorators={[portalPanelPlayGround]}
+    args = {{
+      links: [
+        {
+          url: '/',
+          title: '2021 웨비나 신청',
+          isExternal: false,
+        },
+      ],
+      classes: `btn`,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

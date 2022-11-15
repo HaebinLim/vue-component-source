@@ -1,0 +1,57 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import NoContent from './index.vue';
+
+<Meta
+  title="Organisms/NoContent"
+  component={NoContent}
+  argTypes={{
+    tagData: {
+      description: `API에서 받아온 추천 태그 목록`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[tagName]`,
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  props : Object.keys(argTypes),
+  components:{NoContent},
+  template:`
+    <NoContent
+      :is-error="isError"
+      :page-title="pageTitle"
+      :page-desc="pageDesc"
+      :btn-link="btnLink"
+      :btn-text="btnText"
+      :tag-data="tagData"
+    />`,
+});
+
+## NoContent Basic Default
+
+<Canvas>
+  <Story
+    name="basic"
+    args={{
+      pageTitle: `담은 콘텐츠`,
+      pageDesc: `아직 담은 콘텐츠가 없네요\n콘텐츠를 담아주세요`,
+      btnLink: `/my/archive/1`,
+      btnText: `콘텐츠 구경가기`,
+      tagData: [
+        `태그다태그`,
+        `정주나안주나`,
+        `태그1`,
+        `태그2 길어요 길어길어`,
+        `태그3 길어요 길어길어`,
+        `태그4 길어요 길어길어`,
+      ],
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

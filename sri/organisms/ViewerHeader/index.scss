@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 60px;
+  height: 60px;
+  background: get-color('grey/100');
+  @include respond-to('pc') {
+    display: none;
+  }
+  &__title {
+    color: #fff;
+    @include font('s-kr-subtitle-b-14');
+    @include lineEllipsis(1, 's-kr-subtitle-b-14');
+  }
+  &__close {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+}

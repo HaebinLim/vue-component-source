@@ -1,0 +1,168 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import SelectBox from './index.vue';
+
+<Meta
+  title="Atoms/SelectBox"
+  component={SelectBox}
+  argTypes={{
+    type : {
+      description : "셀렉트 박스 종류",
+      control: {
+        type: `select`,
+        options: [`basic`, `large`]
+      }
+    },
+    context : {
+      description : "flex/inline-flex 여부",
+      control: {
+        type: `select`,
+        options: [`inline`, `block`]
+      }
+    },
+    showLabel : {
+      description : "셀렉트박스 레이블 표시 여부"
+    },
+    disabled : {
+      description : "disabled 여부"
+    },
+    label : {
+      description : "셀렉트박스 레이블"
+    },
+    defaultOption : {
+      description : "기본으로 보여줄 선택값 (no value)"
+    },
+    value : {
+      description : "선택값된 값 (value)"
+    },
+    name : {
+      description : "name Attribute"
+    },
+    options : {
+      description : "기본 설정되는 option 리스트"
+    }
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  props : Object.keys(argTypes),
+  components:{SelectBox},
+  template:`
+    <SelectBox 
+      :label="label"
+      :context="context"
+      :name="name"
+      :value="value"
+      :type="type"
+      :disabled="disabled"
+      :show-label="showLabel"
+      :default-option="defaultOption"
+      :options="options"
+      @change="log"
+    />`,
+  methods : {
+    log(payload) {
+      action(`change`)(payload);
+    }
+  },
+});
+
+## SelectBox Basic Default
+
+<Canvas>
+  <Story name="basic" args={{
+    label : `카테고리`,
+    name : `dummyName1`,
+    showLabel : true,
+    type : `basic`,
+    disabled : false,
+    value : ``,
+    defaultOption : `유형`,
+    options : [
+      {text : '인사', value : 0},
+      {text : '영업/마케팅', value : 1},
+      {text : '경영지원', value : 2},
+      {text : '연구개발', value : 3},
+      {text : '생산/품질', value : 4},
+      {text : 'IT', value : 5},
+      {text : '기타', value : 5},
+    ]
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## SelectBox Large Default
+
+<Canvas>
+  <Story name="large" args={{
+    label : `카테고리`,
+    name : `dummyName2`,
+    showLabel : true,
+    type : `large`,
+    disabled : false,
+    value : ``,
+    defaultOption : `유형`,
+    options : [
+      {text : '인사', value : 0},
+      {text : '영업/마케팅', value : 1},
+      {text : '경영지원', value : 2},
+      {text : '연구개발', value : 3},
+      {text : '생산/품질', value : 4},
+      {text : 'IT', value : 5},
+      {text : '기타', value : 5},
+    ]
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## SelectBox Basic Disabled
+
+<Canvas>
+  <Story name="basicDisabled" args={{
+    label : `카테고리`,
+    name : `dummyName3`,
+    showLabel : true,
+    type : `basic`,
+    disabled : true,
+    value : ``,
+    defaultOption : `유형`,
+    options : [
+      {text : '인사', value : 0},
+      {text : '영업/마케팅', value : 1},
+      {text : '경영지원', value : 2},
+      {text : '연구개발', value : 3},
+      {text : '생산/품질', value : 4},
+      {text : 'IT', value : 5},
+      {text : '기타', value : 5},
+    ]
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## SelectBox Large Disabled
+
+<Canvas>
+  <Story name="largeDisabled" args={{
+    label : `카테고리`,
+    name : `dummyName4`,
+    showLabel : true,
+    type : `large`,
+    disabled : true,
+    value : ``,
+    defaultOption : `유형`,
+    options : [
+      {text : '인사', value : 0},
+      {text : '영업/마케팅', value : 1},
+      {text : '경영지원', value : 2},
+      {text : '연구개발', value : 3},
+      {text : '생산/품질', value : 4},
+      {text : 'IT', value : 5},
+      {text : '기타', value : 5},
+    ]
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>

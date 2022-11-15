@@ -1,0 +1,510 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import Post from './index';
+const articleInfo = {
+  articleType: `article`,
+  category: `news`,
+  title: `경험 많은 노새를 승진시킬 수는 없다`,
+  lastModified: `2021.04.19 15:00`,
+  expectedReadTime: `5분 5초`,
+  likes: 500,
+  archives: 1245,
+  liked: false,
+  archived: false,
+  shares: 2,
+  editor: {
+    id: 1234,
+    image: `https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg`,
+    intro: `소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글소개글`,
+    name: `일이삼사오육칠팔구십`,
+  },
+  prev: {
+    id: "prevId",
+    ategory: "NEWS",
+    title: "2021년 8월 4일 수요일",
+    image: "https://www.saraminimage.co.kr/sri/company/information/bg/bg_top_blue.jpg"
+  },
+  next: {
+    id: 12345,
+    category: "TRENDS",
+    title: "2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일",
+    image: "https://pds.saramin.co.kr/cert_cominfo_curation/201912/30/q3bcfc_rn6l-2rxicz_cert_cominfo_curation.jpg"
+  },
+  readingTime: `5분 5초`,
+  cover: `/img/dummy/16-9-image.png`,
+  contents: [
+    {
+      type: `boxbody`,
+      value: `지난해 상용근로자 1인당 간접노동비용은 월평균 109만원 가량이었습니다. 알파고는 유지보수와 수리에 돈이 들지 않냐고 말할 수도 있겠지만, 사실 그거야 이세돌도 마찬가지이기 때문에 아무래도 의미 있는 차이가 날 듯 하진 않습니다.`,
+    },
+    {
+      type: `body`,
+      value: `LG경제연구원은 지난 2018년 5월에 발간한 ‘인공지능에 의한 일자리 위험 진단’ 보고서에서, 한국인 1136만명의 일자리가 인공지능(AI)으로 대체될 수 있다 진단했습니다. 이는 당시 국내 전체 취업자 중 약 43%에 달하는 수치였습니다.\n\n물론 이는 어디까지나 기술적인 가능성만을 논했을 때 이야기입니다. 세상일이 대개 그렇듯, 도입을 본격적으로 고려하자면 기술 수준보다는 비용 쪽이 오히려 문제가 될 것입니다. 눈 덮인 연병장에 힘세고 강한 제설차 대신 피로하고 지친 보병을 투입하는 이유가 무엇이겠습니까. AI도 마찬가지입니다. 인공지능이 암만 발전한들 가격 대비 성능이 영 좋지 못하면 기업으로선 굳이 멀쩡한 사람을 기계로 갈아 치울 이유가 없을 테죠.`,
+    },
+    {
+      type: `slideimg`,
+      value: {
+        slides: [
+          {
+            src: `/img/dummy/article-slide-01.jpg`,
+            alt: ``,
+          },
+          {
+            src: `/img/dummy/article-slide-02.jpg`,
+            alt: ``,
+          },
+          {
+            src: `/img/dummy/article-img02.jpg`,
+            alt: ``,
+          },
+        ],
+        caption: `야! 신난다/픽사베이야!`,
+      },
+    },
+    {
+      type: `slideimg`,
+      value: {
+        slides: [
+          {
+            src: `/img/dummy/article-img02.jpg`,
+            alt: ``,
+          },
+          {
+            src: `/img/dummy/article-slide-01.jpg`,
+            alt: ``,
+          },
+          {
+            src: `/img/dummy/article-slide-02.jpg`,
+            alt: ``,
+          },
+        ],
+        caption: `야! 신난다/픽사베이야!`,
+      },
+    },
+  ],
+  hashTags: [
+    '일이삼사오육칠팔구십',
+    '이삼사오육칠팔구십',
+    '삼사오육칠팔구십',
+    '사오육칠팔구십',
+    '오육칠팔구십',
+    '육칠팔구십',
+    '칠팔구십',
+    '팔구십',
+    '구십',
+    '십',
+  ],
+};
+const videoInfo = {
+  ...articleInfo,
+  articleType: `video`,
+  contents: {
+    videoId: `1234`,
+    title: `비디오 제목`,
+    desc: `LG경제연구원은 지난 2018년 5월에 발간한 ‘인공지능에 의한 일자리 위험 진단’ 보고서에서, 한국인 1136만명의 일자리가 인공지능(AI)으로 대체될 수 있다 진단했습니다. 이는 당시 국내 전체 취업자 중 약 43%에 달하는 수치였습니다.\n\n물론 이는 어디까지나 기술적인 가능성만을 논했을 때 이야기입니다. 세상일이 대개 그렇듯, 도입을 본격적으로 고려하자면 기술 수준보다는 비용 쪽이 오히려 문제가 될 것입니다. 눈 덮인 연병장에 힘세고 강한 제설차 대신 피로하고 지친 보병을 투입하는 이유가 무엇이겠습니까. AI도 마찬가지입니다. 인공지능이 암만 발전한들 가격 대비 성능이 영 좋지 못하면 기업으로선 굳이 멀쩡한 사람을 기계로 갈아 치울 이유가 없을 테죠.`
+  },
+};
+const repliesData = {
+  totalCount: 20,
+  currentPage: 1,
+  lastPage: 2,
+  order: `recent`,
+  best: [
+    {
+      id: 123,
+      authorId: 789,
+      authorName: `홍길동`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `베스트 댓글 1`,
+      isModified: false,
+      lastModified: `2021 12.03 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      rank: 1,
+      isSub: false,
+    },
+    {
+      id: 133,
+      authorId: 7890,
+      authorName: `강림`,
+      likes: 150,
+      dislikes: 10,
+      liked: true,
+      disliked: false,
+      content: `베스트 댓글 2`,
+      isModified: false,
+      lastModified: `2021 12.04 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      rank: 2,
+      isSub: false,
+    },
+    {
+      id: 143,
+      authorId: 7879,
+      authorName: `전우치`,
+      likes: 5,
+      dislikes: 150,
+      liked: false,
+      disliked: true,
+      content: `베스트 댓글 3`,
+      isModified: false,
+      lastModified: `2021 12.05 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      rank: 3,
+      isSub: false,
+    },
+  ],
+  list: [
+    {
+      id: 123,
+      authorId: 789,
+      authorName: `홍길동`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `그냥 댓글 데이터 만들기 힘들엉`,
+      isModified: false,
+      lastModified: `2021 12.03 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      deleted: `user`,
+      cutId: ``,
+      cutPage: 0,
+      rank: 1,
+      isSub: false,
+    },
+    {
+      id: 1234,
+      authorId: 456,
+      authorName: `배추도사`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `댓글 데이터 만들기 힘들엉`,
+      isModified: false,
+      lastModified: `2021 12.03 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      isSub: false,
+    },
+    {
+      id: 12344,
+      authorId: 4567,
+      authorName: `무도사`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `댓글 데이터 만들기 힘들다고 수정해쪙`,
+      isModified: true,
+      lastModified: `2021 12.01 00:58`,
+      mentionId: 456,
+      mentionName: `배추도사`,
+      deleted: `admin`,
+      cutId: ``,
+      cutPage: 0,
+      isSub: true,
+    },
+    {
+      id: 123484,
+      authorId: 41567,
+      authorName: `머털도사`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `여기가 아닌가벼`,
+      isModified: true,
+      lastModified: `2021 12.01 00:58`,
+      mentionId: 456,
+      mentionName: `배추도사`,
+      cutId: ``,
+      cutPage: 0,
+      isSub: true,
+    },
+    {
+      id: 12349,
+      authorId: 7193,
+      authorName: `은비`,
+      likes: 10,
+      dislikes: 10,
+      liked: false,
+      disliked: false,
+      content: `댓글 데이터 `,
+      isModified: true,
+      lastModified: `2021 11.01 00:58`,
+      mentionId: ``,
+      mentionName: ``,
+      cutId: ``,
+      cutPage: 0,
+      isSub: false,
+    },
+  ],
+};
+const updateLikePost = function (state) {
+  const { postLikes: likes, postLiked: liked } = this;
+  const result = {};
+  if (state) {
+    result.likes = likes + 1;
+    result.liked = true;
+  } else {
+    result.likes = likes - 1;
+    result.liked = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({ ...result });
+    }, 600);
+  });
+};
+const updateArchivePost = function ({ id, state }) {
+  const { postArchives: archives, postArchived: archived } = this;
+  const result = {};
+  if (state) {
+    result.archives = archives + 1;
+    result.archived = true;
+  } else {
+    result.archives = archives - 1;
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({ ...result });
+    }, 600);
+  });
+};
+const updateLikeReply = function (state) {
+  // 임시로 기존 값 기준 좋아요 설정/해제 계산 결과 반환
+  const {
+    repLikes: likes,
+    repDislikes: dislikes,
+    repLiked: liked,
+    repDisliked: disliked,
+  } = this;
+  const result = {};
+  if (state) {
+    result.likes = likes + 1;
+    result.liked = true;
+    result.dislikes = disliked ? dislikes - 1 : dislikes;
+    result.disliked = false;
+  } else {
+    result.likes = likes - 1;
+    result.liked = false;
+    result.dislikes = dislikes;
+    result.disliked = disliked;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({ ...result });
+    }, 600);
+  });
+};
+const updateDislikeReply = function (state) {
+  // 임시로 기존 값 기준 싫어요 설정/해제 계산 결과 반환
+  const {
+    repLikes: likes,
+    repDislikes: dislikes,
+    repLiked: liked,
+    repDisliked: disliked,
+  } = this;
+  const result = {};
+  if (state) {
+    result.likes = liked ? likes - 1 : likes;
+    result.liked = false;
+    result.dislikes = dislikes + 1;
+    result.disliked = true;
+  } else {
+    result.likes = likes;
+    result.liked = false;
+    result.dislikes = dislikes - 1;
+    result.disliked = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({ ...result });
+    }, 600);
+  });
+};
+const createReply = function ({ content, mentionId }) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve({ content, mentionId }), 600);
+  });
+};
+const updateReply = function ({ content }) {
+  return new Promise(resolve => {
+    setTimeout(
+      () =>
+        resolve({
+          content,
+          isModified: true,
+          lastModified: new Date().toLocaleString(),
+        }),
+      600,
+    );
+  });
+};
+const submitReport = function ({ type, resolve, user }) {
+  return new Promise(resolve => {
+    setTimeout(resolve(true), 600);
+  });
+};
+const getReplyAuthorProfile = function (authorId) {
+  // 실패시에는 FAIL_AUTHOR_PROFILE 를 오류 메세지로 reject
+  return new Promise(resolve => {
+    setTimeout(
+      resolve({
+        name: `홍길동`,
+        totalReplies: 99,
+        removedReplies: 2,
+        deleteReplies: 1,
+      }),
+      600,
+    );
+  });
+};
+const bannerData = {
+  url: `https://www.saramin.co.kr`,
+  mobImage: `/img/dummy/banner_m.png`,
+  pcImage: `/img/dummy/banner_pc.png`,
+  text: `어쩌고 저쩌고`,
+};
+const relatedData = [
+  {
+    articleId: `1`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+  },
+  {
+    articleId: `2`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+  },
+  {
+    articleId: `3`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    category: `news`,
+    archived: false,
+  },
+];
+
+<Meta
+  title="Templates/Post"
+  component={Post}
+  parameters={{layout: `fullscreen`}}
+  argTypes={{}}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {Post},
+  template: `
+    <Post
+      :post-info="postInfo"
+      :update-like-post="updateLikePost"
+      :update-archive-post="updateArchivePost"
+      :replies-info="repliesInfo"
+      :reply-paging-type="replyPagingType"
+      :reply-paging-key="replyPagingKey"
+      :update-like-reply="updateLikeReply"
+      :update-dislike-reply="updateDislikeReply"
+      :create-reply="createReply"
+      :update-reply="updateReply"
+      :get-reply-author-profile="getReplyAuthorProfile"
+      :router-path="routerPath"
+      :router-query="routerQuery"
+      :submit-report="submitReport"
+      :banner-info="bannerInfo"
+      :related-list="relatedList"
+      @change-reply-sort="handleReplySort"
+      @delete-reply="handleDeleteReply"
+      @click-reply-origin="handleClickReplyOrigin"
+      @created-reply="handleCreatedReply"
+    />
+  `,
+  methods: {
+    handleReplySort(sort) {
+      action(`다음 값으로 답글이 정렬 되어야 함`)(sort);
+    },
+    handleDeleteReply({id}) {
+      action(`댓글 삭제 id: `)(id);
+    },
+    handleClickReplyOrigin({id}) {
+      action(`해당 댓글이 위치한 댓글 페이지로 이동`)(id);
+    },
+    handleCreatedReply() {
+      action(`댓글 작성 됨, 갱신 할 것`)();
+    },
+  },
+  mounted() {
+    this.$auth.setUser({id: 789, nickName: "홍길동"})
+  },
+});
+
+## 아티클 타입
+
+<Canvas>
+  <Story
+    name="Article"
+    args = {{
+      postInfo: articleInfo,
+      updateLikePost,
+      updateArchivePost,
+      repliesInfo: repliesData,
+      updateLikeReply,
+      updateDislikeReply,
+      createReply,
+      updateReply,
+      submitReport,
+      getReplyAuthorProfile,
+      bannerInfo: bannerData,
+      relatedList: relatedData,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## 비디오 타입
+
+<Canvas>
+  <Story
+    name="Video"
+    args = {{
+      postInfo: videoInfo,
+      updateLikePost,
+      updateArchivePost,
+      repliesInfo: repliesData,
+      updateLikeReply,
+      updateDislikeReply,
+      createReply,
+      updateReply,
+      submitReport,
+      getReplyAuthorProfile,
+      submitReport,
+      bannerInfo: bannerData,
+      relatedList: relatedData,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

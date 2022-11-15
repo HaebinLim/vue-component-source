@@ -1,0 +1,98 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import ViewerFooter from './index';
+const updateLike = function (state) {
+  const { likesCount: likes, pressLike: liked } = this;
+  const result = {};
+  if (state) {
+    result.likes = likes + 1;
+    result.liked = true;
+  } else {
+    result.likes = likes - 1;
+    result.liked = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+}
+const updateArchive = function (state) {
+  const { archivesCount: archives, pressArchive: archived } = this;
+  const result = {};
+  if (state) {
+    result.archives = archives + 1;
+    result.archived = true;
+  } else {
+    result.archives = archives - 1;
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+}
+
+<Meta
+  title="Organisms/ViewerFooter"
+  component={ ViewerFooter }
+  argTypes={{ 
+    
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: { ViewerFooter },
+  template: `
+    <ViewerFooter
+      :post-id="postId"
+      :replies="replies"
+      :likes="likes"
+      :archives="archives"
+      :shares="shares"
+      :liked="liked"
+      :archived="archived"
+      :update-like="updateLike"
+      :update-archive="updateArchive"
+      @click-reply="logClickReply"
+      @click-like="logClickLike"
+      @click-archive="logClickArchive"
+      @click-share="logClickShare"
+    />
+  `,
+  methods: {
+    logClickReply(payload) {
+      action(`click-reply`)(payload);
+    },
+    logClickLike(payload) {
+      action(`click-like`)(payload);
+    },
+    logClickArchive(payload) {
+      action(`click-archive`)(payload);
+    },
+    logClickShare(payload) {
+      action(`click-share`)(payload);
+    },
+  }
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      postId: 1234,
+      replies: 3254354,
+      likes: 1,
+      archives: 9999,
+      shares: 888,
+      liked: true,
+      updateLike,
+      updateArchive,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

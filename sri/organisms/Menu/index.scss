@@ -1,0 +1,26 @@
+.menu {
+  display: flex;
+  flex-flow: column;
+  gap: 120px;
+  width: 100%;
+  padding : {
+    left: $mobile-space;
+    right: $mobile-space;
+    bottom: 80px;
+  }
+  @include top-space;
+  @include respond-to('pc') {
+    padding : {
+      left: 0;
+      right: 0;
+      bottom: 100px;
+    }
+  }
+  &__list {
+    width: 100%;
+    @include respond-to('pc') {
+      align-self: flex-end;
+      width: calc(50% - 10px);
+    }
+  }
+}

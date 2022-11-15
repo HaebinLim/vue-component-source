@@ -1,0 +1,14 @@
+.nav {
+  display: flex;
+  flex-flow: column;
+  @include respond-to('pc') {
+    flex-flow: row;
+    margin: 0 auto;
+    max-width: 1920px;
+  }
+  &__item {
+    @include respond-to('pc') {
+      flex-basis: 50%;
+    }
+  }
+}

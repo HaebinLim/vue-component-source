@@ -1,0 +1,252 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import InputBox from './index.vue';
+
+<Meta
+  title="Atoms/InputBox"
+  component={InputBox}
+  argTypes={{
+    context: {
+      description: "display formatting context 결정",
+      control: {
+        type: "select",
+        options: [`inline`, `block`]
+      }
+    },
+    label: {
+      description: "`label` 엘리먼트 컨텐츠"
+    },
+    showLabel: {
+      description: "`label` 노출 여부 <br>`true`이면 시각적으로만 숨김 처리 함 (for a11y)",
+    },
+    type: {
+      description: "`input` 엘리먼트 `type` 어트리뷰트",
+      control: {
+        type: "select",
+        options: ["text", "password", "search"]
+      }
+    },
+    name: {
+      description: "`input` 엘리먼트 `name` 어트리뷰트"
+    },
+    value: {
+      description: "`input` 엘리먼트 `value` 어트리뷰트"
+    },
+    readonly: {
+      description: "`input` 엘리먼트 `readonly` 어트리뷰트",
+    },
+    placeholder: {
+      description: "`input` 엘리먼트 `placeholder` 어트리뷰트",
+    },
+    spellcheck: {
+      description: "`input` 엘리먼트 `spellcheck` 어트리뷰트",
+    },
+    autocomplete: {
+      description: "`input` 엘리먼트 `autocomplete` 어트리뷰트",
+    },
+    maxlength: {
+      description: "`input` 엘리먼트 `maxlength` 어트리뷰트",
+    },
+    feedbackMsg: {
+      description: "오류 혹은 안내 메세지",
+    },
+    status: {
+      description: "오류, 안내, 확인 등 상태 표시",
+      control: {
+        type: `select`,
+        options: [`error`, `notify`, `verified`, `disabled`]
+      }
+    },
+    handleClick: {
+      description: "클릭 시 실행 될 콜백 함수"
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {InputBox},
+  template: `
+    <InputBox
+      :context="context"
+      :label="label"
+      :show-label="showLabel"
+      :type="type"
+      :name="name"
+      :value="value"
+      :readonly="readonly"
+      :placeholder="placeholder"
+      :spellcheck="spellcheck"
+      :autocomplete="autocomplete"
+      :maxlength="maxlength"
+      :feedback-msg="feedbackMsg"
+      :status="status"
+      :handle-click="eventLog"
+      @update:input="log"
+    />
+  `,
+  methods: {
+    log(payload) {
+      action(`updated`)(payload);
+    },
+    eventLog: function(event) {
+      action(`clicked`)(event);
+    }
+  }
+});
+
+export const TemplateWithOthers = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {InputBox},
+  template: `
+    <div>
+      <InputBox
+        :context="context"
+        :label="label"
+        :type="type"
+        :name="name"
+        :value="value"
+        :readonly="readonly"
+        :placeholder="placeholder"
+        :spellcheck="spellcheck"
+        :autocomplete="autocomplete"
+        :maxlength="maxlength"
+        :feedback-msg="feedbackMsg"
+        :status="status"
+      />
+      여기까지가 끝인가보오
+    </div>
+  `
+});
+
+
+## normal
+
+<Canvas>
+  <Story
+    name="default"
+    args = {{
+      label: `아이디`,
+      placeholder: `아이디를 입력하세요`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## disabled
+
+pass `disabled` value to `status`
+
+<Canvas>
+  <Story
+    name="disabled"
+    args = {{
+      label: `아이디`,
+      placeholder: `아이디를 입력하세요`,
+      status: `disabled`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## filled with inital value
+
+<Canvas>
+  <Story
+    name="filled"
+    args = {{
+      label: `아이디`,
+      placeholder: `아이디를 입력하세요`,
+      value: `leeze235`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## verified state
+
+<Canvas>
+  <Story
+    name="verified state"
+    args = {{
+      label: `아이디`,
+      placeholder: `아이디를 입력하세요`,
+      value: `leeze235`,
+      status: `verified`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## with noti message
+
+<Canvas>
+  <Story
+    name="feedback - notify"
+    args = {{
+      label: `아이디`,
+      placeholder: `아이디를 입력하세요`,
+      value: `leeze235`,
+      feedbackMsg: `인증번호가 발송되었습니다. n분 내 안올 경우 스팸함을 확인해주세요`,
+      status: `notify`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## with error message
+
+<Canvas>
+  <Story
+    name="feedback - error"
+    args = {{
+      label: `아이디`,
+      placeholder: `아이디를 입력하세요`,
+      value: `leeze235`,
+      feedbackMsg: `아이디는 특수문자를 사용할 수 없습니다.`,
+      status: `error`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## Inline Context (default)
+
+<Canvas>
+  <Story
+    name="inline context"
+    args = {{
+      label: `아이디`,
+      placeholder: `아이디를 입력하세요`,
+      value: `leeze235`,
+      feedbackMsg: ``
+    }}
+  >
+    { TemplateWithOthers.bind({}) }
+  </Story>
+</Canvas>
+
+
+## Block Context
+
+<Canvas>
+  <Story
+    name="block"
+    args = {{
+      context: `block`,
+      label: `아이디`,
+      placeholder: `아이디를 입력하세요`,
+      value: `leeze235`,
+      feedbackMsg: ``
+    }}
+  >
+    { TemplateWithOthers.bind({}) }
+  </Story>
+</Canvas>

@@ -1,0 +1,86 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import ProfileImage from './index';
+
+<Meta
+  title="Atoms/ProfileImage"
+  component={ ProfileImage }
+  argTypes={{
+    type: {
+      description: "이미지 타입",
+      control: {
+        type: "select",
+        options: [`writer`, `editor`, `talker`]
+      },
+    },
+    imageUrl: {
+      description: "이미지 url"
+    },
+    useBorder: {
+      description: "border 사용여부"
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: { ProfileImage },
+  template: `
+      <ProfileImage
+        :type="type"
+        :imageUrl="imageUrl"
+        :useBorder="useBorder"
+      />
+    `
+});
+
+## writer
+<Canvas>
+  <Story
+    name="writer"
+    args = {{
+      imageUrl : 'https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg',
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## editor
+<Canvas>
+  <Story
+    name="editor"
+    args = {{
+      type: 'editor',
+      imageUrl : 'https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg',
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## talker
+<Canvas>
+  <Story
+    name="talker"
+    args = {{
+      type: 'talker',
+      imageUrl : 'https://pds.saramin.co.kr/person/photo/2021/06/qutzfv_3a3w-1meg1l3_qutzfum9e31meg1l3qutzfqwl1v1meg1l3700.jpg',
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## border
+<Canvas>
+  <Story
+    name="border"
+    args = {{
+      imageUrl : 'https://www.saraminimage.co.kr/sri/common/bg/img_jobsload_map.gif',
+      useBorder : true,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

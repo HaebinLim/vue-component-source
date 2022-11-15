@@ -1,0 +1,114 @@
+.feedback {
+    @include top-space;
+    @include bottom-space;
+    @include respond-to('pc') {
+      max-width: 640px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  
+    &__guide {
+      overflow: hidden;
+      margin-top: 10px;
+      padding: 0;
+      color: get-color('grey/030');
+      @include font('body-r-14');
+  
+      @include respond-to('tablet') {
+        margin-top: 20px;
+      }
+  
+      > li {
+        &::before {
+          content: " · ";
+          margin-right: .25em;
+        }
+      }
+    }
+  
+    &__field {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 60px;
+  
+      @include respond-to('tablet') {
+        gap: math.div(20, 640) * 100%;
+        margin-bottom: 80px;
+      }
+  
+      > * {
+        flex: 1 1 100%;
+      }
+    }
+  
+    &__category {
+      margin-bottom: 30px;
+      flex: 1 0 100%;
+  
+      @include respond-to('tablet') {
+        margin-bottom: 0;
+        flex: 1 1 200px;
+      }
+    }
+  
+    &__title {
+      flex: 1 0 100%;
+  
+      @include respond-to('tablet') {
+        flex: 2.1 2.1 420px;
+      }
+    }
+  
+    &__terms {
+      @include attention-box;
+  
+      &__title {
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-start;
+        align-items: center;
+        @include font('title-b-32');
+      }
+  
+      &__subtitle {
+        margin-left: 10px;
+        color: get-color('grey/050');
+        @include font('body-r-14');
+      }
+  
+      &__desc {
+        margin: 10px 0 20px;
+        @include font('body-r-14');
+  
+        @include respond-to('tablet') {
+          margin: 20px 0;
+        }
+      }
+    }
+  
+    &__submit {
+      @include font('title-b-24');
+    }
+  }
+  
+  .heading {
+    margin-bottom: 80px;
+    color: get-color('grey/100');
+    @include font('en-title-m-60');
+  
+    @include respond-to('tablet') {
+      margin-bottom: 120px;
+    }
+  
+    &__desc {
+      display: block;
+      margin-top: 14px;
+      @include font('body-r-16');
+  
+      @include respond-to('tablet') {
+        margin-top: 20px;
+      }
+    }
+  }

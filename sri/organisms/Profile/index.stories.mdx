@@ -1,0 +1,66 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { portalPlayGround } from "@/storybook/decorators.js";
+import Profile from './index';
+
+<Meta
+  title="Organisms/Profile"
+  component={Profile}
+  argTypes={{
+    headingRank: {
+      description: "Profile 타이틀 헤딩 레벨",
+    },
+    authorId: {
+      description: "작성자 아이디",
+    },
+    authorName: {
+      description: "작성자 닉네임",
+    },
+    totalReplies: {
+      description: "전체 댓글",
+    },
+    deleteReplies: {
+      description: "삭제 댓글",
+    },
+    deletedReplies: {
+      description: "삭제된 댓글",
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data: () => ({showModal: false}),
+  props: [...Object.keys(argTypes)],
+  components: {Profile},
+  template: `
+    <div>
+      <Profile
+        v-if="showModal"
+        :heading-rank="headingRank"
+        :author-id="authorId"
+        :author-name="authorName"
+        :total-replies="totalReplies"
+        :delete-replies="deleteReplies"
+        :deleted-replies="deletedReplies"
+        @closed="showModal = false"
+      />
+      <button @click="showModal = true">김과장</button>
+    </div>
+  `,
+});
+
+## default
+<Canvas>
+  <Story
+    name="default"
+    decorators={[portalPlayGround]}
+    args = {{
+      authorId: `aaa`,
+      authorName: `김과장`,
+      totalReplies: 99999,
+      deleteReplies: 99,
+      deletedReplies: 0,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

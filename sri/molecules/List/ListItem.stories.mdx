@@ -1,0 +1,63 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import ListItem from './ListItem';
+
+<Meta
+  title="Molecules/List/ListItem"
+  component={ListItem}
+  argTypes={{
+    tag: {
+      description: `wrapping HTML tag name`,
+      defaultValue: `div`,
+      control: {
+        type: `select`,
+        options: [`div`, `li`]
+      },
+      table: {
+        type: {
+          summary: `'div' | 'li'`
+        },
+        defaultValue: {
+          summary: `div`
+        }
+      }
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {ListItem},
+  template: `
+    <ListItem :tag="tag" />
+  `,
+});
+
+## use HTML `<div>` element
+
+div 설정 시, `role="listitem"` attribute가 적용 됨
+
+<Canvas>
+  <Story
+    name="ListItem - div"
+    components={ListItem}
+    args = {{
+      tag: `div`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## use HTML `<li>` element
+
+<Canvas>
+  <Story
+    name="ListItem - li"
+    components={ListItem}
+    args = {{
+      tag: `li`
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

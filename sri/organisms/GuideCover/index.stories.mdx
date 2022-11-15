@@ -1,0 +1,41 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import GuideCover from './index';
+
+<Meta
+  title="Organisms/GuideCover"
+  component={GuideCover}
+  argTypes={{
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {GuideCover},
+  template: `
+    <GuideCover
+      :cover-title="coverTitle"
+      :cover-desc="coverDesc"
+      :cookie-id="cookieId"
+    />
+  `,
+  methods : {
+  },
+});
+
+## GuideCover Basic
+
+<Canvas>
+  <Story
+    name="basic"
+    components={GuideCover}
+    args = {{
+      coverTitle: `화면을 좌우로\n슬라이드하면\n페이지가 이동됩니다.`,
+      coverDesc: `화면을 좌우로 터치하셔도 됩니다. `,
+      cookieId: `card_news`,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

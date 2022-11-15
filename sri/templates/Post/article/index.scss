@@ -1,0 +1,31 @@
+.article {
+  &:not(&__slideimg) {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @include article-content;
+
+  &__cover {
+
+    @include respond-to('pc') {
+      padding: 0;
+    }
+
+    > img {
+      display: block;
+      margin: 0 auto 30px;
+      max-width: 860px;
+      width: 100%;
+
+      @include respond-to('pc') {
+        margin-bottom: 60px;
+      }
+    }
+  }
+
+  &__container {
+    padding-bottom: 200px;
+  }
+}

@@ -1,0 +1,68 @@
+.rdo {
+  $size_m : 16px;
+  $size_pc : 18px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  &--inline {
+    display: inline-flex;
+    vertical-align: top;
+  }
+  &__label {
+    color: get-color('grey/100');
+    margin-left: 5px;
+    @include font('s-kr-btn-r-11');
+    @include respond-to('pc') {
+      margin-left: 10px;
+    }
+    &--hide {
+      @include sr-only;
+    }
+  }
+  &__input {
+    appearance: none;
+    position: relative;
+    width: $size_m;
+    height: $size_m;
+    border-radius: 100%;
+    background: #fff;
+    @include respond-to('pc') {
+      width: $size_pc;
+      height: $size_pc;
+    }
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+    }
+    &::after {
+      border: 1px solid get-color('grey/100');
+    }
+    &:hover {
+      &::before {
+        border: 5px solid get-color('grey/010');
+      }
+    }
+    &:checked {
+      &::before {
+        border: 5px solid get-color('grey/100');
+      }
+    }
+    &:disabled {
+      &::after {
+        border: 1px solid get-color('grey/030');
+      }
+      &+.rdo__label {
+        color: get-color('grey/030');
+      }
+    }
+  }
+
+}

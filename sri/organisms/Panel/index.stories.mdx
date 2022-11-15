@@ -1,0 +1,173 @@
+import { Meta, Story, Canvas, Source } from '@storybook/addon-docs/blocks';
+import Panel from './index';
+import { portalPanelPlayGround } from "@/storybook/decorators.js";
+
+<Meta
+  title="Organisms/Panel"
+  component={Panel}
+  decorators={[portalPanelPlayGround]}
+  parameters={{layout: `full`}}
+  argTypes={{
+    from: {
+      control: {
+        type: `select`,
+        options: [`top`, `left`, `bottom`, `right`],
+      },
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  data: () => ({showPanel: false}),
+  props: [...Object.keys(argTypes)],
+  components: {Panel},
+  template: `
+    <div>
+      <panel
+        v-if="showPanel"
+        :from="from"
+        :duration="duration"
+        :is-modal="isModal"
+        :label="label"
+        :label-ref="labelRef"
+      >
+        <div>
+          <p>동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 </p>
+          <p>무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세</p>
+        </div>
+      </panel>
+      <button @click="showPanel = true">패널 열기</button>
+    </div>
+  `,
+});
+
+
+# Panel
+
+## 특이 사항
+
+- Panel의 너비/높이는 (S)CSS로 제어 (`contentClass` prop으로 전달)
+
+  Props로 제어할 경우, 예를 들어 패널이 PC에서는 50%, 모바일에서는 100% 너비를 사용할 때 
+  이를 각각 제어하기 어려움
+
+- `Portal-Vue`로 layout 수준에 위치한 특정 위치로 자동으로 DOM이 이동 됨 (for A11y)
+
+- Storybook 이슈로 Docs에서는 dimmed 레이어가 4개 겹쳐서 나옵니다 = _=a
+
+  테스트는 Page에서 진행하는 것이 더 명확합니다
+
+
+## Page에서 테스트 방법
+
+`/page/index.vue`를 다음을 참고하여 구성
+
+```html
+<template>
+  <div class="container">
+    <h1>PL:LAB</h1>
+    <panel
+      v-if="showPanel"
+      :from="`top`"
+      :duration="1000"
+      :is-modal="false"
+      :label="`label`"
+      :label-ref="false"
+      :content-class="$style[`panel-test`]"
+      @destroyed="showPanel = false"
+    >
+      <div>
+        <button>패널</button>
+      </div>
+    </panel>
+    <button @click="showPanel = true">패널 열기</button>
+  </div>
+</template>
+
+<script>
+import Panel from '@organisms/Panel';
+export default {
+  components: {
+    Panel,
+  },
+  data() {
+    return {
+      showPanel: false,
+    };
+  },
+};
+</script>
+
+<style lang="scss" module>
+.panel-test {
+  width: 50%;
+}
+</style>
+```
+
+
+## From Left To Right
+
+<Canvas>
+  <Story
+    name="from left"
+    args = {{
+      from: `left`,
+      isModal: true,
+      label: `왼쪽에서 나오는 사이드바`,
+      duration: 700,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## From Right To Left
+
+<Canvas>
+  <Story
+    name="from right"
+    args = {{
+      from: `right`,
+      isModal: true,
+      label: `오른쪽에서 나오는 사이드바`,
+      duration: 700,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## From Top To Bottom
+
+<Canvas>
+  <Story
+    name="from top"
+    args = {{
+      from: `top`,
+      isModal: true,
+      label: `위에서 나옴`,
+      duration: 700,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## From Bottom To Top
+
+<Canvas>
+  <Story
+    name="from bottom"
+    args = {{
+      from: `bottom`,
+      isModal: true,
+      label: `아래에서 나옴`,
+      duration: 700,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

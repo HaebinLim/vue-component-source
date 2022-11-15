@@ -1,0 +1,105 @@
+import {Meta, Story, Canvas} from '@storybook/addon-docs/blocks';
+import CategoryBestTop from './index.vue';
+const list = [
+  {
+    articleId: `1`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `2`,
+    title: `카테고리2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `3`,
+    title: `카테고리3 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `4`,
+    title: `카테고리4 제목제목 제목제목 제목제목`,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah`,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `5`,
+    title: `카테고리5 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+];
+const updateArchive = function ({state}) {
+  const result = {};
+  if (state) {
+    result.archived = true;
+  } else {
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+
+<Meta
+  title="Organisms/CategoryBestTop"
+  component={CategoryBestTop}
+  argTypes={{
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  props : Object.keys(argTypes),
+  components:{CategoryBestTop},
+  template:`
+    <CategoryBestTop
+      :list-data="listData"
+      :list-category="listCategory"
+      :update-archive="updateArchive"
+    />`,
+});
+
+## CategoryBestTop Basic Default
+<Canvas>
+  <Story
+    name="basic"
+    args={{
+      listCategory: `news`,
+      listData: list,
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

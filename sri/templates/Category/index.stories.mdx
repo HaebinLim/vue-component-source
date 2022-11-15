@@ -1,0 +1,423 @@
+import {Meta, Story, Canvas, ArgsTable} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import Category from './index.vue';
+const updateArchive = function ({id, state}) {
+  const result = {};
+  if (state) {
+    result.archived = true;
+  } else {
+    result.archived = false;
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({...result});
+    }, 600);
+  });
+};
+const listData = [
+  {
+    articleId: `1`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `2`,
+    title: `카테고리2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `3`,
+    title: `카테고리3 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `4`,
+    title: `카테고리4 제목제목 제목제목 제목제목`,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah`,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `5`,
+    title: `카테고리5 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `6`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `7`,
+    title: `카테고리2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `8`,
+    title: `카테고리3 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `9`,
+    title: `카테고리4 제목제목 제목제목 제목제목`,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah`,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `10`,
+    title: `카테고리5 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `11`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `12`,
+    title: `카테고리2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `13`,
+    title: `카테고리3 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `14`,
+    title: `카테고리4 제목제목 제목제목 제목제목`,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah`,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `15`,
+    title: `카테고리5 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `16`,
+    title: `카테고리5 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+];
+const categoryBestData = [
+  {
+    articleId: `1`,
+    title: `카테고리1 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `2`,
+    title: `카테고리2 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `3`,
+    title: `카테고리3 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `4`,
+    title: `카테고리4 제목제목 제목제목 제목제목`,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah`,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+  {
+    articleId: `5`,
+    title: `카테고리5 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 제목제목 `,
+    image: `/img/dummy/thum_default.png`,
+    archived: false,
+    desc: `내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah 내용 어쩌구 저쩌구 blahblah `,
+    replies: 232,
+    likes: 233461,
+    editorName: `작성자이름`,
+    editorId: `EDITORNAME`,
+  },
+];
+const bannerData = {
+  mImgSrc : `/img/dummy/banner_m.png`,
+  pcImgSrc : `/img/dummy/banner_pc.png`,
+  targetUrl : `https://www.saramin.co.kr`,
+  altText : `사람인배너`,
+};
+const bottomBannerData = {
+  mImgSrc : `/img/dummy/banner_m.png`,
+  pcImgSrc : `/img/dummy/banner_pc.png`,
+  targetUrl : `https://www.saramin.co.kr`,
+  altText : `사람인배너2`,
+  stretched : true,
+}
+const sortOptions = [
+  { text: '최신순', value: 0 },
+  { text: '추천순', value: 1 },
+];
+
+<Meta
+  title="Templates/Category"
+  component={Category}
+  argTypes={{
+    listData: {
+      description: `API에서 받아온 리스트 데이터`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{articleId, title, image, archived, desc, replies, likes, editorName, editorId}]`,
+        }
+      }
+    },
+    categoryBestData: {
+      description: `API에서 받아온 카테고리베스트 데이터`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{articleId, title, image, archived, desc, replies, likes, editorName, editorId}]`,
+        }
+      }
+    },
+    bannerData: {
+      description: `API에서 받아온 배너 데이터`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{mImgSrc, pcImgSrc, targetUrl, altText, stretched}]`,
+        }
+      }
+    },
+    sortOptions: {
+      description: `정렬 옵션`,
+      table: {
+        type: {
+          summary: `Array`,
+          detail: `[{text, value}]`,
+        }
+      }
+    }
+  }}
+/>
+
+export const Template = (args, {argTypes}) => ({
+  data: () => ({
+    loadedListData: [],
+    defaultOption: {},
+  }),
+  props : Object.keys(argTypes),
+  components:{Category},
+  template:`
+    <Category
+      :category-best-data="categoryBestData"
+      :list-data="loadedListData"
+      :banner-data="bannerData"
+      :bottom-banner-data="bottomBannerData"
+      :show-more="showMore"
+      :list-category="listCategory"
+      :total-count="totalCount"
+      :sort-options="sortOptions"
+      :update-archive="updateArchive"
+      @change-sorting="logChangeSorting"
+      @changed-archive="logChangedArchive"
+      @change-archive="handleChangeArchive"
+      @click-more="logClickMore"
+    />`,
+  created() {
+    this.defaultOption = {
+      articleId: ``,
+      title: ``,
+      image: ``,
+      archived: false,
+      desc: ``,
+      replies: 0,
+      likes: 0,
+      editorName: ``,
+      editorId: ``,
+    }
+  },
+  mounted() {
+    this.updateListData(16);
+  },
+  methods: {
+    logClickMore() {
+      action(`click-more`)();
+      this.updateListData(8);
+    },
+    logChangeSorting(payload) {
+      action(`change-sorting`)(payload);
+    },
+    updateListData(count) {
+      return new Promise(resolve => {
+        const skeletonArr = [];
+        for(let i = 0;i < count -1; i++) {
+          skeletonArr[i] = {};
+          for(let key in this.defaultOption) {
+            skeletonArr[i][key] = key === `articleId` ? `skeleton_` + i : this.defaultOption[key];
+          }
+          skeletonArr[i]['isSkeleton'] = true;
+        }
+        this.loadedListData = this.loadedListData.concat(skeletonArr);
+        setTimeout(() => {
+          const origin = this.loadedListData.filter(obj => {
+            return !obj.articleId.includes(`skeleton_`)
+          });
+          const arr = [],
+            d = new Date();
+          for(let i = 0; i < count; i++) {
+            const obj = this.listData[i],
+              item = {};
+            for(let key in obj) {
+              if(key === 'articleId') {
+                item[key] = `${obj[key]}_${d.getTime()}`;
+              } else {
+                item[key] = obj[key];
+              }
+            }
+            arr.push(item);
+          }
+          this.loadedListData = origin.concat(arr);
+          resolve();
+        }, 1000);
+      });
+    },
+    logChangedArchive(state) {
+      action(`state of changed archive : `)(state);
+    },
+    handleChangeArchive(payload) {
+      action(`should to change archive state: `)(payload);
+    }
+  },
+});
+
+## CategoryList Basic Default
+
+<Canvas>
+  <Story
+    name="basic"
+    args={{
+      showMore: true,
+      listCategory: `news`,
+      totalCount: 2345,
+      listData: listData,
+      categoryBestData,
+      bannerData,
+      bottomBannerData,
+      sortOptions,
+      updateArchive,
+    }}
+    parameters={{layout: `fullscreen`}}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

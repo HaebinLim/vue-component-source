@@ -1,0 +1,99 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import PostNav from './index';
+
+<Meta
+  title="Organisms/PostNav"
+  component={PostNav}
+  argTypes={{
+    prev: {
+      description: '이전 글 정보',
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{id, title, category, image}`,
+        }
+      },
+    },
+    next: {
+      description: '다음 글 정보',
+      table: {
+        type: {
+          summary: `Object`,
+          detail: `{id, title, category, image}`,
+        }
+      },
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {PostNav},
+  template: `
+    <PostNav
+     :prev="prev"
+     :next="next" 
+    />
+  `,
+});
+
+##  default
+<Canvas>
+  <Story
+    name="default"
+    parameters={{layout: `fullscreen`}}
+    args = {{
+      prev : {
+        id: `prevId`,
+        category : `NEWS`,
+        title : `2021년 8월 4일 수요일`,
+        image : `https://www.saraminimage.co.kr/sri/company/information/bg/bg_top_blue.jpg`,
+      },
+      next : {
+        id: `nextId`,
+        category : `TRENDS`,
+        title : `2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일`,
+        image : `https://pds.saramin.co.kr/cert_cominfo_curation/201912/30/q3bcfc_rn6l-2rxicz_cert_cominfo_curation.jpg`,
+      },
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## no prev
+<Canvas>
+  <Story
+    name="no prev"
+    parameters={{layout: `fullscreen`}}
+    args = {{
+      next : {
+        id: `nextId`,
+        category : `TRENDS`,
+        title : `2021년 8월 4일 수요일`,
+        image : `https://pds.saramin.co.kr/cert_cominfo_curation/201912/30/q3bcfc_rn6l-2rxicz_cert_cominfo_curation.jpg`,
+      },
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+## no next
+<Canvas>
+  <Story
+    name="no next"
+    parameters={{layout: `fullscreen`}}
+    args = {{
+      prev : {
+        id: `prevId`,
+        category : `NEWS`,
+        title : `2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일2021년 8월 4일 수요일`,
+        image : `https://www.saraminimage.co.kr/sri/company/information/bg/bg_top_blue.jpg`,
+      },
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

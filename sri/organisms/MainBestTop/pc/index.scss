@@ -1,0 +1,39 @@
+.best {
+  padding: 100px 0;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  &__heading {
+    @include font('en-title-m-60');
+  }
+
+  &__controls {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+
+    &__autoplay {
+      margin-right: 15px;
+
+      @include respond-to('tablet') {
+        margin-right: 40px;
+      }
+    }
+  }
+
+  &__carousel {
+    margin-top: 30px;
+
+    @include respond-to('tablet') {
+      margin-top: 40px;
+    }
+    @include respond-to('pc') {
+      margin-top: 50px;
+    }
+  }
+}

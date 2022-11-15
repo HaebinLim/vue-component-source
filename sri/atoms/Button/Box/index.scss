@@ -1,0 +1,416 @@
+.button {
+  $button: &;
+
+  position: relative;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+
+  &--block {
+    display: flex;
+    width: 100%;
+  }
+
+  /** common dimension */
+  &--small:not(&--text-arrow) {
+    min-width: 18px;
+    height: 18px;
+
+    @include respond-to('pc') {
+      min-width: 24px;
+      height: 24px;
+    }
+
+    #{$button}__icon {
+      width: 12px;
+      height: 12px;
+
+      @include respond-to('pc') {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    #{$button}__archive {
+      width: 18px;
+      height: 18px;
+
+      @include respond-to('pc') {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  &--medium:not(&--text-arrow) {
+    min-width: 24px;
+    height: 24px;
+
+    @include respond-to('pc') {
+      min-width: 32px;
+      height: 32px;
+    }
+
+    #{$button}__icon {
+      width: 18px;
+      height: 18px;
+
+      @include respond-to('pc') {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    #{$button}__archive {
+      width: 24px;
+      height: 24px;
+
+      @include respond-to('pc') {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+  &--large:not(&--text-arrow) {
+    min-width: 50px;
+    height: 50px;
+
+    @include respond-to('pc') {
+      min-width: 60px;
+      height: 60px;
+    }
+
+    #{$button}__icon {
+      width: 18px;
+      height: 18px;
+
+      @include respond-to('pc') {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  &--x-large:not(&--text-arrow) {
+    min-width: 60px;
+    height: 60px;
+
+    @include respond-to('pc') {
+      min-width: 80px;
+      height: 80px;
+    }
+  }
+
+  &--basic,
+  &--cancel {
+    &#{$button}--large{
+      min-width: 77px;
+      max-width: 330px;
+
+      @include respond-to('pc') {
+        min-width: 145px;
+        max-width: 640px;
+      }
+    }
+
+    &#{$button}--x-large{
+      min-width: 160px;
+      max-width: 330px;
+
+      @include respond-to('pc') {
+        min-width: 310px;
+        max-width: 640px;
+      }
+    }
+  }
+
+  /** common Colors */
+  &--basic {
+    background-color: get-color('bluegrey/100');
+    color: white;
+
+    &:hover,
+    &:focus {
+      background-color: get-color('bluegrey/090');
+    }
+
+    &:active {
+      background-color: get-color('bluegrey/100');
+    }
+
+    &:disabled {
+      &:not(#{$button}--inactive) {
+        background-color: get-color('bluegrey/010');
+      }
+
+      &#{$button}--inactive {
+        background-color: get-color('bluegrey/070');
+      }
+    }
+  }
+
+  &--cancel {
+    background-color: get-color('bluegrey/050');
+    color: white;
+
+    &:hover,
+    &:focus {
+      background-color: get-color('bluegrey/040');
+    }
+
+    &:active {
+      background-color: get-color('bluegrey/050');
+    }
+
+    &:disabled {
+      &:not(#{$button}--inactive) {
+        background-color: get-color('bluegrey/010');
+      }
+
+      &#{$button}--inactive {
+        background-color: get-color('bluegrey/030');
+      }
+    }
+  }
+
+
+  &--icon,
+  &--icon-text {
+    $icon: #{$button}__icon;
+
+    color: get-color('grey/100');
+
+    &#{$button}--grey {
+      color: get-color('grey/050');
+    }
+
+    &#{$button}--dark {
+      color: white;
+    }
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:hover #{$icon}--grey,
+    &:focus #{$icon}--grey,
+    &:active #{$icon}--grey {
+      color: get-color('blue/070');
+    }
+
+    &:disabled,
+    &:disabled #{$icon}--grey {
+      color: get-color('grey/030');
+    }
+  }
+
+  /** etc... */
+  &--icon-text {
+    @include font('subtitle-b-14');
+
+    #{$button}__icon {
+      margin-right: 5px;
+    }
+  }
+
+  &__archive {
+    color: white;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.6));
+  }
+
+  &__alarm {
+    $size: 3px;
+
+    position: absolute;
+    top: 0.5 * $size;
+    right: 0.5 * $size;
+    border-radius: 50%;
+    width: $size;
+    height: $size;
+    background-color: get-color('blue/060');
+
+    @include respond-to('pc') {
+      $size: 4px;
+
+      top: 0.5 * $size;
+      right: 0.5 * $size;
+      width: $size;
+      height: $size;
+    }
+  }
+
+  &--text-arrow {
+    flex-flow: row nowrap;
+    align-items: center;
+
+    &:disabled {
+      color: get-color('grey/030');
+    }
+
+    &:not(#{$button}--ghost) {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 50px;
+      width: 310px;
+      height: 60px;
+      color: get-color('grey/100');
+      background-color: white;
+
+      &:active {
+        color: white;
+        background-color: get-color('bluegrey/090');
+      }
+    }
+
+    &#{$button}--ghost {
+      display: inline-flex;
+      &:hover,
+      &:focus {
+        color: get-color('blue/070');
+      }
+    }
+  }
+
+  &__arrow {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    transition: transform .4s;
+
+    &::before {
+      content: '';
+      display: inline-flex;
+      width: 100%;
+      height: 1px;
+      background-color: currentColor;
+      transform: translate(3px, 0);
+    }
+
+    &__wrapper {
+      display: flex;
+      width: 50px;
+      height: 7px;
+
+      #{$button}--ghost & {
+        margin-left: 20px;
+        width: 30px;
+
+        @include respond-to('pc') {
+          width: 50px;
+        }
+      }
+    }
+
+    #{$button}:not(#{$button}--ghost):hover &,
+    #{$button}:not(#{$button}--ghost):focus & {
+      transform: translate(20px, 0);
+    }
+    #{$button}:not(#{$button}--ghost):active & {
+      transform: translate(40px, 0);
+    }
+
+    #{$button}--ghost:hover &,
+    #{$button}--ghost:focus & {
+      transform: translate(10px, 0);
+
+      @include respond-to('pc') {
+        transform: translate(20px, 0);
+      }
+    }
+    #{$button}--ghost:active & {
+      transform: translate(20px, 0);
+
+      @include respond-to('pc') {
+        transform: translate(40px, 0);
+      }
+    }
+  }
+
+  &--circle {
+    $parent: &;
+
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+
+    &:not(#{$parent}--top):active::after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(1, 14, 26, 0.1);
+    }
+
+    &:hover,
+    &:focus {
+      filter: drop-shadow(0 5px 10px rgba(0, 13, 24, 0.2));
+    }
+
+    &--top {
+      background-color: white;
+      color: get-color('grey/100');
+      filter: drop-shadow(0 5px 10px rgba(0, 13, 24, 0.2));
+
+      &:hover,
+      &:focus {
+        background-color: get-color('blue/070');
+        color: white;
+      }
+      &:active {
+        background-color: get-color('blue/090');
+        color: white;
+      }
+    }
+
+    &--sns-twitter {
+      background-color: #1d9bf0;
+      color: white;
+
+      &:hover,
+      &:focus {
+        background-color: #1d9bf0;
+      }
+    }
+
+    &--linkedin {
+      background-color: #007bb5;
+      color: white;
+
+      &:hover,
+      &:focus {
+        background-color: #007bb5;
+      }
+    }
+
+    &--katalk {
+      color: #391b1b;
+    }
+    &--kakaostory {
+      color: white;
+    }
+
+    &--katalk,
+    &--kakaostory {
+      background-color: #fee500;
+
+      &:hover,
+      &:focus {
+        background-color: #fee500;
+      }
+    }
+
+    &--naverpost,
+    &--naverblog {
+      background-color: #03c75a;
+      color: white;
+
+      &:hover,
+      &:focus {
+        background-color: #03c75a;
+      }
+    }
+  }
+}

@@ -1,0 +1,142 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import MainBestTop from './index';
+const list = [
+    {
+      id: 1,
+      image: `/img/dummy/thum_default.png`,
+      title: `일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오`,
+      archived: false,
+    },
+    {
+      id: 2,
+      image: `/img/dummy/16-9-image.png`,
+      title: `작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지`,
+      archived: true,
+    },
+    {
+      id: 3,
+      image: `/img/dummy/thum_default.png`,
+      title: `일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오`,
+      archived: false,
+    },
+    {
+      id: 4,
+      image: `/img/dummy/16-9-image.png`,
+      title: `작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지작년 말 퇴사 후, 해가 바뀌도록 퇴직금이 지급되지 않았다면? 지급되지`,
+      archived: true,
+    },
+    {
+      id: 5,
+      image: `/img/dummy/thum_default.png`,
+      title: `일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오일이삼사오`,
+      archived: false,
+    },
+  ];
+
+<Meta
+  title="Organisms/MainBestTop"
+  component={MainBestTop}
+  parameters={{layout: `fullscreen`}}
+  argTypes={{
+    breakpoint: {
+      control: {
+        type: `select`,
+        options: [`mobile`, `tablet`, `pc`]
+      }
+    }
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {MainBestTop},
+  template: `
+    <MainBestTop
+      :breakpoint="breakpoint"
+      :heading-rank="headingRank"
+      :list="list"
+      :update-archive="updateArchive"
+    />
+  `,
+});
+
+## 모바일
+
+<Canvas>
+  <Story
+    name="mobile"
+    parameters={{ 
+      viewport: { 
+        defaultViewport: `mobile`
+      }
+    }}
+    args = {{
+      breakpoint: `mobile`,
+      list,
+      updateArchive: id => {
+        const entry = list.find(item => item.id === id);
+        const archived = !entry.archived;
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve({ archived });
+          }, 600);
+        });
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## 태블릿
+
+<Canvas>
+  <Story
+    name="tablet"
+    parameters={{ 
+      viewport: { 
+        defaultViewport: `tablet min`
+      }
+    }}
+    args = {{
+      breakpoint: `tablet`,
+      list,
+      updateArchive: id => {
+        const entry = list.find(item => item.id === id);
+        const archived = !entry.archived;
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve({ archived });
+          }, 600);
+        });
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
+
+
+## PC
+
+<Canvas>
+  <Story
+    name="pc"
+    args = {{
+      breakpoint: `pc`,
+      list,
+      updateArchive: id => {
+        const entry = list.find(item => item.id === id);
+        const archived = !entry.archived;
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve({ archived });
+          }, 600);
+        });
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

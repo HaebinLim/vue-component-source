@@ -1,0 +1,60 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import VoteBanner from './index';
+
+<Meta
+  title="Organisms/VoteBanner"
+  component={VoteBanner}
+  argTypes={{
+    headingRank: {
+      description: "vote 타이틀 헤딩 레벨",
+    },
+    title : {
+      description : "투표 내용",
+    },
+    mImgSrc : {
+      description : "모바일 이미지 주소",
+    },
+    pcImgSrc : {
+      description : "pc 이미지 주소",
+    },
+    targetUrl : {
+      description : "클릭 이동할 링크 URL",
+    },
+    altText : {
+      description : "대체 텍스트",
+    },
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {VoteBanner},
+  template: `
+    <VoteBanner
+      :heading-rank="headingRank"
+      :title="title"
+      :m-img-src="mImgSrc"
+      :pc-img-src="pcImgSrc"
+      :target-url="targetUrl"
+      :alt-text="altText"
+    />
+  `,
+});
+
+##  default
+<Canvas>
+  <Story
+    name="default"
+    parameters={{ layout: `fullscreen` }}
+    args = {{
+      title: `1이삼사오육칠팔구십2이삼사오육칠팔구십3이삼사오육칠팔구십4이삼사오육칠팔구십5이삼사오육칠팔구십6이삼사오육칠팔구십7이삼사오육칠팔구십`,
+      mImgSrc : `/img/dummy/vote_banner_m.png`,
+      pcImgSrc : `/img/dummy/vote_banner_pc.png`,
+      targetUrl : `https://www.saramin.co.kr`,
+      altText : `투표배너`,
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>

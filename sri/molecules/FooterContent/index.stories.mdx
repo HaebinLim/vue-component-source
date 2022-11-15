@@ -1,0 +1,35 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import FooterContent from './index';
+import '@assets/scss/storybook.scss';
+
+<Meta
+  title="Molecules/FooterContent"
+  argTypes={{
+  }}
+/>
+
+export const Template = (args, { argTypes }) => ({
+  props: [...Object.keys(argTypes)],
+  components: {FooterContent},
+  template: `
+    <FooterContent
+    />
+  `,
+});
+
+##  footer content
+
+<Canvas className={`theme-dark`}>
+  <Story
+    name="default"
+    args = {{
+    }}
+    parameters = {{
+      backgrounds: {
+        default: `dark`,
+      }
+    }}
+  >
+    { Template.bind({}) }
+  </Story>
+</Canvas>
